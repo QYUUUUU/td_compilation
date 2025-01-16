@@ -30,6 +30,10 @@
 package fr.ul.miashs.compil.arbre.exemples;
 
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.tds.Symbole;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Exemple #2
@@ -39,19 +43,21 @@ public class program_2 {
         //on crée les noeuds
         Prog prog = new Prog();
         Fonction principal = new Fonction("main");
-        Affectation aff = new Affectation();
-        Idf x = new Idf("x");
-        Plus plus = new Plus();
-        Multiplication mul = new Multiplication();
-        Idf a = new Idf("a");
-        Const c2 = new Const(2);
-        Division div = new Division();
-        Moins moins = new Moins();
-        Idf b = new Idf("b");
-        Const c5 = new Const(5);
-        Const c3 = new Const(3);
         //on relie les noeuds
         prog.ajouterUnFils(principal);
+        Const i = new Const(10);
+        Const j = new Const(20);
+        Const k = new Const(0);
+        Const l = new Const(0);
+
+        List<Symbole> tableDesSymboles = new ArrayList<>();
+        tableDesSymboles.add(new Symbole( "main","void","fonction",null, null));
+        tableDesSymboles.add(new Symbole("i", "int", "global", null, null, 10));
+        tableDesSymboles.add(new Symbole( "j","int","global",null,null, 20));
+        tableDesSymboles.add(new Symbole( "k","int","global",null,null, null));
+        tableDesSymboles.add(new Symbole( "l","int","global",null,null, null));
+
+
         //afficher
         TxtAfficheur.afficher(prog);
         GuiAfficheur.afficher(prog);

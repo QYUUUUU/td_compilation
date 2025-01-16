@@ -30,6 +30,10 @@
 package fr.ul.miashs.compil.arbre.exemples;
 
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.tds.Symbole;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Exemple #2
@@ -41,6 +45,10 @@ public class program_1 {
         Fonction principal = new Fonction("main");
         //on relie les noeuds
         prog.ajouterUnFils(principal);
+
+        List<Symbole> tableDesSymboles = new ArrayList<>();
+        tableDesSymboles.add(new Symbole( "main","void","fonction",null, null));
+
 
         //afficher
         TxtAfficheur.afficher(prog);
