@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemple #2
+ * Exemple #2 variable globale
  */
 public class program_2 {
     public static void main(String[] args) {

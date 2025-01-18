@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemple #8
+ * Exemple #8 récursivité
  */
 
 public class program_8 {

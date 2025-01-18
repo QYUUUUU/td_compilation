@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemple #7
+ * Exemple #7 Tant que , itération
  */
 public class program_7 {
     public static void main(String[] args) {

@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemple #2
+ * Exemple #1 programme minimal
  */
 public class program_1 {
     public static void main(String[] args) {

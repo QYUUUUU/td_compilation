@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemple #6
+ * Exemple #6 Conditionnelle
  */
 
 public class program_6 {

@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemple #2
+ * Exemple #4 bis Ecriture
  */
 public class program_5 {
     public static void main(String[] args) {
