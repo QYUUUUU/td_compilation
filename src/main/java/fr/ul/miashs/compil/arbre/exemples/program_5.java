@@ -1,4 +1,4 @@
-/*
+ /*
  *  License and Copyright:
  *
  *  This file is part of arbre  project.
@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Exemple #2
  */
-public class program_4 {
+public class program_5 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();
@@ -47,34 +47,34 @@ public class program_4 {
         Idf x = new Idf("x");
         Plus plus = new Plus();
         Multiplication mul = new Multiplication();
-        Lire lire_first = new Lire();
+        Idf a = new Idf("a");
         Const c2 = new Const(2);
         Division div = new Division();
         Moins moins = new Moins();
-        Lire lire_second = new Lire();
+        Idf b = new Idf("b");
         Const c5 = new Const(5);
         Const c3 = new Const(3);
         
         Ecrire ecrire = new Ecrire();
         //on relie les noeuds
         prog.ajouterUnFils(principal);
-        principal.ajouterUnFils(aff);
         principal.ajouterUnFils(ecrire);
-        ecrire.ajouterUnFils(x);
-        aff.setFilsGauche(x);
-        aff.setFilsDroit(plus);
+        ecrire.ajouterUnFils(plus);
         plus.setFilsGauche(mul);
         plus.setFilsDroit(div);
-        mul.setFilsGauche(lire_first);
+        mul.setFilsGauche(a);
         mul.setFilsDroit(c2);
         div.setFilsGauche(moins);
         div.setFilsDroit(c3);
-        moins.setFilsGauche(lire_second);
+        moins.setFilsGauche(b);
         moins.setFilsDroit(c5);
 
         List<Symbole> tableDesSymboles = new ArrayList<>();
         tableDesSymboles.add(new Symbole( "main","void","fonction",null, null));
-        tableDesSymboles.add(new Symbole("res", "int", "global", null, null, null));
+        tableDesSymboles.add(new Symbole( "a","int","global",null,null, 100));
+        tableDesSymboles.add(new Symbole( "b","int","global",null,null, 170));
+
+
         //afficher
         TxtAfficheur.afficher(prog);
         GuiAfficheur.afficher(prog);

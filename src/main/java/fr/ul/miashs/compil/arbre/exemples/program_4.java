@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Exemple #2
  */
-public class program_3 {
+public class program_4 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();
@@ -47,33 +47,34 @@ public class program_3 {
         Idf x = new Idf("x");
         Plus plus = new Plus();
         Multiplication mul = new Multiplication();
-        Idf a = new Idf("a");
+        Lire lire_first = new Lire();
         Const c2 = new Const(2);
         Division div = new Division();
         Moins moins = new Moins();
-        Idf b = new Idf("b");
+        Lire lire_second = new Lire();
         Const c5 = new Const(5);
         Const c3 = new Const(3);
+        
+        Ecrire ecrire = new Ecrire();
         //on relie les noeuds
         prog.ajouterUnFils(principal);
         principal.ajouterUnFils(aff);
+        principal.ajouterUnFils(ecrire);
+        ecrire.ajouterUnFils(x);
         aff.setFilsGauche(x);
         aff.setFilsDroit(plus);
         plus.setFilsGauche(mul);
         plus.setFilsDroit(div);
-        mul.setFilsGauche(a);
+        mul.setFilsGauche(lire_first);
         mul.setFilsDroit(c2);
         div.setFilsGauche(moins);
         div.setFilsDroit(c3);
-        moins.setFilsGauche(a);
+        moins.setFilsGauche(lire_second);
         moins.setFilsDroit(c5);
 
         List<Symbole> tableDesSymboles = new ArrayList<>();
         tableDesSymboles.add(new Symbole( "main","void","fonction",null, null));
-        tableDesSymboles.add(new Symbole("x", "int", "global", null, null, 0));
-        tableDesSymboles.add(new Symbole( "a","int","global",null,null, 100));
-        tableDesSymboles.add(new Symbole( "b","int","global",null,null, 170));
-
+        tableDesSymboles.add(new Symbole("res", "int", "global", null, null, null));
         //afficher
         TxtAfficheur.afficher(prog);
         GuiAfficheur.afficher(prog);
