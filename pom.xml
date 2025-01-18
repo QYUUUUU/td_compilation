@@ -45,6 +45,10 @@
 		<project.bin2.classname>${project.groupId}.${project.artifactId}.arbre.exemples.Exemple2</project.bin2.classname>
 		<!-- Nom de la classe principale -->
 		<project.bin2.appname>ex2</project.bin2.appname>
+		<!-- Version de Java -->
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+
 	</properties>
 	<build>
 		<plugins>
