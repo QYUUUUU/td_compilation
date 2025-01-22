@@ -31,6 +31,7 @@ package fr.ul.miashs.compil.arbre.exemples;
 
 import fr.ul.miashs.compil.arbre.*;
 import fr.ul.miashs.compil.tds.Symbole;
+import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +70,11 @@ public class Program_5 {
         moins.setFilsGauche(b);
         moins.setFilsDroit(c5);
 
-        List<Symbole> tableDesSymboles = new ArrayList<>();
-        tableDesSymboles.add(new Symbole( "main","void","fonction",null, null));
-        tableDesSymboles.add(new Symbole( "a","int","global",null,null, 100));
-        tableDesSymboles.add(new Symbole( "b","int","global",null,null, 170));
+        TDS tds = new TDS();
+        // Add symbols to TDS
+        tds.addSymbole(new Symbole( "main","void","fonction",null, null));
+        tds.addSymbole(new Symbole( "a","int","global",null,null, 100));
+        tds.addSymbole(new Symbole( "b","int","global",null,null, 170));
 
 
         //afficher
