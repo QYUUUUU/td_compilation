@@ -39,7 +39,7 @@ import java.util.List;
  * Exemple #8 récursivité
  */
 
-public class program_8 {
+public class Program_8 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();

@@ -39,7 +39,7 @@ import java.util.List;
  * Exemple #6 Conditionnelle
  */
 
-public class program_6 {
+public class Program_6 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();

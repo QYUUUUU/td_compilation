@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Exemple #1 programme minimal
  */
-public class program_1 {
+public class Program_1 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();

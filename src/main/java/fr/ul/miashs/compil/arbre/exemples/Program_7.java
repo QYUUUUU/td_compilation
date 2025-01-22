@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Exemple #7 Tant que , itération
  */
-public class program_7 {
+public class Program_7 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();

@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Exemple #4 bis Ecriture
  */
-public class program_5 {
+public class Program_5 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();

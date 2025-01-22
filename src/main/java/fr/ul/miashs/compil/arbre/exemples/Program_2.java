@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Exemple #2 variable globale
  */
-public class program_2 {
+public class Program_2 {
     public static void main(String[] args) {
         //on crée les noeuds
         Prog prog = new Prog();
