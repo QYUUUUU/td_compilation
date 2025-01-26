@@ -94,7 +94,8 @@ public class Program_8 {
         TDS tds = new TDS();
         // Add symbols to TDS
         tds.addSymbole(new Symbole("main", "void", "fonction", null, null));
-        tds.addSymbole(new Symbole("i", "int", "global", null, null));
+        tds.addSymbole(new Symbole("f", "int", "fonction", 1, null));
+        tds.addSymbole(new Symbole("a", "int", "param","f",0,null));
 
         //afficher
         TxtAfficheur.afficher(prog);

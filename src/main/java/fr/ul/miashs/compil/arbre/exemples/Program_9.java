@@ -72,7 +72,12 @@ public class Program_9 {
 
 
         tds.addSymbole(new Symbole("main", "void", "fonction", null, null));
-        tds.addSymbole(new Symbole("i", "int", "global", null, null));
+        tds.addSymbole(new Symbole("f", "int", "fonction", 2, 1));
+        tds.addSymbole(new Symbole("a", "int", "global", null, null,100));
+        tds.addSymbole(new Symbole("c", "int", "global", null, null,170));
+        tds.addSymbole(new Symbole("a", "int", "param", "f", 0,null));
+        tds.addSymbole(new Symbole("b", "int", "param", "f", 1  ,null));
+        tds.addSymbole(new Symbole("res", "int", "local", "f", 0  ,null));
 
         //afficher
         TxtAfficheur.afficher(prog);
