@@ -14,7 +14,7 @@ public class TestGenerateur {
 
     @Test
     public void testGenerer() {
-        // Setup the AST
+
         Prog prog = new Prog();
         Fonction principal = new Fonction("main");
         prog.ajouterUnFils(principal);
@@ -23,7 +23,7 @@ public class TestGenerateur {
         Const k = new Const(0);
         Const l = new Const(0);
 
-        // Setup the symbol table
+
         TDS tds = new TDS();
         tds.addSymbole(new Symbole("main", "void", "fonction", null, null));
         tds.addSymbole(new Symbole("j", "int", "global", null, null, 20));
@@ -31,10 +31,10 @@ public class TestGenerateur {
         tds.addSymbole(new Symbole("k", "int", "global", null, null, null));
         tds.addSymbole(new Symbole("l", "int", "global", null, null, null));
 
-        // Create the code generator
+
         Generateur generateur = new Generateur(tds, prog);
 
-        // Capture the output
+
         StringBuilder output = new StringBuilder();
         System.setOut(new java.io.PrintStream(new java.io.ByteArrayOutputStream() {
             public synchronized void write(byte[] b, int off, int len) {
@@ -42,10 +42,8 @@ public class TestGenerateur {
             }
         }));
 
-        // Generate the code
         generateur.generer();
 
-        // Check the output
         String generatedCode = output.toString();
         assertTrue(generatedCode.contains(".include beta.uasm"));
         assertTrue(generatedCode.contains(".include intio.uasm"));
