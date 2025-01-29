@@ -1,7 +1,11 @@
 package fr.ul.miashs.compil.generation;
 
-import fr.ul.miashs.compil.arbre.*;
-import fr.ul.miashs.compil.tds.*;
+import fr.ul.miashs.compil.arbre.Const;
+import fr.ul.miashs.compil.arbre.Fonction;
+import fr.ul.miashs.compil.arbre.Noeud;
+import fr.ul.miashs.compil.arbre.Prog;
+import fr.ul.miashs.compil.tds.Symbole;
+import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.List;
 
@@ -10,13 +14,13 @@ public class Generateur {
     private TDS tds;
     private Noeud arbre;
 
-    public Generateur(TDS tds,Noeud arbre){
+    public Generateur(TDS tds, Noeud arbre) {
         this.tds = tds;
         this.arbre = arbre;
     }
 
-    public void generer(){
-    //Former le fichier template d'assembleur
+    public void generer() {
+        //Former le fichier template d'assembleur
         String head_string = ".include beta.uasm\n" +
                 ".include intio.uasm\n" +
                 ".options tty\n" +
@@ -35,7 +39,7 @@ public class Generateur {
         StringBuilder fonctions = generer_fonctions();
 
         final_string.append(fonctions);
-        
+
         final_string.append(pile);
 
         System.out.println(final_string);
@@ -60,13 +64,13 @@ public class Generateur {
             String valeur = String.valueOf(variable.getValeur());
 
             data.append(nom)
-                .append(":\tLONG(")
-                .append(valeur != null ? valeur : 0)
-                .append(")\t| ")
-                .append(type)
-                .append(" ")
-                .append(nom)
-                .append(";\n");
+                    .append(":\tLONG(")
+                    .append(valeur != null ? valeur : 0)
+                    .append(")\t| ")
+                    .append(type)
+                    .append(" ")
+                    .append(nom)
+                    .append(";\n");
         }
         return data;
     }
@@ -81,13 +85,28 @@ public class Generateur {
         fonction_string.append("\tMOVE(SP, BP);\n");
 
         int nombreVariables = fonction.getNbVar() != null ? fonction.getNbVar() : 0;
-        if(nombreVariables > 0){
+        if (nombreVariables > 0) {
             fonction_string.append("  ALLOCATE(").append(nombreVariables).append(");\n");
         }
 
-        //TODO Récupérer le noeud de la fonction à partir de l'attribut de classe de Generateur this.arbre
+        List<Noeud> noeudsArbre = this.arbre.getFils();
+        Fonction fonctionArbre = null;
+        for (Noeud noeud : noeudsArbre) {
+            if (noeud instanceof Fonction f && f.getValeur() == fonction.getNom()) {
+                fonctionArbre = f;
+            }
+        }
+        if (fonctionArbre == null) {
+            System.out.println("Fonction non trouvée");
+            //TODO: fonction non trouvée
+            return null;
+        }
 
-        //TODO Utiliser le noeud de la fonction pour explorer son contenu (ses enfants)
+        List<Noeud> instructions = fonctionArbre.getFils();
+        for (Noeud instruction : instructions) {
+            //TODO Utiliser le noeud de la fonction pour explorer son contenu (ses enfants)
+        }
+
 
         //TODO Ecrire les methodes generate pour chacuns des types d'enfants possibles
 
@@ -98,7 +117,7 @@ public class Generateur {
         return fonction_string;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Prog prog = new Prog();
         Fonction principal = new Fonction("main");
         //on relie les noeuds
@@ -110,11 +129,11 @@ public class Generateur {
 
         TDS tds = new TDS();
 
-        tds.addSymbole(new Symbole( "main","void","fonction",null, null));
-        tds.addSymbole(new Symbole( "j","int","global",null,null, 20));
+        tds.addSymbole(new Symbole("main", "void", "fonction", null, null));
+        tds.addSymbole(new Symbole("j", "int", "global", null, null, 20));
         tds.addSymbole(new Symbole("i", "int", "global", null, null, 10));
-        tds.addSymbole(new Symbole( "k","int","global",null,null, null));
-        tds.addSymbole(new Symbole( "l","int","global",null,null, null));
+        tds.addSymbole(new Symbole("k", "int", "global", null, null, null));
+        tds.addSymbole(new Symbole("l", "int", "global", null, null, null));
 
         Generateur generateur = new Generateur(tds, prog);
         generateur.generer();
