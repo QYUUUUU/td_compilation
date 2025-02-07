@@ -110,7 +110,7 @@ public class Expression {
 
                 }
             }
-        return (expr_string); // on revoie la string de toute l'expression 
+        return (expr_string); // on revoie la string de toute l'expression
     }
 
 }
