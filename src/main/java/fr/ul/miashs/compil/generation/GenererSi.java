@@ -4,13 +4,13 @@ import fr.ul.miashs.compil.arbre.*;
 import java.util.List;
 
 public class GenererSi {
-    private static int compteurEtiquette = 0;
+    private static int compteurLabel = 0;
 
     public StringBuilder generer_si(Si noeudSi) {
         StringBuilder si_string = new StringBuilder();
 
         // Générer une étiquette unique pour la sortie du bloc sinon
-        int idEtiquette = compteurEtiquette++;
+        int idEtiquette = compteurLabel++;
         String labelSinon = "SINON_" + idEtiquette;
         String labelFin = "FINSI_" + idEtiquette;
 
@@ -43,11 +43,22 @@ public class GenererSi {
         Expression expressionGen = new Expression();
 
         for (Noeud instruction : instructions) {
-            if (instruction instanceof Expression) {
+            if (instruction.getCat().equals(Noeud.Categories.PLUS) ||
+                    instruction.getCat().equals(Noeud.Categories.MOINS) ||
+                    instruction.getCat().equals(Noeud.Categories.MUL) ||
+                    instruction.getCat().equals(Noeud.Categories.DIV) ||
+                    instruction.getCat().equals(Noeud.Categories.SUP) ||
+                    instruction.getCat().equals(Noeud.Categories.INF) ||
+                    instruction.getCat().equals(Noeud.Categories.SUPE) ||
+                    instruction.getCat().equals(Noeud.Categories.INFE) ||
+                    instruction.getCat().equals(Noeud.Categories.EG) ||
+                    instruction.getCat().equals(Noeud.Categories.DIF) ||
+                    instruction.getCat().equals(Noeud.Categories.CONST) ||
+                    instruction.getCat().equals(Noeud.Categories.IDF)) {
                 bloc_string.append(expressionGen.generer_expression(instruction));
             } else if (instruction instanceof Si) {
                 bloc_string.append(generer_si((Si) instruction));
-            } // Ajouter d'autres types d'instructions si nécessaire
+            } //TODO rajouter les autres types de noeuds qui existent et les prendre en charge.
         }
 
         return bloc_string;
