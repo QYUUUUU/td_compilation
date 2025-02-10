@@ -1,7 +1,9 @@
 package fr.ul.miashs.compil.generation;
 
+
 import fr.ul.miashs.compil.arbre.*;
 import fr.ul.miashs.compil.tds.Symbole;
+import fr.ul.miashs.compil.tds.TDS;
 
 
 import java.util.List;
@@ -13,7 +15,7 @@ public class Expression {
      * porteur est un noeud + - * /... detecté dans une autre fonction et qui engendre l'appel de generer_fonction
      **/
 
-    public StringBuilder generer_expression(Noeud porteur) {
+    public StringBuilder generer_expression(Noeud porteur, TDS tds) {
         StringBuilder expr_string = new StringBuilder();
         expr_string.append("\tPUSH(BP);\n");//on place le marqueur du début de frame dans la pile // TODO Revoir si c'est bon
         expr_string.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
@@ -26,7 +28,8 @@ public class Expression {
                 int val;
                 if(noeudExpr.get(nbFils) instanceof Const){ // pour pouvoir utiliser la fonction getValeur()
                     val=((Const) noeudExpr.get(nbFils)).getValeur();
-                    expr_string.append("\tLDR("+val+",R0)\n");
+
+                    expr_string.append("\tLDR(R0,"+val+")\n");
                    expr_string.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
 
                 }
@@ -35,7 +38,7 @@ public class Expression {
                     Object obj=((Idf)noeudExpr.get(nbFils)).getValeur(); // Idf peut être quel autre type de var que int?
                     if(obj instanceof Integer){
                         val=(Integer)obj;
-                        expr_string.append("\tLDR("+val+",R0)\n");
+                        expr_string.append("\tLDR(R0,"+val+")\n");
                         expr_string.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
                     }
 
@@ -45,7 +48,7 @@ public class Expression {
                         Affect aff = new Affect(); //TODO faire la classe Affect avec la fonction generer_aff()
                         expr_string.append(generer_aff());
                     } else {
-                        this.generer_expression(noeudExpr.get(nbFils));// On génère l'expression du noeud fils qui est entrain d'être vu
+                        this.generer_expression(noeudExpr.get(nbFils),tds);// On génère l'expression du noeud fils qui est entrain d'être vu
                     }
 
                 }
