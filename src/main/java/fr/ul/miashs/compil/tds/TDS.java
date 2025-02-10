@@ -55,6 +55,15 @@ public class TDS {
         return locals;
     }
 
+    public Symbole getSymbole(String nom) {
+        for (Symbole s : symboles) {
+            if (s.getNom().equals(nom)) {
+                return s;
+            }
+        }
+        return null; // Return null if the symbol is not found
+    }
+
     // Helper to display symbols (for debugging purposes)
     public void displaySymbols() {
         for (Symbole s : symboles) {

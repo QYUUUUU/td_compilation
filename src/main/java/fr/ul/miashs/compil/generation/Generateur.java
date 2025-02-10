@@ -18,6 +18,9 @@ public class Generateur {
         this.tds = tds;
         this.arbre = arbre;
     }
+    public Noeud getArbre() {
+        return this.arbre;
+    }
 
     public void generer() {
         //Former le fichier template d'assembleur
@@ -145,4 +148,6 @@ public class Generateur {
 
         return string;
     }
+
+
 }
