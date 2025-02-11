@@ -6,6 +6,7 @@ import fr.ul.miashs.compil.arbre.Idf;
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.tds.Symbole;
 import fr.ul.miashs.compil.tds.TDS;
+import fr.ul.miashs.compil.generation.Expression;
 
 public class GenererAffectation extends Generateur {
     private TDS tds;
