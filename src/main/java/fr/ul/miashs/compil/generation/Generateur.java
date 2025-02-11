@@ -120,27 +120,6 @@ public class Generateur {
         return fonction_string;
     }
 
-    public static void main(String[] args) {
-        Prog prog = new Prog();
-        Fonction principal = new Fonction("main");
-        //on relie les noeuds
-        prog.ajouterUnFils(principal);
-        Const i = new Const(10);
-        Const j = new Const(20);
-        Const k = new Const(0);
-        Const l = new Const(0);
-
-        TDS tds = new TDS();
-
-        tds.addSymbole(new Symbole("main", "void", "fonction", null, null));
-        tds.addSymbole(new Symbole("j", "int", "global", null, null, 20));
-        tds.addSymbole(new Symbole("i", "int", "global", null, null, 10));
-        tds.addSymbole(new Symbole("k", "int", "global", null, null, null));
-        tds.addSymbole(new Symbole("l", "int", "global", null, null, null));
-
-        Generateur generateur = new Generateur(tds, prog);
-        generateur.generer();
-    }
 
 
     private StringBuilder generer_appel() {
