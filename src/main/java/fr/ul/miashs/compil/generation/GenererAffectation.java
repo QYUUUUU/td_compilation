@@ -6,13 +6,12 @@ import fr.ul.miashs.compil.arbre.Idf;
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.tds.Symbole;
 import fr.ul.miashs.compil.tds.TDS;
-import fr.ul.miashs.compil.generation.Expression;
 
-public class GenererAffectation extends Generateur {
+
+public class GenererAffectation {
     private TDS tds;
 
     public GenererAffectation(TDS tds) {
-        super(tds, null);
         this.tds = tds;
     }
 
@@ -23,13 +22,14 @@ public class GenererAffectation extends Generateur {
 
         if (filsDroit instanceof Const) {
             Const constante = (Const) filsDroit;
-            affectation_string.append("\tLOADI(").append(constante.getValeur()).append(", ACC);\n");
+            affectation_string.append("\tLDI(").append(constante.getValeur()).append(", Rc);\n");
         } else if (filsDroit instanceof Idf) {
             Idf idf = (Idf) filsDroit;
             Symbole symbole = tds.getSymbole(idf.getLabel());
-            affectation_string.append("\tLOAD(").append(symbole.getNom()).append(", ACC);\n");
+            affectation_string.append("\tLD(").append(symbole.getNom()).append(", R0);\n");
         } else {
-            affectation_string.append(generer_expression(filsDroit));
+            Expression expressionGen = new Expression();
+            affectation_string.append(expressionGen.generer_expression(filsDroit));
         }
 
         Noeud filsGauche = affectation.getFilsGauche();

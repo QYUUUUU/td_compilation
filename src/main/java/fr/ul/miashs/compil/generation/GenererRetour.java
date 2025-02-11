@@ -3,9 +3,14 @@ package fr.ul.miashs.compil.generation;
 import fr.ul.miashs.compil.arbre.Affectation;
 import fr.ul.miashs.compil.tds.TDS;
 
-public class GenererRetour extends Generateur {
+public class GenererRetour {
+    private TDS tds;
+    private Affectation arbre;
+
     public GenererRetour(TDS tds, Affectation arbre) {
-        super(tds, arbre);
+        tds = tds;
+        this.arbre = arbre;
+        ;
     }
 
     private StringBuilder generer_retour() {
