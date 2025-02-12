@@ -28,8 +28,8 @@ public class GenererAffectation {
             Symbole symbole = tds.getSymbole(idf.getLabel());
             affectation_string.append("\tLD(").append(symbole.getNom()).append(", R0);\n");
         } else {
-            Expression expressionGen = new Expression();
-            affectation_string.append(expressionGen.generer_expression(filsDroit));
+            GenererExpression expressionGen = new GenererExpression();
+            affectation_string.append(expressionGen.generer_expression(filsDroit, tds));
         }
 
         Noeud filsGauche = affectation.getFilsGauche();

@@ -15,7 +15,7 @@ public class GenererSi {
         String labelFin = "FINSI_" + idEtiquette;
 
         // Générer le code pour la condition
-        Expression expressionGen = new Expression();
+        GenererExpression expressionGen = new GenererExpression();
         si_string.append(expressionGen.generer_expression(noeudSi.getCondition()));
 
         // Récupérer le résultat de la condition
@@ -40,7 +40,7 @@ public class GenererSi {
     private StringBuilder generer_bloc(Bloc bloc) {
         StringBuilder bloc_string = new StringBuilder();
         List<Noeud> instructions = bloc.getFils();
-        Expression expressionGen = new Expression();
+        GenererExpression expressionGen = new GenererExpression();
 
         for (Noeud instruction : instructions) {
             if (instruction.getCat().equals(Noeud.Categories.PLUS) ||

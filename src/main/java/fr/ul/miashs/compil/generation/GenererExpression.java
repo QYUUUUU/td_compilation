@@ -45,10 +45,10 @@ public class GenererExpression {
                 }
                 else{
                     if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
-                        Affect aff = new Affect(); //TODO faire la classe Affect avec la fonction generer_aff()
-                        expr_string.append(generer_aff());
+                        GenererAffectation aff = new GenererAffectation(tds);
+                        expr_string.append(aff.generer_affectation((Affectation) noeudExpr.get(nbFils)));
                     } else {
-                        this.generer_expression(noeudExpr.get(nbFils),tds);// On génère l'expression du noeud fils qui est entrain d'être vu
+                        this.generer_expression(noeudExpr.get(nbFils), tds);// On génère l'expression du noeud fils qui est entrain d'être vu
                     }
 
                 }
@@ -78,8 +78,6 @@ public class GenererExpression {
                         expr_string.append("\tSUB(R1,R2,R0)\n");
                         expr_string.append("\tPUSH(R0)\n");
                         break;
-
-                        //TODO
 
                     case SUP:
                         expr_string.append("\tCMP(R1,R2)\n");// on compare les deux et on jump vers la partie "greater" (Voir comment et ou se créé cette partie (consitionnelles? )
@@ -113,7 +111,7 @@ public class GenererExpression {
 
                 }
             }
-        return (expr_string); // on revoie la string de toute l'expression
+        return (expr_string); // on renvoie la string de toute l'expression
     }
 
 }
