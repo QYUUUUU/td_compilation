@@ -8,7 +8,7 @@ import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.List;
 
-public class Expression {
+public class GenererExpression {
     /**
      * @return StringBuilder
      * retourne le code assembleur du fils droit d'une affectation: une expression
