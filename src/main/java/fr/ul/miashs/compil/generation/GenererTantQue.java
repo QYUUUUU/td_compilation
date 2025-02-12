@@ -13,10 +13,11 @@ public class GenererTantQue {
 
     public StringBuilder genererTantQue(TantQue noeud) {
         Noeud cond = this.noeud.getCondition();
+        this.exp.append("\tCMP(R1,R2)\n");
+
         switch (cond.getCat()) {
             case INF:
                 Inferieur inf = (Inferieur) cond;
-                this.exp.append("\tCMP(R1,R2)\n");
                 this.exp.append("\tJL less\n");
                 while (getValue(inf.getFilsGauche()) < getValue(inf.getFilsDroit())) {
 
@@ -24,7 +25,6 @@ public class GenererTantQue {
                 break;
             case SUP:
                 Superieur sup = (Superieur) cond;
-                this.exp.append("\tCMP(R1,R2)\n");
                 this.exp.append("\tJG greater\n");
                 while (getValue(sup.getFilsGauche()) > getValue(sup.getFilsDroit())) {
 
@@ -32,7 +32,6 @@ public class GenererTantQue {
                 break;
             case INFE:
                 InferieurEgal infe = (InferieurEgal) cond;
-                this.exp.append("\tCMP(R1,R2)\n");
                 this.exp.append("\tJLE lessEq\n");
                 while (getValue(infe.getFilsGauche()) <= getValue(infe.getFilsDroit())) {
 
@@ -40,7 +39,6 @@ public class GenererTantQue {
                 break;
             case SUPE:
                 SuperieurEgal supe = (SuperieurEgal) cond;
-                this.exp.append("\tCMP(R1,R2)\n");
                 this.exp.append("\tJGE greaterEq\n");
                 while (getValue(supe.getFilsGauche()) >= getValue(supe.getFilsDroit())) {
 
@@ -48,7 +46,6 @@ public class GenererTantQue {
                 break;
             case EG:
                 Egal eg = (Egal) cond;
-                this.exp.append("\tCMP(R1,R2)\n");
                 this.exp.append("\tJE equal\n");
                 while (getValue(eg.getFilsGauche()) == getValue(eg.getFilsDroit())) {
 
@@ -56,7 +53,6 @@ public class GenererTantQue {
                 break;
             case DIF:
                 Different dif = (Different) cond;
-                this.exp.append("\tCMP(R1,R2)\n");
                 this.exp.append("\tJNE notEqual\n");
                 while (getValue(dif.getFilsGauche()) != getValue(dif.getFilsDroit())) {
 
