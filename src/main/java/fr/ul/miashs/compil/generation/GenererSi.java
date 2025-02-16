@@ -1,12 +1,14 @@
 package fr.ul.miashs.compil.generation;
 
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.tds.TDS;
+
 import java.util.List;
 
 public class GenererSi {
     private static int compteurLabel = 0;
 
-    public StringBuilder generer_si(Si noeudSi) {
+    public StringBuilder generer_si(Si noeudSi, TDS tds) {
         StringBuilder si_string = new StringBuilder();
 
         // Générer une étiquette unique pour la sortie du bloc sinon
@@ -15,8 +17,8 @@ public class GenererSi {
         String labelFin = "FINSI_" + idEtiquette;
 
         // Générer le code pour la condition
-        GenererExpression expressionGen = new GenererExpression();
-        si_string.append(expressionGen.generer_expression(noeudSi.getCondition()));
+        Expression expressionGen = new Expression();
+        si_string.append(expressionGen.generer_expression(noeudSi.getCondition(),tds));
 
         // Récupérer le résultat de la condition
         si_string.append("\tPOP(R0)\n");
@@ -24,12 +26,12 @@ public class GenererSi {
         si_string.append("\tJE " + labelSinon + "\n");
 
         // Générer le bloc "alors"
-        si_string.append(generer_bloc(noeudSi.getBlocAlors()));
+        si_string.append(generer_bloc(noeudSi.getBlocAlors(),tds));
         si_string.append("\tJMP " + labelFin + "\n");
 
         // Générer le bloc "sinon"
         si_string.append(labelSinon + ":\n");
-        si_string.append(generer_bloc(noeudSi.getBlocSinon()));
+        si_string.append(generer_bloc(noeudSi.getBlocSinon(),tds));
 
         // Fin du bloc Si
         si_string.append(labelFin + ":\n");
@@ -37,10 +39,10 @@ public class GenererSi {
         return si_string;
     }
 
-    private StringBuilder generer_bloc(Bloc bloc) {
+    private StringBuilder generer_bloc(Bloc bloc,TDS tds) {
         StringBuilder bloc_string = new StringBuilder();
         List<Noeud> instructions = bloc.getFils();
-        GenererExpression expressionGen = new GenererExpression();
+        Expression expressionGen = new Expression();
 
         for (Noeud instruction : instructions) {
             if (instruction.getCat().equals(Noeud.Categories.PLUS) ||
@@ -55,9 +57,9 @@ public class GenererSi {
                     instruction.getCat().equals(Noeud.Categories.DIF) ||
                     instruction.getCat().equals(Noeud.Categories.CONST) ||
                     instruction.getCat().equals(Noeud.Categories.IDF)) {
-                bloc_string.append(expressionGen.generer_expression(instruction));
+                bloc_string.append(expressionGen.generer_expression(instruction,tds));
             } else if (instruction instanceof Si) {
-                bloc_string.append(generer_si((Si) instruction));
+                bloc_string.append(generer_si((Si) instruction,tds));
             } //TODO rajouter les autres types de noeuds qui existent et les prendre en charge.
         }
 
