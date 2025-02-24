@@ -28,7 +28,7 @@ public class GenererAffectation {
             Symbole symbole = tds.getSymbole(idf.getLabel());
             affectation_string.append("\tLDR(").append(symbole.getNom()).append(", R0);\n");
         } else {
-            GenererExpression expressionGen = new GenererExpression();
+            Expression expressionGen = new Expression();
             affectation_string.append(expressionGen.generer_expression(filsDroit, tds));
         }
 
