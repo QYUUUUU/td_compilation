@@ -44,7 +44,7 @@
 		<!-- Nom de la classe principale #2 -->
 		<project.bin2.classname>${project.groupId}.${project.artifactId}.arbre.exemples.Exemple2</project.bin2.classname>
 		<!-- Nom de la classe principale -->
-		<project.bin2.appname>ex2</project.bin2.appname>
+		<project.bin2.appname>expr</project.bin2.appname>
 		<!-- Version de Java -->
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -58,7 +58,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.12.1</version>
 				<configuration>
-					<release>17</release>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<plugin>

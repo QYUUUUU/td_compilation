@@ -1,0 +1,20 @@
+package generated.fr.ul.miashs.expression;
+//regle de langage
+terminal ADD, MUL, PO, PF;
+terminal NUL;
+
+non terminal langage;
+non terminal expression, facteur, atome;
+
+start with langage;
+
+//4) regle de production
+langage ::= expression
+    ;
+expression ::= expression ADD facteur
+    | facteur
+    ;
+atome ::= NUM
+    | PO expression PF
+    ;
+
