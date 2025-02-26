@@ -1,9 +1,7 @@
-package generated.fr.ul.miashs.expression;
-
-import java.util.Scanner;
+package fr.ul.miashs.compil.analyse;
 
 public class ParserCup {
-    private Scanner scanner;
+    private Yylex scanner;
 
     public ParserCup(Yylex scanner){
         this.scanner = scanner;

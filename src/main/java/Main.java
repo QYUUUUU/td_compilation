@@ -1,5 +1,5 @@
-import generated.fr.ul.miashs.expression.ParserCup;
-import generated.fr.ul.miashs.expression.Yylex;
+import fr.ul.miashs.compil.analyse.ParserCup;
+import fr.ul.miashs.compil.analyse.Yylex;
 
 import java.io.FileReader;
 

@@ -1,4 +1,4 @@
-package generated.fr.ul.miashs.expression;
+package fr.ul.miashs.compil.analyse;
 
 public class Yylex {
     private java.io.Reader reader;
