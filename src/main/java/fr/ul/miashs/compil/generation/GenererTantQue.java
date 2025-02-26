@@ -1,11 +1,13 @@
 package fr.ul.miashs.compil.generation;
 
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.tds.TDS;
 
 public class GenererTantQue {
 
     public final TantQue noeud;
     public StringBuilder exp = new StringBuilder();
+    public TDS tds = new TDS();
 
     public GenererTantQue(TantQue tq) {
         this.noeud = tq;
@@ -19,7 +21,7 @@ public class GenererTantQue {
             case INF:
                 Inferieur inf = (Inferieur) cond;
                 this.exp.append("\tJL less\n");
-                while (getValue(inf.getFilsGauche()) < getValue(inf.getFilsDroit())) {
+                while (getValue(inf.getFilsGauche(),tds) < getValue(inf.getFilsDroit())) {
 
                 }
                 break;
@@ -54,7 +56,7 @@ public class GenererTantQue {
             case DIF:
                 Different dif = (Different) cond;
                 this.exp.append("\tJNE notEqual\n");
-                while (getValue(dif.getFilsGauche()) != getValue(dif.getFilsDroit())) {
+                while (getValue(dif.getFilsGauche(),tds) != getValue(dif.getFilsDroit(),tds)) {
 
                 }
                 break;
@@ -77,9 +79,11 @@ public class GenererTantQue {
             } else {
                 if (noeudVar.getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
                     Affectation aff = new Affectation(); //TODO faire la classe Affect avec la fonction generer_aff()
-                    this.exp.append(generer_affac());
+                    GenererAffectation genetAff=new GenererAffectation(tds);
+                    this.exp.append(genetAff.generer_affectation(aff));
                 } else {
-                    this.noeud.getBloc().generer_expression(noeudExpr.get(nbFils));// On génère l'expression du noeud fils qui est entrain d'être vu
+                    Instruction instruc=new Instruction();
+                    instruc.generer_instruction(this.noeud.getBloc());// On génère l'expression du noeud fils qui est entrain d'être vu
                 }
 
             }

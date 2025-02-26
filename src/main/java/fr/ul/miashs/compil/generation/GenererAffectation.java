@@ -22,19 +22,19 @@ public class GenererAffectation {
 
         if (filsDroit instanceof Const) {
             Const constante = (Const) filsDroit;
-            affectation_string.append("\tLDI(").append(constante.getValeur()).append(", Rc);\n");
+            affectation_string.append("\tLDR(").append(constante.getValeur()).append(", Rc);\n");
         } else if (filsDroit instanceof Idf) {
             Idf idf = (Idf) filsDroit;
             Symbole symbole = tds.getSymbole(idf.getLabel());
-            affectation_string.append("\tLD(").append(symbole.getNom()).append(", R0);\n");
+            affectation_string.append("\tLDR(").append(symbole.getNom()).append(", R0);\n");
         } else {
-            GenererExpression expressionGen = new GenererExpression();
+            Expression expressionGen = new Expression();
             affectation_string.append(expressionGen.generer_expression(filsDroit, tds));
         }
 
         Noeud filsGauche = affectation.getFilsGauche();
         Symbole symboleGauche = tds.getSymbole(filsGauche.getLabel());
-        affectation_string.append("\tSTORE(").append(symboleGauche.getNom()).append(", ACC);\n");
+        affectation_string.append("\tSTR(").append(symboleGauche.getNom()).append(", ACC);\n");
 
         return affectation_string;
     }

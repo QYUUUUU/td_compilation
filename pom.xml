@@ -44,7 +44,7 @@
 		<!-- Nom de la classe principale #2 -->
 		<project.bin2.classname>${project.groupId}.${project.artifactId}.arbre.exemples.Exemple2</project.bin2.classname>
 		<!-- Nom de la classe principale -->
-		<project.bin2.appname>ex2</project.bin2.appname>
+		<project.bin2.appname>expr</project.bin2.appname>
 		<!-- Version de Java -->
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -58,7 +58,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.12.1</version>
 				<configuration>
-					<release>17</release>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -110,6 +110,51 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!--  Ici, on utilise jflex  -->
+			<!--  Conventions :  -->
+			<!--  le fichier source .lex est stocké dans le dossier src/main/cuplex/  -->
+			<!--  le fichier généré Yylex.java est dans src/main/java  -->
+			<!--  Commande : mvn generate-sources  -->
+			<!--  https://mvnrepository.com/artifact/de.jflex/jflex  -->
+			<plugin>
+				<groupId>de.jflex</groupId>
+				<artifactId>jflex-maven-plugin</artifactId>
+				<version>1.9.1</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<lexDefinitions>
+						<lexDefinition>src/main/cuplex</lexDefinition>
+					</lexDefinitions>
+					<outputDirectory>src/main/java</outputDirectory>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.vbmacher</groupId>
+				<artifactId>cup-maven-plugin</artifactId>
+				<version>11b-20160615-3</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<cupDefinition>src/main/cuplex/Parser.cup</cupDefinition>
+							<className>ParserCup</className>
+							<symbolsName>Sym</symbolsName>
+							<outputDirectory>src/main/java</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -125,6 +170,13 @@
 			<artifactId>junit-jupiter</artifactId>
 			<version>RELEASE</version>
 			<scope>compile</scope>
+		</dependency>
+		<!--  Ici, on définit les librairies qu'on utilise  -->
+		<!--  La classe ParserCup utilise cette librairie  -->
+		<dependency>
+			<groupId>com.github.vbmacher</groupId>
+			<artifactId>java-cup-runtime</artifactId>
+			<version>11b-20160615-3</version>
 		</dependency>
 	</dependencies>
 </project>
