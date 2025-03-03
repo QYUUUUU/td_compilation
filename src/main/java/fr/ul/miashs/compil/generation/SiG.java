@@ -5,10 +5,10 @@ import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.List;
 
-public class GenererSi {
+public class SiG {
     private static int compteurLabel = 0;
 
-    public StringBuilder generer_si(Si noeudSi, TDS tds) {
+    public StringBuilder generer_si(fr.ul.miashs.compil.arbre.Si noeudSi, TDS tds) {
         StringBuilder si_string = new StringBuilder();
 
         // Générer une étiquette unique pour la sortie du bloc sinon
@@ -17,7 +17,7 @@ public class GenererSi {
         String labelFin = "FINSI_" + idEtiquette;
 
         // Générer le code pour la condition
-        Expression expressionGen = new Expression();
+        ExpressionG expressionGen = new ExpressionG();
         si_string.append(expressionGen.generer_expression(noeudSi.getCondition(),tds));
 
         // Récupérer le résultat de la condition
@@ -42,7 +42,7 @@ public class GenererSi {
     private StringBuilder generer_bloc(Bloc bloc,TDS tds) {
         StringBuilder bloc_string = new StringBuilder();
         List<Noeud> instructions = bloc.getFils();
-        Expression expressionGen = new Expression();
+        ExpressionG expressionGen = new ExpressionG();
 
         for (Noeud instruction : instructions) {
             if (instruction.getCat().equals(Noeud.Categories.PLUS) ||
@@ -58,8 +58,8 @@ public class GenererSi {
                     instruction.getCat().equals(Noeud.Categories.CONST) ||
                     instruction.getCat().equals(Noeud.Categories.IDF)) {
                 bloc_string.append(expressionGen.generer_expression(instruction,tds));
-            } else if (instruction instanceof Si) {
-                bloc_string.append(generer_si((Si) instruction,tds));
+            } else if (instruction instanceof fr.ul.miashs.compil.arbre.Si) {
+                bloc_string.append(generer_si((fr.ul.miashs.compil.arbre.Si) instruction,tds));
             } //TODO rajouter les autres types de noeuds qui existent et les prendre en charge.
         }
 

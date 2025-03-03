@@ -1,6 +1,5 @@
 package fr.ul.miashs.compil.generation;
 
-import fr.ul.miashs.compil.arbre.Affectation;
 import fr.ul.miashs.compil.arbre.Const;
 import fr.ul.miashs.compil.arbre.Idf;
 import fr.ul.miashs.compil.arbre.Noeud;
@@ -8,14 +7,14 @@ import fr.ul.miashs.compil.tds.Symbole;
 import fr.ul.miashs.compil.tds.TDS;
 
 
-public class GenererAffectation {
+public class AffectationG {
     private TDS tds;
 
-    public GenererAffectation(TDS tds) {
+    public AffectationG(TDS tds) {
         this.tds = tds;
     }
 
-    public StringBuilder generer_affectation(Affectation affectation) {
+    public StringBuilder generer_affectation(fr.ul.miashs.compil.arbre.Affectation affectation) {
         StringBuilder affectation_string = new StringBuilder();
 
         Noeud filsDroit = affectation.getFilsDroit();
@@ -28,7 +27,7 @@ public class GenererAffectation {
             Symbole symbole = tds.getSymbole(idf.getLabel());
             affectation_string.append("\tLDR(").append(symbole.getNom()).append(", R0);\n");
         } else {
-            Expression expressionGen = new Expression();
+            ExpressionG expressionGen = new ExpressionG();
             affectation_string.append(expressionGen.generer_expression(filsDroit, tds));
         }
 

@@ -18,6 +18,9 @@ public class Generateur {
         this.tds = tds;
         this.arbre = arbre;
     }
+    public TDS getTds(){
+        return tds;
+    }
     public Noeud getArbre() {
         return this.arbre;
     }

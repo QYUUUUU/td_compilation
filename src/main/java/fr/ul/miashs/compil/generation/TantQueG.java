@@ -3,60 +3,55 @@ package fr.ul.miashs.compil.generation;
 import fr.ul.miashs.compil.arbre.*;
 import fr.ul.miashs.compil.tds.TDS;
 
-public class GenererTantQue {
+public class TantQueG {
 
-    public final TantQue noeud;
     public StringBuilder exp = new StringBuilder();
     public TDS tds = new TDS();
 
-    public GenererTantQue(TantQue tq) {
-        this.noeud = tq;
-    }
 
-    public StringBuilder genererTantQue(TantQue noeud) {
-        Noeud cond = this.noeud.getCondition();
+    public StringBuilder genererTantQue(Noeud noeud) {
         this.exp.append("\tCMP(R1,R2)\n");
 
-        switch (cond.getCat()) {
+        switch (noeud.getCat()) {
             case INF:
-                Inferieur inf = (Inferieur) cond;
+                Inferieur inf = (Inferieur) noeud;
                 this.exp.append("\tJL less\n");
-                while (getValue(inf.getFilsGauche(),tds) < getValue(inf.getFilsDroit())) {
+                while (getValue(inf.getFilsGauche()) < getValue(inf.getFilsDroit())) {
 
                 }
                 break;
             case SUP:
-                Superieur sup = (Superieur) cond;
+                Superieur sup = (Superieur) noeud;
                 this.exp.append("\tJG greater\n");
                 while (getValue(sup.getFilsGauche()) > getValue(sup.getFilsDroit())) {
 
                 }
                 break;
             case INFE:
-                InferieurEgal infe = (InferieurEgal) cond;
+                InferieurEgal infe = (InferieurEgal) noeud;
                 this.exp.append("\tJLE lessEq\n");
                 while (getValue(infe.getFilsGauche()) <= getValue(infe.getFilsDroit())) {
 
                 }
                 break;
             case SUPE:
-                SuperieurEgal supe = (SuperieurEgal) cond;
+                SuperieurEgal supe = (SuperieurEgal) noeud;
                 this.exp.append("\tJGE greaterEq\n");
                 while (getValue(supe.getFilsGauche()) >= getValue(supe.getFilsDroit())) {
 
                 }
                 break;
             case EG:
-                Egal eg = (Egal) cond;
+                Egal eg = (Egal) noeud;
                 this.exp.append("\tJE equal\n");
                 while (getValue(eg.getFilsGauche()) == getValue(eg.getFilsDroit())) {
 
                 }
                 break;
             case DIF:
-                Different dif = (Different) cond;
+                Different dif = (Different) noeud;
                 this.exp.append("\tJNE notEqual\n");
-                while (getValue(dif.getFilsGauche(),tds) != getValue(dif.getFilsDroit(),tds)) {
+                while (getValue(dif.getFilsGauche()) != getValue(dif.getFilsDroit())) {
 
                 }
                 break;
@@ -79,11 +74,11 @@ public class GenererTantQue {
             } else {
                 if (noeudVar.getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
                     Affectation aff = new Affectation(); //TODO faire la classe Affect avec la fonction generer_aff()
-                    GenererAffectation genetAff=new GenererAffectation(tds);
+                    AffectationG genetAff=new AffectationG(tds);
                     this.exp.append(genetAff.generer_affectation(aff));
                 } else {
-                    Instruction instruc=new Instruction();
-                    instruc.generer_instruction(this.noeud.getBloc());// On génère l'expression du noeud fils qui est entrain d'être vu
+                    InstructionG instruc=new InstructionG();
+                    instruc.generer_instruction(noeud.getBloc());// On génère l'expression du noeud fils qui est entrain d'être vu
                 }
 
             }

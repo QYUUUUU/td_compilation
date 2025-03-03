@@ -1,6 +1,5 @@
 package fr.ul.miashs.compil.generation;
 
-import fr.ul.miashs.compil.arbre.Affectation;
 import fr.ul.miashs.compil.arbre.Const;
 import fr.ul.miashs.compil.arbre.Idf;
 import fr.ul.miashs.compil.arbre.Noeud;
@@ -8,7 +7,7 @@ import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.List;
 
-public class Expression {
+public class ExpressionG {
     /**
      * @return StringBuilder
      * retourne le code assembleur du fils droit d'une affectation: une expression
@@ -43,8 +42,8 @@ public class Expression {
 
                 } else {
                     if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
-                        GenererAffectation aff = new GenererAffectation(tds);
-                        expr_string.append(aff.generer_affectation((Affectation) noeudExpr.get(nbFils)));
+                        AffectationG aff = new AffectationG(tds);
+                        expr_string.append(aff.generer_affectation((fr.ul.miashs.compil.arbre.Affectation) noeudExpr.get(nbFils)));
                     } else if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.LIRE)) {
                         this.generer_lire(noeudExpr.get(nbFils));
 
