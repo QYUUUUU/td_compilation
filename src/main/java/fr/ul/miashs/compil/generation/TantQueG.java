@@ -6,8 +6,6 @@ import fr.ul.miashs.compil.tds.TDS;
 public class TantQueG {
 
     public StringBuilder exp = new StringBuilder();
-    public TDS tds = new TDS();
-
 
     public StringBuilder genererTantQue(Noeud noeud) {
         this.exp.append("\tCMP(R1,R2)\n");
@@ -74,7 +72,7 @@ public class TantQueG {
             } else {
                 if (noeudVar.getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
                     Affectation aff = new Affectation(); //TODO faire la classe Affect avec la fonction generer_aff()
-                    AffectationG genetAff=new AffectationG(tds);
+                    AffectationG genetAff=new AffectationG();
                     this.exp.append(genetAff.generer_affectation(aff));
                 } else {
                     InstructionG instruc=new InstructionG();
