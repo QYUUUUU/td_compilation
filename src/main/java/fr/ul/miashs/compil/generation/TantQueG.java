@@ -62,7 +62,6 @@ public class TantQueG {
 
     public int getValue(Noeud noeudVar) {
         if ((noeudVar.getCat().equals(Noeud.Categories.CONST) | (noeudVar.getCat().equals(Noeud.Categories.IDF)))) {
-            int val;
             if (noeudVar instanceof Const) {
                 return ((Const) noeudVar).getValeur();
             } else if (noeudVar instanceof Idf) {
@@ -70,17 +69,12 @@ public class TantQueG {
                 if (obj instanceof Integer) {
                     return (Integer) obj;
                 }
-
             } else {
                 if (noeudVar.getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
                     Affectation aff = new Affectation(); //TODO faire la classe Affect avec la fonction generer_aff()
-                    AffectationG genetAff=new AffectationG(tds);
+                    AffectationG genetAff = new AffectationG(tds);
                     this.exp.append(genetAff.generer_affectation(aff));
-                } else {
-                    InstructionG instruc=new InstructionG();
-                    instruc.generer_instruction(noeud.getBloc());// On génère l'expression du noeud fils qui est entrain d'être vu
                 }
-
             }
         }
         this.exp.append("\tPOP(R1)\n");//On récupère nos variables conservées dans la mémoire (le fils le plus à droite est au dessus de la pile
