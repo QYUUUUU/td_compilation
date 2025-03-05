@@ -1,20 +1,42 @@
+/*
+Parser d'expressions de constantes
+TD Compil L3 MIASHS
+Azim Roussanaly
+(c) Université de Lorraine
+2025
+*/
 package generated.fr.ul.miashs.expression;
-//regle de langage
+
+parser code {:
+    public int RESULT = 0;
+:}
+
+/*----------------------------- -----------------*/
+/* la grammaire */
+/* 1) terminaux */
 terminal ADD, MUL, PO, PF;
-terminal NUL;
+terminal Integer NUM;
 
+/* 2) non terminaux */
 non terminal langage;
-non terminal expression, facteur, atome;
+non terminal Integer expression, facteur, atome;
 
+/* 3) Axiome/Start */
 start with langage;
 
-//4) regle de production
-langage ::= expression
-    ;
-expression ::= expression ADD facteur
-    | facteur
-    ;
-atome ::= NUM
-    | PO expression PF
-    ;
+/*----------------------------------------------*/
+/*4) regles de production */
+langage ::= expression:x {: RESULT = x; :}
+;
 
+expression ::= expression:x ADD facteur:f {: RESULT = x + f; :}
+             | facteur:f                  {: RESULT = f; :}
+;
+
+facteur ::= facteur:f MUL atome:a {: RESULT = f * a; :}
+          | atome:a               {: RESULT = a; :}
+;
+
+atome ::= NUM:n                   {: RESULT = n; :}
+        | PO expression:x PF      {: RESULT = x; :}
+;

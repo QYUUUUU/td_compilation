@@ -61,6 +61,7 @@
 					<release>17</release>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<!-- create scripts for apps -->
 				<!-- mvn package | appassembler:assemble -->
