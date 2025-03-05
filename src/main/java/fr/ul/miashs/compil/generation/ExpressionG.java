@@ -14,7 +14,7 @@ public class ExpressionG {
      * porteur est un noeud + - * /... detecté dans une autre fonction et qui engendre l'appel de generer_fonction
      **/
 
-    public StringBuilder generer_expression(Noeud porteur, TDS tds) {
+    public StringBuilder generer_expression(Noeud porteur) {
         StringBuilder expr_string = new StringBuilder();
         expr_string.append("\tPUSH(BP);\n");//on place le marqueur du début de frame dans la pile // TODO Revoir si c'est bon
         expr_string.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
@@ -42,13 +42,13 @@ public class ExpressionG {
 
                 } else {
                     if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
-                        AffectationG aff = new AffectationG(tds);
+                        AffectationG aff = new AffectationG();
                         expr_string.append(aff.generer_affectation((fr.ul.miashs.compil.arbre.Affectation) noeudExpr.get(nbFils)));
                     } else if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.LIRE)) {
                         this.generer_lire(noeudExpr.get(nbFils));
 
                     } else {
-                        this.generer_expression(noeudExpr.get(nbFils), tds);// On génère l'expression du noeud fils qui est entrain d'être vu
+                        this.generer_expression(noeudExpr.get(nbFils));// On génère l'expression du noeud fils qui est entrain d'être vu
                     }
 
                 }

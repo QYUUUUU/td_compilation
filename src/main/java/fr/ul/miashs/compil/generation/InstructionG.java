@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InstructionG { //TODO: voir si on peut la mettre en classe abstraite
-    public StringBuilder generer_instruction(Noeud instruct, TDS tds) {
+    public StringBuilder generer_instruction(Noeud instruct) {
         StringBuilder res = new StringBuilder();
         Noeud fils = instruct.getFils().get(0);
         if (fils instanceof Si) { // TODO : essayer de trouver une autre structure de données, duplication de code
             Si filsSi = (Si) fils;
             SiG newSi = new SiG();
-            res = res.append(newSi.generer_si(filsSi, tds)); // on ajoute au programme, le code du noeud relié à l'instruction
+            res = res.append(newSi.generer_si(filsSi)); // on ajoute au programme, le code du noeud relié à l'instruction
         } else if (instruct instanceof TantQue) {
             TantQue filsTQ = (TantQue) fils;
             TantQueG newTQ = new TantQueG();

@@ -11,15 +11,11 @@ import java.util.List;
 
 public class Generateur {
 
-    private TDS tds;
+    public static TDS tds;
     private Noeud arbre;
 
-    public Generateur(TDS tds, Noeud arbre) {
-        this.tds = tds;
+    public Generateur(Noeud arbre) {
         this.arbre = arbre;
-    }
-    public TDS getTds(){
-        return tds;
     }
     public Noeud getArbre() {
         return this.arbre;
@@ -53,7 +49,7 @@ public class Generateur {
 
     private StringBuilder generer_fonctions() {
         StringBuilder fonctions = new StringBuilder();
-        List<Symbole> liste_des_fonctions = this.tds.getAllFunctions(); //Liste des fonctions appelées dans le code
+        List<Symbole> liste_des_fonctions = tds.getAllFunctions(); //Liste des fonctions appelées dans le code
         for (Symbole fonction : liste_des_fonctions) {
             fonctions.append(generer_fonction(fonction));
         }
@@ -61,7 +57,7 @@ public class Generateur {
     }
 
     private StringBuilder generer_data(StringBuilder data) {
-        List<Symbole> global_variables_list = this.tds.getAllGlobalVariables();
+        List<Symbole> global_variables_list = tds.getAllGlobalVariables();
 
         for (Symbole variable : global_variables_list) {
 
@@ -98,8 +94,11 @@ public class Generateur {
         List<Noeud> noeudsArbre = this.arbre.getFils();
         Fonction fonctionArbre = null;
         for (Noeud noeud : noeudsArbre) {
-            if (noeud instanceof Fonction f && f.getValeur() == fonction.getNom()) {
-                fonctionArbre = f;
+            if (noeud instanceof Fonction){
+                Fonction fonc=(Fonction)noeud;
+                if(fonc.getValeur() == fonction.getNom()) {
+                    fonctionArbre = fonc;
+                }
             }
         }
         if (fonctionArbre == null) {
