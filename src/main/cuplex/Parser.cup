@@ -14,29 +14,25 @@ parser code {:
 /*----------------------------- -----------------*/
 /* la grammaire */
 /* 1) terminaux */
-terminal ADD, MUL, PO, PF;
-terminal Integer NUM;
+terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, SINON, TANT_QUE, LIRE, AFFICHER, COMMENTAIRE;
+terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, VIRGULE, ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
+terminal Integer NOMBRE;
+terminal String CHAINE;
+terminal String IDENTIFIANT;
+
 
 /* 2) non terminaux */
-non terminal langage;
-non terminal Integer expression, facteur, atome;
+non terminal Program;
+non terminal Function;
 
 /* 3) Axiome/Start */
-start with langage;
+start with Program;
 
 /*----------------------------------------------*/
 /*4) regles de production */
-langage ::= expression:x {: RESULT = x; :}
-;
+Program ::= Function;
 
-expression ::= expression:x ADD facteur:f {: RESULT = x + f; :}
-             | facteur:f                  {: RESULT = f; :}
-;
+Function ::= FONCTION IDENTIFIANT PARENTHESE_OUVRANTE PARENTHESE_FERMANTE ACCOLADE_OUVRANTE COMMENTAIRE ACCOLADE_FERMANTE;
 
-facteur ::= facteur:f MUL atome:a {: RESULT = f * a; :}
-          | atome:a               {: RESULT = a; :}
-;
-
-atome ::= NUM:n                   {: RESULT = n; :}
-        | PO expression:x PF      {: RESULT = x; :}
-;
+Instruction ::= /* vide */
+              | COMMENTAIRE;

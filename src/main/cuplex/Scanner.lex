@@ -21,6 +21,8 @@ CHIFFRE = [0-9]
 LETTRE = [a-zA-Z_]
 NOMBRE = {CHIFFRE}+
 CHAINE = \"[^\"]*\" /*string*/
+IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
+
 
 /*règles*/
 %%
@@ -49,6 +51,7 @@ CHAINE = \"[^\"]*\" /*string*/
 ")"           { return new Symbol(Sym.PARENTHESE_FERMANTE); }
 {NOMBRE}      { return new Symbol(Sym.NOMBRE, Integer.parseInt(yytext())); }
 {CHAINE}      { return new Symbol(Sym.CHAINE, yytext()); }
+{IDENTIFIANT}   { return new Symbol(Sym.IDENTIFIANT, yytext()); }
 [ \t\n\r]+    { /* ignorer les espaces blancs */ }
 <COMMENTAIRE>.* { /* ignorer les commentaires */ }
 <COMMENTAIRE>\n { yybegin(YYINITIAL); }
