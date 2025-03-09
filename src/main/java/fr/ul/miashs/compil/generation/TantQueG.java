@@ -77,5 +77,6 @@ public class TantQueG {
         }
         this.exp.append("\tPOP(R1)\n");//On récupère nos variables conservées dans la mémoire (le fils le plus à droite est au dessus de la pile
         this.exp.append("\tPOP(R2)\n");
+        return 0;
     }
 }
