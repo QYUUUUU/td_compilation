@@ -58,7 +58,7 @@ public class TantQueG {
         return this.exp;
     }
 
-    public int getValue(Noeud noeudVar) {
+    public  getValue(Noeud noeudVar) {
         if ((noeudVar.getCat().equals(Noeud.Categories.CONST) | (noeudVar.getCat().equals(Noeud.Categories.IDF)))) {
             if (noeudVar instanceof Const) {
                 return ((Const) noeudVar).getValeur();
@@ -77,5 +77,6 @@ public class TantQueG {
         }
         this.exp.append("\tPOP(R1)\n");//On récupère nos variables conservées dans la mémoire (le fils le plus à droite est au dessus de la pile
         this.exp.append("\tPOP(R2)\n");
+        return(this.exp);
     }
 }

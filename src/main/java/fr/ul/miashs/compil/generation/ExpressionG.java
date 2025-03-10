@@ -14,7 +14,7 @@ public class ExpressionG {
      * porteur est un noeud + - * /... detecté dans une autre fonction et qui engendre l'appel de generer_fonction
      **/
 
-    public StringBuilder generer_expression(Noeud porteur) {
+    public StringBuilder generer_expression(Noeud porteur, String id) {
         StringBuilder expr_string = new StringBuilder();
         expr_string.append("\tPUSH(BP);\n");//on place le marqueur du début de frame dans la pile // TODO Revoir si c'est bon
         expr_string.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
@@ -81,32 +81,32 @@ public class ExpressionG {
 
                 case SUP:
                     expr_string.append("\tCMP(R1,R2)\n");// on compare les deux et on jump vers la partie "greater" (Voir comment et ou se créé cette partie (consitionnelles? )
-                    expr_string.append("\tJG greater\n");
+                    expr_string.append("\tJG "+id+"\n");
                     break;
 
                 case INF:
                     expr_string.append("\tCMP(R1,R2)\n");
-                    expr_string.append("\tJL less\n");
+                    expr_string.append("\tJL "+id+"\n");
                     break;
 
                 case SUPE:
                     expr_string.append("\tCMP(R1,R2)\n");
-                    expr_string.append("\tJGE greaterEq\n");
+                    expr_string.append("\tJGE "+id+"\n");
                     break;
 
                 case INFE:
                     expr_string.append("\tCMP(R1,R2)\n");
-                    expr_string.append("\tJLE lessEq\n");
+                    expr_string.append("\tJLE "+id+"\n");
                     break;
 
                 case EG:
                     expr_string.append("\tCMP(R1,R2)\n");
-                    expr_string.append("\tJE equal\n");
+                    expr_string.append("\tJE "+id+"\n");
                     break;
 
                 case DIF:
                     expr_string.append("\tCMP(R1,R2)\n");
-                    expr_string.append("\tJNE notEqual\n");
+                    expr_string.append("\tJNE "+id+"\n");
                     break;
 
             }
