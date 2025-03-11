@@ -1,0 +1,9 @@
+1 x = 5;
+2 y = 10;
+☀️ (x == y) {
+    📢 "Les valeurs sont égales";
+} 🌧️ {
+    📢 "Les valeurs sont différentes";
+}
+♻️ (x < 100) {
+    x = x + 1;

@@ -1,4 +1,5 @@
 package generated.fr.ul.miashs.expression;
+
 import java_cup.runtime.Symbol;
 
 %%
@@ -23,7 +24,6 @@ NOMBRE = {CHIFFRE}+
 CHAINE = \"[^\"]*\" /*string*/
 IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 
-
 /*règles*/
 %%
 "🌍"          { return new Symbol(Sym.VARIABLE_PLANETE); }
@@ -35,7 +35,7 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 "♻️"          { return new Symbol(Sym.TANT_QUE); }
 "🔡"          { return new Symbol(Sym.LIRE); }
 "📢"          { return new Symbol(Sym.AFFICHER); }
-"🌠"          { yybegin(COMMENTAIRE); }
+"🌠".*          { /* ne rien faire */ }
 "+"           { return new Symbol(Sym.PLUS); }
 "-"           { return new Symbol(Sym.MOINS); }
 "*"           { return new Symbol(Sym.MULTIPLIER); }
@@ -51,8 +51,7 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 ")"           { return new Symbol(Sym.PARENTHESE_FERMANTE); }
 {NOMBRE}      { return new Symbol(Sym.NOMBRE, Integer.parseInt(yytext())); }
 {CHAINE}      { return new Symbol(Sym.CHAINE, yytext()); }
-{IDENTIFIANT}   { return new Symbol(Sym.IDENTIFIANT, yytext()); }
+{IDENTIFIANT} { return new Symbol(Sym.IDENTIFIANT, yytext()); }
 [ \t\n\r]+    { /* ignorer les espaces blancs */ }
-<COMMENTAIRE>.* { /* ignorer les commentaires */ }
-<COMMENTAIRE>\n { yybegin(YYINITIAL); }
+
 .             { erreur(); }

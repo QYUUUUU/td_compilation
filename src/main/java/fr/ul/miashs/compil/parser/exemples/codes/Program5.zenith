@@ -1,0 +1,8 @@
+🚀 maFonction() {
+  🌍 maPlanete = 3;
+  📢 maPlanete;
+  ♻️(maPlanete) {
+    🌍 maPlanete = maPlanete - 1;
+    📢 maPlanete;
+  }
+}

@@ -1,38 +1,105 @@
-/*
-Parser d'expressions de constantes
-TD Compil L3 MIASHS
-Azim Roussanaly
-(c) Université de Lorraine
-2025
-*/
 package generated.fr.ul.miashs.expression;
 
+import java_cup.runtime.*;
+import fr.ul.miashs.compil.arbre.*;
+
+/* Le code de l'analyseur syntaxique */
 parser code {:
-    public int RESULT = 0;
-:}
+    parser p = new parser(new Yylex(System.in)); // Création de l'analyseur avec l'entrée standard
+    p.parse(); // Démarrage de l'analyse syntaxique
+:};
 
-/*----------------------------- -----------------*/
-/* la grammaire */
-/* 1) terminaux */
-terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, SINON, TANT_QUE, LIRE, AFFICHER, COMMENTAIRE;
-terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, VIRGULE, ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
+/* Déclarations des terminaux */
 terminal Integer NOMBRE;
-terminal String CHAINE;
-terminal String IDENTIFIANT;
+terminal String IDENTIFIANT, CHAINE;
+terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, VIRGULE;
+terminal ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
+terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, SINON, TANT_QUE, LIRE, AFFICHER;
 
+/* Déclarations des non-terminaux */
+non terminal Noeud programme;
+non terminal Noeud instructionList;
+non terminal Noeud instruction;
+non terminal Noeud expression;
+non terminal Noeud variable;
+non terminal Noeud fonction;
 
-/* 2) non terminaux */
-non terminal Program;
-non terminal Function;
+/* Priorités et associations */
+precedence left PLUS, MOINS;
+precedence left MULTIPLIER, DIVISER;
 
-/* 3) Axiome/Start */
-start with Program;
+/* Déclaration du non-terminal de départ */
+start with programme;
 
-/*----------------------------------------------*/
-/*4) regles de production */
-Program ::= Function;
+/* Règles de production */
+programme ::= instructionList:i {:
+    RESULT = new Prog().ajouterUnFils(i);
+:};
 
-Function ::= FONCTION IDENTIFIANT PARENTHESE_OUVRANTE PARENTHESE_FERMANTE ACCOLADE_OUVRANTE COMMENTAIRE ACCOLADE_FERMANTE;
+instructionList ::= instruction:i {:
+    RESULT = new Bloc().ajouterUnFils(i);
+:}
+                  | instructionList:l instruction:i {:
+    RESULT = l.ajouterUnFils(i);
+:};
 
-Instruction ::= /* vide */
-              | COMMENTAIRE;
+instruction ::= variable:v POINT_VIRGULE {:
+    RESULT = new Affectation().ajouterUnFils(v);
+:}
+              | AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE {:
+    RESULT = new Ecrire().ajouterUnFils(e);
+:}
+              | LIRE PARENTHESE_OUVRANTE variable:v PARENTHESE_FERMANTE POINT_VIRGULE {:
+    RESULT = new Lire().ajouterUnFils(v);
+:}
+              | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
+    RESULT = new Si().ajouterUnFils(e).ajouterUnFils(i);
+:}
+              | SINON ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
+    RESULT = new Bloc().ajouterUnFils(i);
+:}
+              | TANT_QUE PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
+    RESULT = new TantQue().ajouterUnFils(e).ajouterUnFils(i);
+:}
+              | variable:v ASSIGNER expression:e POINT_VIRGULE {:
+    RESULT = new Affectation().ajouterUnFils(v).ajouterUnFils(e);
+:};
+
+expression ::= expression:e1 PLUS expression:e2 {:
+    RESULT = new Plus().ajouterUnFils(e1).ajouterUnFils(e2);
+:}
+             | expression:e1 MOINS expression:e2 {:
+    RESULT = new Moins().ajouterUnFils(e1).ajouterUnFils(e2);
+:}
+             | expression:e1 MULTIPLIER expression:e2 {:
+    RESULT = new Multiplication().ajouterUnFils(e1).ajouterUnFils(e2);
+:}
+             | expression:e1 DIVISER expression:e2 {:
+    RESULT = new Division().ajouterUnFils(e1).ajouterUnFils(e2);
+:}
+             | PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE {:
+    RESULT = e;
+:}
+             | NOMBRE:n {:
+    RESULT = new Const(n);
+:}
+             | IDENTIFIANT:i {:
+    RESULT = new Idf(i);
+:}
+             | CHAINE:c {:
+    RESULT = new Const(c);
+:};
+
+variable ::= VARIABLE_PLANETE {:
+    RESULT = new Idf("Planete");
+:}
+           | VARIABLE_LUNE {:
+    RESULT = new Idf("Lune");
+:}
+           | VARIABLE_NOUVELLE_LUNE {:
+    RESULT = new Idf("NouvelleLune");
+:};
+
+fonction ::= FONCTION IDENTIFIANT:i PARENTHESE_OUVRANTE instructionList:l PARENTHESE_FERMANTE {:
+    RESULT = new Fonction(i, l);
+:};

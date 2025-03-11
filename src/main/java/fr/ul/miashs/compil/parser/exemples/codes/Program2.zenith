@@ -1,0 +1,8 @@
+🚀 maFonction() {
+  ☀️(maPlanete) {
+    📢 "C'est la planète";
+  }
+  🌧️ {
+    📢 "Ce n'est pas la planète";
+  }
+}
