@@ -58,10 +58,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.12.1</version>
 				<configuration>
-					<release>17</release>
+					<release>11</release>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<!-- create scripts for apps -->
 				<!-- mvn package | appassembler:assemble -->
