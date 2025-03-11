@@ -23,7 +23,7 @@ public class AffectationG {
             affectation_string.append("\tLDR(").append(symbole.getNom()).append(", R0);\n");
         } else {
             ExpressionG expressionGen = new ExpressionG();
-            affectation_string.append(expressionGen.generer_expression(filsDroit));
+            affectation_string.append(expressionGen.generer_expression(filsDroit, filsDroit.getLabel()));
         }
 
         Noeud filsGauche = affectation.getFilsGauche();

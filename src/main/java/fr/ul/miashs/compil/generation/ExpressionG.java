@@ -48,7 +48,7 @@ public class ExpressionG {
                         this.generer_lire(noeudExpr.get(nbFils));
 
                     } else {
-                        this.generer_expression(noeudExpr.get(nbFils));// On génère l'expression du noeud fils qui est entrain d'être vu
+                        this.generer_expression(noeudExpr.get(nbFils), noeudExpr.get(nbFils).getLabel());// On génère l'expression du noeud fils qui est entrain d'être vu
                     }
 
                 }

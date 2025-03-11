@@ -13,7 +13,7 @@ public class TantQueG {
         Noeud condition = noeud.getCondition();
         Bloc instructions = noeud.getBloc();
         ExpressionG expressionG= new ExpressionG();
-        expressionG.generer_expression(condition);
+        expressionG.generer_expression(condition, condition.getLabel());
         InstructionG instructionG = new InstructionG();
         instructionG.generer_instruction(instructions);
 

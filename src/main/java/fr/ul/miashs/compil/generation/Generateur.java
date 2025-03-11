@@ -14,8 +14,9 @@ public class Generateur {
     public static TDS tds;
     private Noeud arbre;
 
-    public Generateur(Noeud arbre) {
+    public Generateur(TDS tds, Noeud arbre) {
         this.arbre = arbre;
+        this.tds = tds;
     }
     public Noeud getArbre() {
         return this.arbre;

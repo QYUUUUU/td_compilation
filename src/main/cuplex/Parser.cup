@@ -5,8 +5,7 @@ import fr.ul.miashs.compil.arbre.*;
 
 /* Le code de l'analyseur syntaxique */
 parser code {:
-    parser p = new parser(new Yylex(System.in)); // Création de l'analyseur avec l'entrée standard
-    p.parse(); // Démarrage de l'analyse syntaxique
+
 :};
 
 /* Déclarations des terminaux */
@@ -18,7 +17,7 @@ terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, 
 
 /* Déclarations des non-terminaux */
 non terminal Noeud programme;
-non terminal Noeud instructionList;
+non terminal Bloc instructionList;
 non terminal Noeud instruction;
 non terminal Noeud expression;
 non terminal Noeud variable;
@@ -27,58 +26,93 @@ non terminal Noeud fonction;
 /* Priorités et associations */
 precedence left PLUS, MOINS;
 precedence left MULTIPLIER, DIVISER;
+precedence left PARENTHESE_OUVRANTE;
+precedence left PARENTHESE_FERMANTE;
 
-/* Déclaration du non-terminal de départ */
 start with programme;
 
 /* Règles de production */
 programme ::= instructionList:i {:
-    RESULT = new Prog().ajouterUnFils(i);
+    Noeud Programme = new Prog();
+    Programme.ajouterUnFils(i);
+    RESULT = Programme;
 :};
 
 instructionList ::= instruction:i {:
-    RESULT = new Bloc().ajouterUnFils(i);
+    Bloc b = new Bloc();
+    b.ajouterUnFils(i);
+    RESULT = b;
 :}
                   | instructionList:l instruction:i {:
-    RESULT = l.ajouterUnFils(i);
+        l.ajouterUnFils(i);
+        RESULT = l;
 :};
 
 instruction ::= variable:v POINT_VIRGULE {:
-    RESULT = new Affectation().ajouterUnFils(v);
+    RESULT = new Idf(v);
 :}
               | AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE {:
-    RESULT = new Ecrire().ajouterUnFils(e);
+              Ecrire ec = new Ecrire();
+              ec.ajouterUnFils(e);
+              RESULT = ec;
 :}
               | LIRE PARENTHESE_OUVRANTE variable:v PARENTHESE_FERMANTE POINT_VIRGULE {:
-    RESULT = new Lire().ajouterUnFils(v);
+              Lire l = new Lire();
+              l.ajouterUnFils(v);
+              RESULT = l;
 :}
               | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-    RESULT = new Si().ajouterUnFils(e).ajouterUnFils(i);
-:}
-              | SINON ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-    RESULT = new Bloc().ajouterUnFils(i);
+              Si s = new Si();
+              s.setCondition(e);
+              s.setBlocAlors(i);
+              RESULT = s;
+              :}
+              | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:il ACCOLADE_FERMANTE SINON ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
+              Si s = new Si();
+              s.setCondition(e);
+              s.setBlocAlors(il);
+              s.setBlocSinon(i);
+              RESULT = s;
 :}
               | TANT_QUE PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-    RESULT = new TantQue().ajouterUnFils(e).ajouterUnFils(i);
+              TantQue tq = new TantQue();
+              tq.setCondition(e);
+              tq.setBloc(i);
+              RESULT = tq;
 :}
               | variable:v ASSIGNER expression:e POINT_VIRGULE {:
-    RESULT = new Affectation().ajouterUnFils(v).ajouterUnFils(e);
+              Affectation a = new Affectation();
+              a.setFilsGauche(v);
+              a.setFilsDroit(e);
+              RESULT = a;
 :};
 
 expression ::= expression:e1 PLUS expression:e2 {:
-    RESULT = new Plus().ajouterUnFils(e1).ajouterUnFils(e2);
+    Plus p = new Plus();
+    p.setFilsGauche(e1);
+    p.setFilsDroit(e2);
+    RESULT = p;
 :}
              | expression:e1 MOINS expression:e2 {:
-    RESULT = new Moins().ajouterUnFils(e1).ajouterUnFils(e2);
+    Moins m = new Moins();
+    m.setFilsGauche(e1);
+    m.setFilsDroit(e2);
+    RESULT = m;
 :}
              | expression:e1 MULTIPLIER expression:e2 {:
-    RESULT = new Multiplication().ajouterUnFils(e1).ajouterUnFils(e2);
+             Multiplication m = new Multiplication();
+             m.setFilsGauche(e1);
+             m.setFilsDroit(e2);
+             RESULT = m;
 :}
              | expression:e1 DIVISER expression:e2 {:
-    RESULT = new Division().ajouterUnFils(e1).ajouterUnFils(e2);
+             Division d = new Division();
+             d.setFilsGauche(e1);
+             d.setFilsDroit(e2);
+             RESULT = d;
 :}
              | PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE {:
-    RESULT = e;
+            RESULT = e;
 :}
              | NOMBRE:n {:
     RESULT = new Const(n);
@@ -86,20 +120,20 @@ expression ::= expression:e1 PLUS expression:e2 {:
              | IDENTIFIANT:i {:
     RESULT = new Idf(i);
 :}
-             | CHAINE:c {:
-    RESULT = new Const(c);
-:};
+;
 
-variable ::= VARIABLE_PLANETE {:
-    RESULT = new Idf("Planete");
+variable ::= VARIABLE_PLANETE IDENTIFIANT: i{:
+    RESULT = new Idf(i);
 :}
-           | VARIABLE_LUNE {:
-    RESULT = new Idf("Lune");
+           | VARIABLE_LUNE IDENTIFIANT: i{:
+    RESULT = new Idf(i);
 :}
-           | VARIABLE_NOUVELLE_LUNE {:
-    RESULT = new Idf("NouvelleLune");
+           | VARIABLE_NOUVELLE_LUNE IDENTIFIANT: i{:
+    RESULT = new Idf(i);
 :};
 
 fonction ::= FONCTION IDENTIFIANT:i PARENTHESE_OUVRANTE instructionList:l PARENTHESE_FERMANTE {:
-    RESULT = new Fonction(i, l);
+    Fonction f = new Fonction(i);
+    f.ajouterUnFils(l);
+    RESULT = f;
 :};

@@ -18,7 +18,7 @@ public class SiG {
 
         // Générer le code pour la condition
         ExpressionG expressionGen = new ExpressionG();
-        si_string.append(expressionGen.generer_expression(noeudSi.getCondition()));
+        si_string.append(expressionGen.generer_expression(noeudSi.getCondition(), noeudSi.getCondition().getLabel()));
 
         // Récupérer le résultat de la condition
         si_string.append("\tPOP(R0)\n");
@@ -57,7 +57,7 @@ public class SiG {
                     instruction.getCat().equals(Noeud.Categories.DIF) ||
                     instruction.getCat().equals(Noeud.Categories.CONST) ||
                     instruction.getCat().equals(Noeud.Categories.IDF)) {
-                bloc_string.append(expressionGen.generer_expression(instruction));
+                bloc_string.append(expressionGen.generer_expression(instruction, instruction.getLabel()));
             } else if (instruction instanceof Si) {
                 bloc_string.append(generer_si((Si) instruction));
             } //TODO rajouter les autres types de noeuds qui existent et les prendre en charge.
