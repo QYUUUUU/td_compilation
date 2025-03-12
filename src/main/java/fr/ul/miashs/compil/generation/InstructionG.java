@@ -35,4 +35,16 @@ public class InstructionG { //TODO: voir si on peut la mettre en classe abstrait
         return (res);
 
     }
+
+    public StringBuilder generer_bloc(Bloc bloc) {
+        StringBuilder bloc_string = new StringBuilder();
+        List<Noeud> instructions = bloc.getFils();
+
+        for (Noeud instruction : instructions) {
+            InstructionG instructionGen = new InstructionG();
+            bloc_string.append(instructionGen.generer_instruction(instruction));
+        }
+
+        return bloc_string;
+    }
 }

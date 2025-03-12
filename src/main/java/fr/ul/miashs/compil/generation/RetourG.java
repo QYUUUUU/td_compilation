@@ -3,7 +3,7 @@ package fr.ul.miashs.compil.generation;
 import fr.ul.miashs.compil.arbre.Affectation;
 import fr.ul.miashs.compil.tds.TDS;
 
-public class RetourG {
+public class RetourG extends InstructionG{
 
     public StringBuilder generer_retour() {
         StringBuilder retour_string = new StringBuilder();

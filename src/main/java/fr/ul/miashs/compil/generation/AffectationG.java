@@ -1,15 +1,16 @@
 package fr.ul.miashs.compil.generation;
 
+import fr.ul.miashs.compil.arbre.Affectation;
 import fr.ul.miashs.compil.arbre.Const;
 import fr.ul.miashs.compil.arbre.Idf;
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.tds.Symbole;
-import fr.ul.miashs.compil.tds.TDS;
 
 
-public class AffectationG {
 
-    public StringBuilder generer_affectation(fr.ul.miashs.compil.arbre.Affectation affectation) {
+public class AffectationG extends InstructionG{
+
+    public StringBuilder generer_affectation(Affectation affectation) {
         StringBuilder affectation_string = new StringBuilder();
 
         Noeud filsDroit = affectation.getFilsDroit();
@@ -23,7 +24,7 @@ public class AffectationG {
             affectation_string.append("\tLDR(").append(symbole.getNom()).append(", R0);\n");
         } else {
             ExpressionG expressionGen = new ExpressionG();
-            affectation_string.append(expressionGen.generer_expression(filsDroit));
+            affectation_string.append(expressionGen.generer_expression(filsDroit,expressionGen.getId()));
         }
 
         Noeud filsGauche = affectation.getFilsGauche();

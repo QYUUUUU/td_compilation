@@ -1,9 +1,6 @@
 package fr.ul.miashs.compil.generation;
-
-import fr.ul.miashs.compil.arbre.Const;
 import fr.ul.miashs.compil.arbre.Fonction;
 import fr.ul.miashs.compil.arbre.Noeud;
-import fr.ul.miashs.compil.arbre.Prog;
 import fr.ul.miashs.compil.tds.Symbole;
 import fr.ul.miashs.compil.tds.TDS;
 
@@ -12,7 +9,9 @@ import java.util.List;
 public class Generateur {
 
     public static TDS tds;
+    public static List<Integer> tableID;
     private Noeud arbre;
+
 
     public Generateur(Noeud arbre) {
         this.arbre = arbre;
@@ -29,7 +28,7 @@ public class Generateur {
                 "\tCMOVE(pile,SP)\n" +
                 "\tBR(main)\n";
 
-        String pile = "pile:\n";
+        String pile = "pile :\n";
 
         String data_init_text = "data:\n";
         StringBuilder data = new StringBuilder();
@@ -38,23 +37,17 @@ public class Generateur {
 
         StringBuilder final_string = new StringBuilder(head_string + data);
 
-        StringBuilder fonctions = generer_fonctions();
-
-        final_string.append(fonctions);
-
+        List<Symbole> symList= tds.getAllSymboles();
+        for (Symbole sym: symList) {
+            if (sym.getCategorie().equals("fonction")){
+                final_string.append(generer_fonction(sym));
+            }
+        }
         final_string.append(pile);
 
         System.out.println(final_string);
     }
 
-    private StringBuilder generer_fonctions() {
-        StringBuilder fonctions = new StringBuilder();
-        List<Symbole> liste_des_fonctions = tds.getAllFunctions(); //Liste des fonctions appelées dans le code
-        for (Symbole fonction : liste_des_fonctions) {
-            fonctions.append(generer_fonction(fonction));
-        }
-        return fonctions;
-    }
 
     private StringBuilder generer_data(StringBuilder data) {
         List<Symbole> global_variables_list = tds.getAllGlobalVariables();
@@ -83,52 +76,64 @@ public class Generateur {
         StringBuilder fonction_string = new StringBuilder();
         fonction_string.append(fonction.getNom()).append(":\n");
         fonction_string.append("\tPUSH(BP);\n");
-        fonction_string.append("\tPUSH(BP);\n");
-        fonction_string.append("\tMOVE(SP, BP);\n");
+        fonction_string.append("\tPUSH(BP);\n"); //pk deux PUSH BP?
+        fonction_string.append("\tMOVE(SP, BP);\n"); // Plutot l'inverse? on enregistre l'ancienne BP et on la remplace par celle de la fonction qu'on va traiter$
 
-        int nombreVariables = fonction.getNbVar() != null ? fonction.getNbVar() : 0;
+        // pour enregister les paramètres=> étant donné qu'il y en a moins que 4 on peut utiliser de R0 à R3
+        List<Symbole> symList= tds.getAllSymboles();
+        int compt=0;
+        for (Symbole sym: symList) {
+            if (sym.getCategorie().equals("param")){
+               Object valeurparam=sym.getValeur();
+               fonction_string.append("\tMOVE(R"+compt+","+valeurparam+");\n");
+            }
+            compt++;
+        }
+
+        int nombreVariables = fonction.getNbVar() != null ? fonction.getNbVar() : 0; // si le nb de var est null on le met directement à 0
         if (nombreVariables > 0) {
             fonction_string.append("  ALLOCATE(").append(nombreVariables).append(");\n");
         }
 
-        List<Noeud> noeudsArbre = this.arbre.getFils();
+
         Fonction fonctionArbre = null;
+        List<Noeud> noeudsArbre = this.arbre.getFils();
         for (Noeud noeud : noeudsArbre) {
             if (noeud instanceof Fonction){
                 Fonction fonc=(Fonction)noeud;
-                if(fonc.getValeur() == fonction.getNom()) {
+                if(fonctionArbre.getValeur() == fonction.getNom()) {
                     fonctionArbre = fonc;
                 }
             }
         }
-        if (fonctionArbre == null) {
+
+        if (fonctionArbre == null) {//cas erreur
             System.out.println("Fonction non trouvée");
-            //TODO: fonction non trouvée
             return null;
         }
-
-        List<Noeud> instructions = fonctionArbre.getFils();
-        for (Noeud instruction : instructions) {
-            //TODO Utiliser le noeud de la fonction pour explorer son contenu (ses enfants)
+        else{
+            List<Noeud> instructions = fonctionArbre.getFils();
+            for (Noeud instruction : instructions) {
+                InstructionG instruct=new InstructionG();
+                    instruct.generer_instruction(instruction);
+            }
         }
-
-
-        //TODO Ecrire les methodes generate pour chacuns des types d'enfants possibles
-
-//        for (Noeud f : a.getFils()) {
-//            fonction_string.append("  ").append(generer_instruction(f)).append("\n");
-//        }
+        if(!(fonctionArbre.getValeur().equals("main"))) { // seulement si ce n'est pas le main
+            fonction_string.append("\t BX LR;\n");// revenir à l'endroit avant l'appel de la fonction
+        }
         fonction_string.append("}\n");
         return fonction_string;
     }
 
 
 
-    private StringBuilder generer_appel() {
-        StringBuilder string = new StringBuilder();
-
-        return string;
+    private StringBuilder generer_appel(Symbole fonction) {
+        StringBuilder retString = new StringBuilder();
+        retString.append("\t BL "+fonction.getNom()+"\n"); // on place dans LR l'adresse de retour
+        return retString;
     }
 
 
 }
+
+
