@@ -1,4 +1,5 @@
 package generated.fr.ul.miashs.expression;
+
 import java_cup.runtime.Symbol;
 
 %%
@@ -13,14 +14,44 @@ import java_cup.runtime.Symbol;
     }
 %}
 
-/*macros*/
-SEP = [ \t\n\r]+
-NUM = [0-9]+
-ADD = "+"
-MULT = "*"
-PO = "("
+/* Lexical states */
+%state COMMENTAIRE
+
+/* Macros */
+CHIFFRE = [0-9]
+LETTRE = [a-zA-Z_]
+NOMBRE = {CHIFFRE}+
+CHAINE = \"[^\"]*\" /*string*/
+IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 
 /*règles*/
-"+" { return new Symbol(Sym.ADD); }
-"*" { return new Symbol(Sym.MULT); }
-"(" { return new Symbol(Sym.PO); }
+%%
+"🌍"          { return new Symbol(Sym.VARIABLE_PLANETE); }
+"🌕"          { return new Symbol(Sym.VARIABLE_LUNE); }
+"🌑"          { return new Symbol(Sym.VARIABLE_NOUVELLE_LUNE); }
+"🚀"          { return new Symbol(Sym.FONCTION); }
+"☀️"          { return new Symbol(Sym.SI); }
+"🌧️"          { return new Symbol(Sym.SINON); }
+"♻️"          { return new Symbol(Sym.TANT_QUE); }
+"🔡"          { return new Symbol(Sym.LIRE); }
+"📢"          { return new Symbol(Sym.AFFICHER); }
+"🌠".*          { /* ne rien faire */ }
+"+"           { return new Symbol(Sym.PLUS); }
+"-"           { return new Symbol(Sym.MOINS); }
+"*"           { return new Symbol(Sym.MULTIPLIER); }
+"/"           { return new Symbol(Sym.DIVISER); }
+"=="          { return new Symbol(Sym.EGAL); }
+"!="          { return new Symbol(Sym.DIFFERENT); }
+"="           { return new Symbol(Sym.ASSIGNER); }
+";"           { return new Symbol(Sym.POINT_VIRGULE); }
+","           { return new Symbol(Sym.VIRGULE); }
+"{"           { return new Symbol(Sym.ACCOLADE_OUVRANTE); }
+"}"           { return new Symbol(Sym.ACCOLADE_FERMANTE); }
+"("           { return new Symbol(Sym.PARENTHESE_OUVRANTE); }
+")"           { return new Symbol(Sym.PARENTHESE_FERMANTE); }
+{NOMBRE}      { return new Symbol(Sym.NOMBRE, Integer.parseInt(yytext())); }
+{CHAINE}      { return new Symbol(Sym.CHAINE, yytext()); }
+{IDENTIFIANT} { return new Symbol(Sym.IDENTIFIANT, yytext()); }
+[ \t\n\r]+    { /* ignorer les espaces blancs */ }
+
+.             { erreur(); }

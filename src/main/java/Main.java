@@ -1,7 +1,6 @@
-import fr.ul.miashs.compil.analyse.ParserCup;
-import fr.ul.miashs.compil.analyse.Yylex;
-
 import java.io.FileReader;
+import generated.fr.ul.miashs.expression.ParserCup;
+import generated.fr.ul.miashs.expression.Yylex;
 
 public class Main{
     public static void main(String[] args) {
