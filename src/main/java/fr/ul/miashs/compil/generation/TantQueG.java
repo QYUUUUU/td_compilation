@@ -1,22 +1,27 @@
 package fr.ul.miashs.compil.generation;
 
-import fr.ul.miashs.compil.arbre.*;
-import fr.ul.miashs.compil.tds.TDS;
+import fr.ul.miashs.compil.arbre.Bloc;
+import fr.ul.miashs.compil.arbre.Noeud;
+import fr.ul.miashs.compil.arbre.TantQue;
 
-public class TantQueG {
+public class TantQueG extends InstructionG {
 
     public StringBuilder exp = new StringBuilder();
 
     public StringBuilder genererTantQue(TantQue noeud) {
         this.exp.append("\tCMP(R1,R2)\n");
 
-        Noeud condition = noeud.getCondition();
-        Bloc instructions = noeud.getBloc();
-        ExpressionG expressionG= new ExpressionG();
-        expressionG.generer_expression(condition,expressionG.getId());
-        InstructionG instructionG = new InstructionG();
-        instructionG.generer_instruction(instructions);
+        Noeud condition = noeud.getCondition(); //Récupération de la condition
+        Bloc instructions = noeud.getBloc(); //Récupération du bloc d'instructions
 
+        //Génération de la condition en tant qu'expression
+        ExpressionG expressionG = new ExpressionG();
+        this.exp.append("TANT_QUE_" + expressionG.getId() + " :\n");
+        this.exp.append(expressionG.generer_expression(condition, expressionG.getId()));
+        this.exp.append("JMP" + " INSTRUCTIONS_" + expressionG.getId() + "\n");
+        //Génération du contenu du bloc d'instructions
+        this.exp.append("INSTRUCTIONS_" + expressionG.getId() + " :\n");
+        this.exp.append(generer_bloc(instructions));
 
         return this.exp;
     }
