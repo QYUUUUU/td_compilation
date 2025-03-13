@@ -30,9 +30,11 @@
 package fr.ul.miashs.compil.arbre.exemples;
 
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.generation.Generateur;
 import fr.ul.miashs.compil.tds.Symbole;
 import fr.ul.miashs.compil.tds.TDS;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,5 +81,18 @@ public class Program_3 {
         //afficher
         TxtAfficheur.afficher(prog);
         GuiAfficheur.afficher(prog);
+
+        //Generer le code assembleur
+        Generateur gen = new Generateur(prog, tds);
+        String stringReturn= gen.generer().toString();
+        try {
+            FileWriter fw = new FileWriter("Programme3.txt");
+            fw.write(stringReturn);
+            fw.close();
+            System.out.println("Le texte a été écrit avec succès");
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite");
+
+        }
     }
 }

@@ -9,18 +9,20 @@ import java.util.List;
 public class Generateur {
 
     public static TDS tds;
-    public static List<Integer> tableID;
-    private Noeud arbre;
+    public static List<Integer> tableID; // table de toutes les id utilisées pour faires des appels de parties dans l'assembleur
+    public static Noeud arbre;
 
 
-    public Generateur(Noeud arbre) {
+    public  Generateur(Noeud arbre, TDS tds) {
+
         this.arbre = arbre;
+        this.tds=tds;
     }
     public Noeud getArbre() {
         return this.arbre;
     }
 
-    public void generer() {
+    public StringBuilder generer() {
         //Former le fichier template d'assembleur
         String head_string = ".include beta.uasm\n" +
                 ".include intio.uasm\n" +
@@ -45,7 +47,7 @@ public class Generateur {
         }
         final_string.append(pile);
 
-        System.out.println(final_string);
+       return(final_string);
     }
 
 
@@ -101,7 +103,7 @@ public class Generateur {
         for (Noeud noeud : noeudsArbre) {
             if (noeud instanceof Fonction){
                 Fonction fonc=(Fonction)noeud;
-                if(fonctionArbre.getValeur() == fonction.getNom()) {
+                if(fonc.getValeur() == fonction.getNom()) {
                     fonctionArbre = fonc;
                 }
             }

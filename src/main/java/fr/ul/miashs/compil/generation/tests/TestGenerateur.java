@@ -32,7 +32,7 @@ public class TestGenerateur {
         tds.addSymbole(new Symbole("l", "int", "global", null, null, null));
 
 
-        Generateur generateur = new Generateur(tds, prog);
+        Generateur generateur = new Generateur(prog,tds);
 
 
         StringBuilder output = new StringBuilder();

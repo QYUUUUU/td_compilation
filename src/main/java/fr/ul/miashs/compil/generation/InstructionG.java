@@ -14,19 +14,19 @@ public class InstructionG { //TODO: voir si on peut la mettre en classe abstrait
             Si filsSi = (Si) fils;
             SiG newSi = new SiG();
             res = res.append(newSi.generer_si(filsSi)); // on ajoute au programme, le code du noeud relié à l'instruction
-        } else if (instruct instanceof TantQue) {
+        } else if (fils instanceof TantQue) {
             TantQue filsTQ = (TantQue) fils;
             TantQueG newTQ = new TantQueG();
             res = res.append(newTQ.genererTantQue(filsTQ));
-        } else if (instruct instanceof Affectation) {
+        } else if (fils instanceof Affectation) {
             Affectation filsAff = (Affectation) fils;
             AffectationG newAff = new AffectationG();
             res = res.append(newAff.generer_affectation(filsAff));
-        } else if (instruct instanceof Retour) {
+        } else if (fils instanceof Retour) {
             Retour filsRet = (Retour) fils;
             RetourG newRetour = new RetourG();
             res = res.append(newRetour.generer_retour());
-        } else if (instruct instanceof Ecrire) {
+        } else if (fils instanceof Ecrire) {
             Ecrire filsEcr = (Ecrire) fils;
             EcrireG newEcr = new EcrireG(); //TODO: faire la classe Ecrire
             res = res.append(newEcr.generer_ecrire(filsEcr));

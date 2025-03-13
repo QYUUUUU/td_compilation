@@ -31,6 +31,7 @@
 package fr.ul.miashs.compil.arbre.exemples;
 
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.generation.Generateur;
 
 /**
  * Exemple #1
@@ -44,5 +45,8 @@ public class Exemple1 {
         //afficher de deux manières
         TxtAfficheur.afficher(prog);
         GuiAfficheur.afficher(prog);
+
+
+
     }
 }

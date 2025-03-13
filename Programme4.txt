@@ -1,0 +1,13 @@
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+data:
+res:	LONG(null)	| int res;
+main:
+	PUSH(BP);
+	PUSH(BP);
+	MOVE(SP, BP);
+}
+pile :
