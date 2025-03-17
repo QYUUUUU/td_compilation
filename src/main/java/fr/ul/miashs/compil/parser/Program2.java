@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Program2 {
     public static void main(String[] args) {
-        String filePath = "src/main/java/fr/ul/miashs/compil/parser/exemples/codes/Program2.zenith";
+        String filePath = "src/main/java/fr/ul/miashs/compil/parser/exemples/Program2.zenith";
         File file = new File(filePath);
 
         try {

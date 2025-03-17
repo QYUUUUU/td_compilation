@@ -26,10 +26,10 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 
 /*règles*/
 %%
-"🌍"          { return new Symbol(Sym.VARIABLE_PLANETE); }
+"int"          { return new Symbol(Sym.VARIABLE_PLANETE); }
 "🌕"          { return new Symbol(Sym.VARIABLE_LUNE); }
 "🌑"          { return new Symbol(Sym.VARIABLE_NOUVELLE_LUNE); }
-"🚀"          { return new Symbol(Sym.FONCTION); }
+"fonction"          { return new Symbol(Sym.FONCTION); }
 "☀️"          { return new Symbol(Sym.SI); }
 "🌧️"          { return new Symbol(Sym.SINON); }
 "♻️"          { return new Symbol(Sym.TANT_QUE); }

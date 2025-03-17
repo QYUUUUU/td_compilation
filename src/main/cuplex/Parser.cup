@@ -17,123 +17,56 @@ terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, 
 
 /* Déclarations des non-terminaux */
 non terminal Noeud programme;
-non terminal Bloc instructionList;
+non terminal Noeud instructionList,instructionEoN, instructionAccolade;
 non terminal Noeud instruction;
-non terminal Noeud expression;
-non terminal Noeud variable;
-non terminal Noeud fonction;
+non terminal Fonction fonction;
 
 /* Priorités et associations */
 precedence left PLUS, MOINS;
 precedence left MULTIPLIER, DIVISER;
-precedence left PARENTHESE_OUVRANTE;
-precedence left PARENTHESE_FERMANTE;
 
 start with programme;
 
-/* Règles de production */
-programme ::= instructionList:i {:
-    Noeud Programme = new Prog();
-    Programme.ajouterUnFils(i);
-    RESULT = Programme;
+programme ::= instructionEoN:ion
+{:
+Prog prog = new Prog();
+prog.ajouterUnFils(ion);
+RESULT = prog;
 :};
 
-instructionList ::= instruction:i {:
-    Bloc b = new Bloc();
-    b.ajouterUnFils(i);
-    RESULT = b;
-:}
-                  | instructionList:l instruction:i {:
-        l.ajouterUnFils(i);
-        RESULT = l;
+fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+RESULT = new Fonction(id);
 :};
 
-instruction ::= variable:v POINT_VIRGULE {:
-    RESULT = new Idf(v);
-:}
-              | AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE {:
-              Ecrire ec = new Ecrire();
-              ec.ajouterUnFils(e);
-              RESULT = ec;
-:}
-              | LIRE PARENTHESE_OUVRANTE variable:v PARENTHESE_FERMANTE POINT_VIRGULE {:
-              Lire l = new Lire();
-              l.ajouterUnFils(v);
-              RESULT = l;
-:}
-              | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-              Si s = new Si();
-              s.setCondition(e);
-              s.setBlocAlors(i);
-              RESULT = s;
-              :}
-              | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:il ACCOLADE_FERMANTE SINON ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-              Si s = new Si();
-              s.setCondition(e);
-              s.setBlocAlors(il);
-              s.setBlocSinon(i);
-              RESULT = s;
-:}
-              | TANT_QUE PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-              TantQue tq = new TantQue();
-              tq.setCondition(e);
-              tq.setBloc(i);
-              RESULT = tq;
-:}
-              | variable:v ASSIGNER expression:e POINT_VIRGULE {:
-              Affectation a = new Affectation();
-              a.setFilsGauche(v);
-              a.setFilsDroit(e);
-              RESULT = a;
+instructionAccolade ::= ACCOLADE_OUVRANTE instructionEoN:ie ACCOLADE_FERMANTE
+{:
+RESULT = ie;
 :};
 
-expression ::= expression:e1 PLUS expression:e2 {:
-    Plus p = new Plus();
-    p.setFilsGauche(e1);
-    p.setFilsDroit(e2);
-    RESULT = p;
+instructionEoN ::=
+{:
+RESULT = new Bloc();
 :}
-             | expression:e1 MOINS expression:e2 {:
-    Moins m = new Moins();
-    m.setFilsGauche(e1);
-    m.setFilsDroit(e2);
-    RESULT = m;
-:}
-             | expression:e1 MULTIPLIER expression:e2 {:
-             Multiplication m = new Multiplication();
-             m.setFilsGauche(e1);
-             m.setFilsDroit(e2);
-             RESULT = m;
-:}
-             | expression:e1 DIVISER expression:e2 {:
-             Division d = new Division();
-             d.setFilsGauche(e1);
-             d.setFilsDroit(e2);
-             RESULT = d;
-:}
-             | PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE {:
-            RESULT = e;
-:}
-             | NOMBRE:n {:
-    RESULT = new Const(n);
-:}
-             | IDENTIFIANT:i {:
-    RESULT = new Idf(i);
-:}
-;
-
-variable ::= VARIABLE_PLANETE IDENTIFIANT: i{:
-    RESULT = new Idf(i);
-:}
-           | VARIABLE_LUNE IDENTIFIANT: i{:
-    RESULT = new Idf(i);
-:}
-           | VARIABLE_NOUVELLE_LUNE IDENTIFIANT: i{:
-    RESULT = new Idf(i);
+| instructionList:il
+{:
+RESULT = il;
 :};
 
-fonction ::= FONCTION IDENTIFIANT:i PARENTHESE_OUVRANTE instructionList:l PARENTHESE_FERMANTE {:
-    Fonction f = new Fonction(i);
-    f.ajouterUnFils(l);
-    RESULT = f;
+instructionList ::= instruction:i
+{:
+Bloc b = new Bloc();
+b.ajouterUnFils(i);
+RESULT = i;
+:}
+| instructionList:il instruction:i
+{:
+il.ajouterUnFils(i);
+RESULT = il;
 :};
+
+instruction ::= fonction:f
+{:
+RESULT = f;
+:};
+
