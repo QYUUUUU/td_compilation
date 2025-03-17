@@ -1,11 +1,13 @@
 🌍 x;
+🌍first;
+🌍second;
 
 🚀 main() {
     🌠 Introduction de la lecture de variable
-    🔡 🌍first;
-    🔡 🌍second;
+    🔡 first;
+    🔡 second;
     
-    🌍x = (🌍first * 2) + ((🌍second - 5) / 3);
+    x = (first * 2) + ((second - 5) / 3);
 
     📢 x;   🌠 On renvoie le résultat
 }
