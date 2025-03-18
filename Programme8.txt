@@ -10,4 +10,11 @@ main:
 	MOVE(SP, BP);
 	MOVE(R2,null);
 }
-nullpile :
+f:
+	PUSH(BP);
+	PUSH(BP);
+	MOVE(SP, BP);
+	MOVE(R2,null);
+	 BX LR;
+}
+pile :

@@ -103,7 +103,9 @@ public class Generateur {
         for (Noeud noeud : noeudsArbre) {
             if (noeud instanceof Fonction){
                 Fonction fonc=(Fonction)noeud;
-                if(fonc.getValeur() == fonction.getNom()) {
+                //Attention à bien faire .toString().equals(...) pour que les types comparés soient les mêmes
+                //mais ça marche sans pour la fonction main
+                if(fonc.getValeur().toString().equals(fonction.getNom())) {
                     fonctionArbre = fonc;
                 }
             }
