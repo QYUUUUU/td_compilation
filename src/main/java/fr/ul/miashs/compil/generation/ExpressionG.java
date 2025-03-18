@@ -4,23 +4,23 @@ import fr.ul.miashs.compil.arbre.Const;
 import fr.ul.miashs.compil.arbre.Idf;
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.arbre.Si;
-import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.List;
 import java.util.Random;
 
-public class ExpressionG extends AffectationG{
+public class ExpressionG extends AffectationG {
     /**
      * @return StringBuilder
      * retourne le code assembleur du fils droit d'une affectation: une expression
      * porteur est un noeud + - * /... detecté dans une autre fonction et qui engendre l'appel de generer_fonction
      **/
     private String id;
-    public ExpressionG(){
-        id=this.FabId();
-    }
-    public StringBuilder generer_expression(Noeud porteur, String id) {
 
+    public ExpressionG() {
+        id = this.FabId();
+    }
+
+    public StringBuilder generer_expression(Noeud porteur, String id) {
 
 
         StringBuilder expr_string = new StringBuilder();
@@ -56,7 +56,7 @@ public class ExpressionG extends AffectationG{
                         this.generer_lire(noeudExpr.get(nbFils));
 
                     } else {
-                        this.generer_expression(noeudExpr.get(nbFils),this.id);// On génère l'expression du noeud fils qui est entrain d'être vu
+                        this.generer_expression(noeudExpr.get(nbFils), this.id);// On génère l'expression du noeud fils qui est entrain d'être vu
                     }
 
                 }
@@ -90,66 +90,66 @@ public class ExpressionG extends AffectationG{
                 case SUP:
                     expr_string.append("\tCMP(R1,R2)\n");// on compare les deux et on jump vers la partie "greater" (Voir comment et ou se créé cette partie (consitionnelles? )
 
-                    if(porteur instanceof Si){
-                        expr_string.append("\tJG ALORS_"+id+"\n");
+                    if (porteur instanceof Si) {
+                        expr_string.append("\tJG ALORS_" + id + "\n");
                         expr_string.append("\tJLE SINON_+\n");
                     }
-                    expr_string.append("\tJG "+id+"\n");
+                    expr_string.append("\tJG " + id + "\n");
                     break;
 
                 case INF:
                     expr_string.append("\tCMP(R1,R2)\n");
 
-                    if(porteur instanceof Si){
-                        expr_string.append("\tJL ALORS_"+id+"\n");
-                        expr_string.append("\tJGE SINON_"+id+"\n");
+                    if (porteur instanceof Si) {
+                        expr_string.append("\tJL ALORS_" + id + "\n");
+                        expr_string.append("\tJGE SINON_" + id + "\n");
                     }
 
-                    expr_string.append("\tJL "+id+"\n");
+                    expr_string.append("\tJL " + id + "\n");
                     break;
 
                 case SUPE:
                     expr_string.append("\tCMP(R1,R2)\n");
 
-                    if(porteur instanceof Si){
-                        expr_string.append("\tJGE ALORS_"+id+"\n");
-                        expr_string.append("\tJL SINON_"+id+"\n");
+                    if (porteur instanceof Si) {
+                        expr_string.append("\tJGE ALORS_" + id + "\n");
+                        expr_string.append("\tJL SINON_" + id + "\n");
                     }
 
-                    expr_string.append("\tJGE "+id+"\n");
+                    expr_string.append("\tJGE " + id + "\n");
                     break;
 
                 case INFE:
                     expr_string.append("\tCMP(R1,R2)\n");
 
-                    if(porteur instanceof Si){
-                        expr_string.append("\tJLE ALORS_"+id+"\n");
-                        expr_string.append("\tJG SINON_"+id+"\n");
+                    if (porteur instanceof Si) {
+                        expr_string.append("\tJLE ALORS_" + id + "\n");
+                        expr_string.append("\tJG SINON_" + id + "\n");
                     }
 
-                    expr_string.append("\tJLE "+id+"\n");
+                    expr_string.append("\tJLE " + id + "\n");
                     break;
 
                 case EG:
                     expr_string.append("\tCMP(R1,R2)\n");
 
-                    if(porteur instanceof Si){
-                        expr_string.append("\tJE ALORS_"+id+"\n");
-                        expr_string.append("\tJNE SINON_"+id+"\n");
+                    if (porteur instanceof Si) {
+                        expr_string.append("\tJE ALORS_" + id + "\n");
+                        expr_string.append("\tJNE SINON_" + id + "\n");
                     }
 
-                    expr_string.append("\tJE "+id+"\n");
+                    expr_string.append("\tJE " + id + "\n");
                     break;
 
                 case DIF:
                     expr_string.append("\tCMP(R1,R2)\n");
 
-                    if(porteur instanceof Si){
-                        expr_string.append("\tJNE ALORS_"+id+"\n");
-                        expr_string.append("\tJE SINON_"+id+"\n");
+                    if (porteur instanceof Si) {
+                        expr_string.append("\tJNE ALORS_" + id + "\n");
+                        expr_string.append("\tJE SINON_" + id + "\n");
                     }
 
-                    expr_string.append("\tJNE "+id+"\n");
+                    expr_string.append("\tJNE " + id + "\n");
                     break;
 
             }
@@ -159,42 +159,49 @@ public class ExpressionG extends AffectationG{
     }
 
 
-        public StringBuilder generer_lire (Noeud lire){
+    public StringBuilder generer_lire(Noeud lire) {
         //TODO Vérifier en groupe la véracité de l'assembleur
-            StringBuilder expr_string = new StringBuilder();
-            expr_string.append("section .bss\n" +
-                    "    input resb 100  \n" + // reserver 100 octets et permettre un tampon
-                    "    global _start\n" +//lanceur
-                    "\n" +
-                    "_start:\n" +
-                    "    MOV (rax, 0) \n"+//vers sys_read
-                    "    MOV (rdi, 0)  \n"+//vers stdin
-                    "    MOV (rsi, input) \n"+//pointeur vers tampon
-                    "    MOV (rdx, 100) \n"+ // alloue le bon nb d'octet
-                    "    syscall\n "+ // commande à l'origine linux mais appremment fonctionne sous Windows
-                    //normalement, l'input est dans rax
-                    "   MOV (R0,rax)\n"+
-                    "   PUSH (R0)\n");
-            return(expr_string);
-        }
-        public String FabId(){
-            int newID=0;
-            boolean same=true;
-            while(same==true) {
-                Random rnd = new Random();
-                newID=rnd.nextInt(100);
-                same = false;
-                for (int id = 0; id < Generateur.tableID.size(); id++) {
-                    if (id == newID) {
-                        same = true;
-                        break;
-                    }
+        StringBuilder expr_string = new StringBuilder();
+        expr_string.append("section .bss\n" +
+                "    input resb 100  \n" + // reserver 100 octets et permettre un tampon
+                "    global _start\n" +//lanceur
+                "\n" +
+                "_start:\n" +
+                "    MOV (rax, 0) \n" +//vers sys_read
+                "    MOV (rdi, 0)  \n" +//vers stdin
+                "    MOV (rsi, input) \n" +//pointeur vers tampon
+                "    MOV (rdx, 100) \n" + // alloue le bon nb d'octet
+                "    syscall\n " + // commande à l'origine linux mais appremment fonctionne sous Windows
+                //normalement, l'input est dans rax
+                "   MOV (R0,rax)\n" +
+                "   PUSH (R0)\n");
+        return (expr_string);
+    }
+
+    public String FabId() {
+        int newID = 0;
+        boolean done = true;
+        while (done) {
+            Random rnd = new Random();
+            newID = rnd.nextInt(100);
+            done = false;
+            System.out.println("newID: " + newID);
+            System.out.println("tableID: " + Generateur.tableID);
+            if (Generateur.tableID.isEmpty()) {
+                Generateur.tableID.add(newID);
+                done = true;
+            } else {
+                if (!Generateur.tableID.contains(newID)) {
+                    Generateur.tableID.add(newID);
+                    done = true;
                 }
             }
-            return(String.valueOf(newID));
         }
-        public String getId(){
-            return(this.id);
-        }
+        return (String.valueOf(newID));
     }
+
+    public String getId() {
+        return (this.id);
+    }
+}
 
