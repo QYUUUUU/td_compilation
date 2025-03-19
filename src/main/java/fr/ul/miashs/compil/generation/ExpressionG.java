@@ -28,38 +28,42 @@ public class ExpressionG extends AffectationG {
         expr_string.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
 
         List<Noeud> noeudExpr = porteur.getFils();
-        for (int nbFils = 0; nbFils < 2; nbFils++) {
 
 
-            if ((noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.CONST) | (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.IDF)))) {// on cherche les expressions terminales
+
+        if(noeudExpr==null) {
+            if ((porteur.getCat().equals(Noeud.Categories.CONST) | porteur.getCat().equals(Noeud.Categories.IDF))) {// on cherche les expressions terminales
                 int val;
-                if (noeudExpr.get(nbFils) instanceof Const) { // pour pouvoir utiliser la fonction getValeur()
-                    val = ((Const) noeudExpr.get(nbFils)).getValeur();
+                if (porteur instanceof Const) { // pour pouvoir utiliser la fonction getValeur()
+                    val = ((Const) porteur).getValeur();
 
                     expr_string.append("\tLDR(R0," + val + ")\n");
                     expr_string.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
 
-                } else if (noeudExpr.get(nbFils) instanceof Idf) {
+                } else if (porteur instanceof Idf) {
 
-                    Object obj = ((Idf) noeudExpr.get(nbFils)).getValeur(); // Idf peut être quel autre type de var que int?
+                    Object obj = ((Idf) porteur).getValeur(); // Idf peut être quel autre type de var que int?
                     if (obj instanceof Integer) {
                         val = (Integer) obj;
                         expr_string.append("\tLDR(R0," + val + ")\n");
                         expr_string.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
                     }
-
-                } else {
-                    if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
-                        AffectationG aff = new AffectationG();
-                        expr_string.append(aff.generer_affectation((fr.ul.miashs.compil.arbre.Affectation) noeudExpr.get(nbFils)));
-                    } else if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.LIRE)) {
-                        this.generer_lire(noeudExpr.get(nbFils));
-
-                    } else {
-                        this.generer_expression(noeudExpr.get(nbFils), this.id);// On génère l'expression du noeud fils qui est entrain d'être vu
-                    }
-
                 }
+            }
+        }
+        else {
+                    for (int nbFils = 0; nbFils < noeudExpr.size(); nbFils++){
+                        if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
+                            AffectationG aff = new AffectationG();
+                            expr_string.append(aff.generer_affectation((fr.ul.miashs.compil.arbre.Affectation) noeudExpr.get(nbFils)));
+                        } else if (noeudExpr.get(nbFils).getCat().equals(Noeud.Categories.LIRE)) {
+                            this.generer_lire(noeudExpr.get(nbFils));
+
+                        } else {
+                            this.generer_expression(noeudExpr.get(nbFils), this.id);// On génère l'expression du noeud fils qui est entrain d'être vu
+                        }
+
+                    }
             }
             expr_string.append("\tPOP(R1)\n");//On récupère nos variables conservées dans la mémoire (le fils le plus à droite est au dessus de la pile
             expr_string.append("\tPOP(R2)\n");
@@ -154,7 +158,7 @@ public class ExpressionG extends AffectationG {
 
             }
 
-        }
+
         return (expr_string); // on renvoie la string de toute l'expression
     }
 

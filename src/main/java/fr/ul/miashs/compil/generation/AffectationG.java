@@ -27,9 +27,9 @@ public class AffectationG extends InstructionG{
             affectation_string.append(expressionGen.generer_expression(filsDroit,expressionGen.getId()));
         }
 
-        Noeud filsGauche = affectation.getFilsGauche();
-        Symbole symboleGauche = Generateur.tds.getSymbole(filsGauche.getLabel());
-        affectation_string.append("\tSTR(").append(symboleGauche.getNom()).append(", ACC);\n");
+        //Noeud filsGauche = affectation.getFilsGauche();
+        //Symbole symboleGauche = Generateur.tds.getSymbole(filsGauche.getLabel());
+        //affectation_string.append("\tSTR(").append(symboleGauche.getNom()).append(", ACC);\n");
 
         return affectation_string;
     }

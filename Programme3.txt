@@ -4,25 +4,22 @@
 	CMOVE(pile,SP)
 	BR(main)
 data:
-a:	LONG(1)	| int a;
-b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
 main:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
-ALORS_28 :
-	LDR(1000, Rc);
-JMP SINON_28
-SINON_28 :
-	LDR(2000, Rc);
-JMP FINSI_
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
-	CMP(R1,R2)
-	JG 28
-FINSI_ :
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
 }
 pile :

@@ -10,5 +10,7 @@ main:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
+	POP(R0)
+	WRINT()
 }
 pile :

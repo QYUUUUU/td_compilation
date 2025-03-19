@@ -9,5 +9,13 @@ main:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
 }
 pile :
