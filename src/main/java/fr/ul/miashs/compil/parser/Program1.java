@@ -35,8 +35,8 @@ public class Program1 {
             System.out.println("Parsing completed successfully!");
 
             // Display the tree
-            //TxtAfficheur.afficher(arbre);
-            //GuiAfficheur.afficher(arbre);
+            TxtAfficheur.afficher(arbre);
+            GuiAfficheur.afficher(arbre);
         } catch (IOException e) {
             System.err.println("File error: " + e.getMessage());
         } catch (Exception e) {

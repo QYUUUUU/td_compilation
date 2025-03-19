@@ -11,15 +11,23 @@ parser code {:
 /* Déclarations des terminaux */
 terminal Integer NOMBRE;
 terminal String IDENTIFIANT, CHAINE;
-terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, VIRGULE;
+terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, SUPERIEUR, SUPERIEUR_EGAL, INFERIEUR, INFERIEUR_EGAL;
 terminal ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
-terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, SINON, TANT_QUE, LIRE, AFFICHER;
+terminal VARIABLE_PLANETE, FONCTION, SI, SINON, TANT_QUE, AFFICHER;
+terminal RETOUR;
 
 /* Déclarations des non-terminaux */
 non terminal Noeud programme;
 non terminal Noeud instructionList,instructionEoN, instructionAccolade;
 non terminal Noeud instruction;
-non terminal Fonction fonction;
+non terminal Noeud fonction;
+non terminal Noeud affectation;
+non terminal Noeud expression;
+non terminal Noeud retour;
+non terminal Noeud condition;
+non terminal Noeud expressionCondition;
+non terminal Noeud afficher;
+non terminal Noeud tantQue, si;
 
 /* Priorités et associations */
 precedence left PLUS, MOINS;
@@ -33,12 +41,158 @@ Prog prog = new Prog();
 prog.ajouterUnFils(ion);
 RESULT = prog;
 :};
-
+/* -------------------------Fonctions------------------------------- */
 fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE PARENTHESE_FERMANTE instructionAccolade:ia
 {:
-RESULT = new Fonction(id);
+Fonction f = new Fonction(id);
+f.ajouterUnFils(ia);
+RESULT = f;
 :};
 
+/* -------------------------Affectation------------------------------- */
+affectation ::= VARIABLE_PLANETE IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
+{:
+Affectation a = new Affectation();
+a.setFilsGauche(new Idf(id));
+a.setFilsDroit(e);
+RESULT = a;
+:};
+
+/* -------------------------TantQue------------------------------- */
+
+tantQue ::= TANT_QUE PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+TantQue tq = new TantQue(1);
+tq.setCondition(ec);
+Bloc b = new Bloc();
+b.ajouterDesFils(ia.getFils());
+tq.setBloc(b);
+RESULT = tq;
+:};
+/* -------------------------Retour------------------------------- NON OPERATIONNEL*/
+retour ::= RETOUR expression:e POINT_VIRGULE
+{:
+Retour r = new Retour(0);
+r.setLeFils(e);
+RESULT = r;
+:};
+
+/* -------------------------Conditions------------------------------- */
+si ::= SI PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia SINON instructionAccolade:ib
+{:
+Si s = new Si(1);
+s.setCondition(ec);
+Bloc b = new Bloc();
+b.ajouterDesFils(ia.getFils());
+s.setBlocAlors(b);
+Bloc b2 = new Bloc();
+b2.ajouterDesFils(ib.getFils());
+s.setBlocSinon(b2);
+RESULT = s;
+:}
+| SI PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+Si s = new Si(2);
+s.setCondition(ec);
+Bloc b = new Bloc();
+b.ajouterDesFils(ia.getFils());
+s.setBlocAlors(b);
+RESULT = s;
+:};
+
+/* -------------------------ExpressionsConditions------------------------------- */
+
+expressionCondition ::= expression:e1 EGAL expression:e2
+{:
+Egal e = new Egal();
+e.setFilsGauche(e1);
+e.setFilsDroit(e2);
+RESULT = e;
+:}
+| expression:e1 DIFFERENT expression:e2
+{:
+Different d = new Different();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| expression:e1 SUPERIEUR expression:e2
+{:
+Superieur d = new Superieur();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| expression:e1 SUPERIEUR_EGAL expression:e2
+{:
+SuperieurEgal d = new SuperieurEgal();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| expression:e1 INFERIEUR expression:e2
+{:
+Inferieur d = new Inferieur();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| expression:e1 INFERIEUR_EGAL expression:e2
+{:
+InferieurEgal d = new InferieurEgal();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+;
+/* -------------------------Print------------------------------- */
+
+afficher ::= AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE
+{:
+Ecrire a = new Ecrire();
+a.setLeFils(e);
+RESULT = a;
+:};
+
+/* -------------------------Expressions------------------------------- */
+expression ::= NOMBRE:n
+{:
+RESULT = new Const(n);
+:}
+| expression:e1 PLUS expression:e2
+{:
+Plus p = new Plus();
+p.setFilsGauche(e1);
+p.setFilsDroit(e2);
+RESULT = p;
+:}
+| expression:e1 MOINS expression:e2
+{:
+Moins m = new Moins();
+m.setFilsGauche(e1);
+m.setFilsDroit(e2);
+RESULT = m;
+:}
+| expression:e1 MULTIPLIER expression:e2
+{:
+Multiplication m = new Multiplication();
+m.setFilsGauche(e1);
+m.setFilsDroit(e2);
+RESULT = m;
+:}
+| expression:e1 DIVISER expression:e2
+{:
+Division d = new Division();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| IDENTIFIANT:id
+{:
+RESULT = new Idf(id);
+:};
+
+/* -------------------------Instructions------------------------------- */
 instructionAccolade ::= ACCOLADE_OUVRANTE instructionEoN:ie ACCOLADE_FERMANTE
 {:
 RESULT = ie;
@@ -57,7 +211,7 @@ instructionList ::= instruction:i
 {:
 Bloc b = new Bloc();
 b.ajouterUnFils(i);
-RESULT = i;
+RESULT = b;
 :}
 | instructionList:il instruction:i
 {:
@@ -68,5 +222,26 @@ RESULT = il;
 instruction ::= fonction:f
 {:
 RESULT = f;
+:}
+| affectation:a
+{:
+RESULT = a;
+:}
+| afficher:a
+{:
+RESULT = a;
+:}
+| tantQue:tq
+{:
+RESULT = tq;
+:}
+| si:s
+{:
+RESULT = s;
+:}
+| retour:r
+{:
+RESULT = r;
 :};
+
 

@@ -11,5 +11,19 @@ main:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
+SI_:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG 87
+ALORS_87 :
+	LDR(1000, Rc);
+JMP SINON_87
+SINON_87 :
+	LDR(2000, Rc);
+JMP FINSI_
+FINSI_ :
 }
 pile :

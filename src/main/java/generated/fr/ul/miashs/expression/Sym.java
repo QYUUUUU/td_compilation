@@ -11,28 +11,29 @@ public interface Sym {
   public static final int EGAL = 9;
   public static final int CHAINE = 4;
   public static final int PLUS = 5;
-  public static final int LIRE = 25;
-  public static final int ACCOLADE_FERMANTE = 15;
-  public static final int FONCTION = 21;
-  public static final int VARIABLE_PLANETE = 18;
+  public static final int ACCOLADE_FERMANTE = 18;
+  public static final int INFERIEUR = 15;
+  public static final int FONCTION = 22;
+  public static final int VARIABLE_PLANETE = 21;
+  public static final int SUPERIEUR = 13;
   public static final int DIFFERENT = 10;
-  public static final int PARENTHESE_FERMANTE = 17;
-  public static final int VIRGULE = 13;
+  public static final int PARENTHESE_FERMANTE = 20;
   public static final int MOINS = 6;
-  public static final int SINON = 23;
+  public static final int SUPERIEUR_EGAL = 14;
+  public static final int SINON = 24;
   public static final int IDENTIFIANT = 3;
   public static final int MULTIPLIER = 7;
+  public static final int INFERIEUR_EGAL = 16;
   public static final int NOMBRE = 2;
   public static final int EOF = 0;
-  public static final int VARIABLE_LUNE = 19;
   public static final int ASSIGNER = 11;
-  public static final int SI = 22;
-  public static final int VARIABLE_NOUVELLE_LUNE = 20;
-  public static final int ACCOLADE_OUVRANTE = 14;
+  public static final int SI = 23;
+  public static final int ACCOLADE_OUVRANTE = 17;
   public static final int error = 1;
   public static final int POINT_VIRGULE = 12;
-  public static final int PARENTHESE_OUVRANTE = 16;
-  public static final int TANT_QUE = 24;
+  public static final int PARENTHESE_OUVRANTE = 19;
+  public static final int RETOUR = 27;
+  public static final int TANT_QUE = 25;
   public static final int AFFICHER = 26;
   public static final int DIVISER = 8;
   public static final String[] terminalNames = new String[] {
@@ -49,20 +50,21 @@ public interface Sym {
   "DIFFERENT",
   "ASSIGNER",
   "POINT_VIRGULE",
-  "VIRGULE",
+  "SUPERIEUR",
+  "SUPERIEUR_EGAL",
+  "INFERIEUR",
+  "INFERIEUR_EGAL",
   "ACCOLADE_OUVRANTE",
   "ACCOLADE_FERMANTE",
   "PARENTHESE_OUVRANTE",
   "PARENTHESE_FERMANTE",
   "VARIABLE_PLANETE",
-  "VARIABLE_LUNE",
-  "VARIABLE_NOUVELLE_LUNE",
   "FONCTION",
   "SI",
   "SINON",
   "TANT_QUE",
-  "LIRE",
-  "AFFICHER"
+  "AFFICHER",
+  "RETOUR"
   };
 }
 

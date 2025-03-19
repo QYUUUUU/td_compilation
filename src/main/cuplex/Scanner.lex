@@ -27,14 +27,12 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 /*règles*/
 %%
 "int"          { return new Symbol(Sym.VARIABLE_PLANETE); }
-"🌕"          { return new Symbol(Sym.VARIABLE_LUNE); }
-"🌑"          { return new Symbol(Sym.VARIABLE_NOUVELLE_LUNE); }
 "fonction"          { return new Symbol(Sym.FONCTION); }
-"☀️"          { return new Symbol(Sym.SI); }
-"🌧️"          { return new Symbol(Sym.SINON); }
-"♻️"          { return new Symbol(Sym.TANT_QUE); }
-"🔡"          { return new Symbol(Sym.LIRE); }
-"📢"          { return new Symbol(Sym.AFFICHER); }
+"retour"          { return new Symbol(Sym.RETOUR); }
+"si"          { return new Symbol(Sym.SI); }
+"else"          { return new Symbol(Sym.SINON); }
+"tq"          { return new Symbol(Sym.TANT_QUE); }
+"print"          { return new Symbol(Sym.AFFICHER); }
 "🌠".*          { /* ne rien faire */ }
 "+"           { return new Symbol(Sym.PLUS); }
 "-"           { return new Symbol(Sym.MOINS); }
@@ -42,9 +40,12 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 "/"           { return new Symbol(Sym.DIVISER); }
 "=="          { return new Symbol(Sym.EGAL); }
 "!="          { return new Symbol(Sym.DIFFERENT); }
+">"           { return new Symbol(Sym.SUPERIEUR); }
+">="          { return new Symbol(Sym.SUPERIEUR_EGAL); }
+"<"           { return new Symbol(Sym.INFERIEUR); }
+"<="          { return new Symbol(Sym.INFERIEUR_EGAL); }
 "="           { return new Symbol(Sym.ASSIGNER); }
 ";"           { return new Symbol(Sym.POINT_VIRGULE); }
-","           { return new Symbol(Sym.VIRGULE); }
 "{"           { return new Symbol(Sym.ACCOLADE_OUVRANTE); }
 "}"           { return new Symbol(Sym.ACCOLADE_FERMANTE); }
 "("           { return new Symbol(Sym.PARENTHESE_OUVRANTE); }
