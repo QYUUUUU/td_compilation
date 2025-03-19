@@ -17,9 +17,5 @@ main:
 	POP(R2)
 	ADD(R1,R2,R0)
 	PUSH(R0)
-	POP(R1)
-	POP(R2)
-	ADD(R1,R2,R0)
-	PUSH(R0)
 }
 pile :

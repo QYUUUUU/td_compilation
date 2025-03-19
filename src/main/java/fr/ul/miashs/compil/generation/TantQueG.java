@@ -18,11 +18,10 @@ public class TantQueG extends InstructionG {
         ExpressionG expressionG = new ExpressionG();
         this.exp.append("TANT_QUE_" + expressionG.getId() + " :\n");
         this.exp.append(expressionG.generer_expression(condition, expressionG.getId()));
-        this.exp.append("JMP" + " INSTRUCTIONS_" + expressionG.getId() + "\n");
         //Génération du contenu du bloc d'instructions
         this.exp.append("INSTRUCTIONS_" + expressionG.getId() + " :\n");
         this.exp.append(generer_bloc(instructions));
-
+        this.exp.append("FINTQ_\n");
         return this.exp;
     }
 }
