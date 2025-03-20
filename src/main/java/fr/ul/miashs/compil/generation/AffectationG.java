@@ -24,12 +24,12 @@ public class AffectationG extends InstructionG{
             affectation_string.append("\tLDR(").append(symbole.getNom()).append(", R0);\n");
         } else {
             ExpressionG expressionGen = new ExpressionG();
-            affectation_string.append(expressionGen.generer_expression(filsDroit,expressionGen.getId()));
+            affectation_string.append(expressionGen.generer_expression(filsDroit,expressionGen.getId(),false));
         }
 
-        Noeud filsGauche = affectation.getFilsGauche();
-        Symbole symboleGauche = Generateur.tds.getSymbole(filsGauche.getLabel());
-        affectation_string.append("\tSTR(").append(symboleGauche.getNom()).append(", ACC);\n");
+        //Noeud filsGauche = affectation.getFilsGauche();
+        //Symbole symboleGauche = Generateur.tds.getSymbole(filsGauche.getLabel());
+        //affectation_string.append("\tSTR(").append(symboleGauche.getNom()).append(", ACC);\n");
 
         return affectation_string;
     }

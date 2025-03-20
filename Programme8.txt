@@ -9,12 +9,32 @@ main:
 	PUSH(BP);
 	MOVE(SP, BP);
 	MOVE(R2,null);
+	POP(R0)
+	WRINT()
 }
 f:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
 	MOVE(R2,null);
+SI_:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JLE 45
+ALORS_45 :
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
+JMP SINON_45
+SINON_45 :
+JMP FINSI_
+FINSI_ :
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
 	 BX LR;
 }
 pile :
