@@ -19,8 +19,8 @@ public class SiG extends InstructionG{
         ExpressionG expressionGen = new ExpressionG();
 
         //bloc SI
-        si_string.append(labelSi+":\n");
-        si_string.append(expressionGen.generer_expression(noeudSi.getCondition(),expressionGen.getId()));// va envoyer vers le label ALORS ou SINON et démarrer l'algo+":\n");
+        si_string.append(labelSi+expressionGen.getId()+":\n");
+        si_string.append(expressionGen.generer_expression(noeudSi.getCondition(),expressionGen.getId(),true));// va envoyer vers le label ALORS ou SINON et démarrer l'algo+":\n");
 
         // Générer le bloc "alors"
         si_string.append(labelAlors+expressionGen.getId()+" :\n");
