@@ -26,13 +26,14 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 
 /*règles*/
 %%
-"int"          { return new Symbol(Sym.VARIABLE_PLANETE); }
-"fonction"          { return new Symbol(Sym.FONCTION); }
-"retour"          { return new Symbol(Sym.RETOUR); }
-"si"          { return new Symbol(Sym.SI); }
-"else"          { return new Symbol(Sym.SINON); }
-"tq"          { return new Symbol(Sym.TANT_QUE); }
-"print"          { return new Symbol(Sym.AFFICHER); }
+"🔡"            {return new Symbol(Sym.READ);}
+"appel"         { return new Symbol(Sym.APPEL); }
+"🚀"          { return new Symbol(Sym.FONCTION); }
+"💫"          { return new Symbol(Sym.RETOUR); }
+"☀"          { return new Symbol(Sym.SI); }
+"🌧"          { return new Symbol(Sym.SINON); }
+"♻"          { return new Symbol(Sym.TANT_QUE); }
+"📢"          { return new Symbol(Sym.AFFICHER); }
 "🌠".*          { /* ne rien faire */ }
 "+"           { return new Symbol(Sym.PLUS); }
 "-"           { return new Symbol(Sym.MOINS); }

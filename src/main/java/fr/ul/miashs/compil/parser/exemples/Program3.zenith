@@ -1,7 +1,10 @@
-🌍 x;
-🌕 a = 100;
-🌑 b = 170;
+🌠 On définit des variables pour la première fois ! :O
+i = 10;
+j = 20;
+k = 0;
+l = 0;
 
 🚀 main() {
-    x = (a * 2) + ((b - 5) / 3); 🌠 Mon dieu du code métier !
-} 
+j = k + l + i;
+💫(j);
+}

@@ -12,9 +12,9 @@ parser code {:
 terminal Integer NOMBRE;
 terminal String IDENTIFIANT, CHAINE;
 terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, SUPERIEUR, SUPERIEUR_EGAL, INFERIEUR, INFERIEUR_EGAL;
-terminal ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
-terminal VARIABLE_PLANETE, FONCTION, SI, SINON, TANT_QUE, AFFICHER;
-terminal RETOUR;
+terminal VIRGULE, ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
+terminal FONCTION, SI, SINON, TANT_QUE, AFFICHER;
+terminal RETOUR, APPEL, COMMENTAIRE, READ;
 
 /* Déclarations des non-terminaux */
 non terminal Noeud programme;
@@ -24,14 +24,17 @@ non terminal Noeud fonction;
 non terminal Noeud affectation;
 non terminal Noeud expression;
 non terminal Noeud retour;
-non terminal Noeud condition;
 non terminal Noeud expressionCondition;
 non terminal Noeud afficher;
 non terminal Noeud tantQue, si;
+non terminal Noeud appelfonction;
+non terminal commentaire;
+non terminal Noeud lire, parametres;
 
 /* Priorités et associations */
 precedence left PLUS, MOINS;
 precedence left MULTIPLIER, DIVISER;
+precedence left PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
 
 start with programme;
 
@@ -47,8 +50,28 @@ fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE PARENTHESE_FERMANTE ins
 Fonction f = new Fonction(id);
 f.ajouterUnFils(ia);
 RESULT = f;
+:}
+| FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:li PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+Fonction f = new Fonction(id);
+f.ajouterUnFils(li);
+RESULT = f;
 :};
 
+appelfonction ::= APPEL IDENTIFIANT:id PARENTHESE_OUVRANTE PARENTHESE_FERMANTE POINT_VIRGULE
+{:
+RESULT = new Appel(id);
+:};
+
+parametres ::= expression:e
+{:
+RESULT =e;
+:}
+| expression:e1 VIRGULE expression:e2
+{:
+e1.ajouterUnFils(e2);
+RESULT = e1;
+:};
 /* -------------------------Affectation------------------------------- */
 affectation ::= IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
 {:
@@ -69,12 +92,26 @@ b.ajouterDesFils(ia.getFils());
 tq.setBloc(b);
 RESULT = tq;
 :};
-/* -------------------------Retour------------------------------- NON OPERATIONNEL*/
+/* -------------------------Retour------------------------------- */
 retour ::= RETOUR expression:e POINT_VIRGULE
 {:
 Retour r = new Retour(0);
 r.setLeFils(e);
 RESULT = r;
+:}
+| RETOUR PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE
+{:
+Retour r = new Retour(0);
+r.setLeFils(e);
+RESULT = r;
+:};
+
+/* -------------------------Lire------------------------------- */
+lire ::= READ IDENTIFIANT:id POINT_VIRGULE
+{:
+Lire l = new Lire();
+l.ajouterUnFils(new Idf(id));
+RESULT = l;
 :};
 
 /* -------------------------Conditions------------------------------- */
@@ -152,6 +189,12 @@ afficher ::= AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT
 Ecrire a = new Ecrire();
 a.setLeFils(e);
 RESULT = a;
+:}
+| AFFICHER expression:e POINT_VIRGULE
+{:
+Ecrire a = new Ecrire();
+a.setLeFils(e);
+RESULT = a;
 :};
 
 /* -------------------------Expressions------------------------------- */
@@ -190,6 +233,22 @@ RESULT = d;
 | IDENTIFIANT:id
 {:
 RESULT = new Idf(id);
+:}
+| PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE
+{:
+RESULT =e;
+:}
+| IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:li PARENTHESE_FERMANTE
+{:
+Fonction f = new Fonction(id);
+f.ajouterUnFils(li);
+RESULT = f;
+:};
+
+/* -------------------------Commentaires------------------------------- */
+commentaire ::= COMMENTAIRE
+{:
+/* ne rien faire */
 :};
 
 /* -------------------------Instructions------------------------------- */
@@ -242,6 +301,18 @@ RESULT = s;
 | retour:r
 {:
 RESULT = r;
+:}
+| appelfonction : a
+{:
+RESULT = a;
+:}
+| commentaire:c
+{:
+/* ne rien faire */
+:}
+| lire:l
+{:
+RESULT = l;
 :};
 
 
