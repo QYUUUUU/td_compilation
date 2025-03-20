@@ -1,4 +1,4 @@
-package fr.ul.miashs.compil.parser.exemples;
+package fr.ul.miashs.compil.parser;
 
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.arbre.TxtAfficheur;

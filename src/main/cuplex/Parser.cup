@@ -50,7 +50,7 @@ RESULT = f;
 :};
 
 /* -------------------------Affectation------------------------------- */
-affectation ::= VARIABLE_PLANETE IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
+affectation ::= IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
 {:
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
