@@ -45,16 +45,15 @@ prog.ajouterUnFils(ion);
 RESULT = prog;
 :};
 /* -------------------------Fonctions------------------------------- */
-fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE PARENTHESE_FERMANTE instructionAccolade:ia
+fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:p PARENTHESE_FERMANTE instructionAccolade:ia
 {:
 Fonction f = new Fonction(id);
+if(ia != null){
 f.ajouterUnFils(ia);
-RESULT = f;
-:}
-| FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:li PARENTHESE_FERMANTE instructionAccolade:ia
-{:
-Fonction f = new Fonction(id);
-f.ajouterUnFils(li);
+}
+if (p != null){
+f.ajouterUnFils(p);
+}
 RESULT = f;
 :};
 
@@ -69,8 +68,14 @@ RESULT =e;
 :}
 | expression:e1 VIRGULE expression:e2
 {:
-e1.ajouterUnFils(e2);
-RESULT = e1;
+Bloc b = new Bloc();
+b.ajouterUnFils(e2);
+b.ajouterUnFils(e1);
+RESULT = b;
+:}
+|
+{:
+RESULT = new Bloc();
 :};
 /* -------------------------Affectation------------------------------- */
 affectation ::= IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
@@ -78,6 +83,18 @@ affectation ::= IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
 a.setFilsDroit(e);
+RESULT = a;
+:}
+| IDENTIFIANT:id ASSIGNER appelfonction:a POINT_VIRGULE
+{:
+Affectation af = new Affectation();
+af.setFilsGauche(a);
+RESULT = af;
+:}
+| IDENTIFIANT:id POINT_VIRGULE
+{:
+Affectation a = new Affectation();
+a.setFilsGauche(new Idf(id));
 RESULT = a;
 :};
 
@@ -95,7 +112,7 @@ RESULT = tq;
 /* -------------------------Retour------------------------------- */
 retour ::= RETOUR expression:e POINT_VIRGULE
 {:
-Retour r = new Retour(0);
+Retour r = new Retour(e);
 r.setLeFils(e);
 RESULT = r;
 :}
@@ -241,8 +258,14 @@ RESULT =e;
 | IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:li PARENTHESE_FERMANTE
 {:
 Fonction f = new Fonction(id);
-f.ajouterUnFils(li);
+f.ajouterDesFils(li.getFils());
 RESULT = f;
+:}
+| IDENTIFIANT:id PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE
+{:
+Fonction f = new Fonction(id);
+f.ajouterUnFils(e);
+RESULT =f;
 :};
 
 /* -------------------------Commentaires------------------------------- */

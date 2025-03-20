@@ -35,6 +35,7 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 "♻"          { return new Symbol(Sym.TANT_QUE); }
 "📢"          { return new Symbol(Sym.AFFICHER); }
 "🌠".*          { /* ne rien faire */ }
+","           { return new Symbol(Sym.VIRGULE); }
 "+"           { return new Symbol(Sym.PLUS); }
 "-"           { return new Symbol(Sym.MOINS); }
 "*"           { return new Symbol(Sym.MULTIPLIER); }
