@@ -12,9 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java_cup.runtime.Symbol;
 
-public class Program1 {
+public class Program8 {
     public static void main(String[] args) {
-        String filePath = "src/main/java/fr/ul/miashs/compil/parser/exemples/Program1.zenith";
+        String filePath = "src/main/java/fr/ul/miashs/compil/parser/exemples/Program8.zenith";
         File file = new File(filePath);
         System.out.println("Absolute path: " + file.getAbsolutePath());
 

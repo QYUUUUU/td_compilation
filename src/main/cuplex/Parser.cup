@@ -11,129 +11,331 @@ parser code {:
 /* Déclarations des terminaux */
 terminal Integer NOMBRE;
 terminal String IDENTIFIANT, CHAINE;
-terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, VIRGULE;
-terminal ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
-terminal VARIABLE_PLANETE, VARIABLE_LUNE, VARIABLE_NOUVELLE_LUNE, FONCTION, SI, SINON, TANT_QUE, LIRE, AFFICHER;
+terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, SUPERIEUR, SUPERIEUR_EGAL, INFERIEUR, INFERIEUR_EGAL;
+terminal VIRGULE, ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
+terminal FONCTION, SI, SINON, TANT_QUE, AFFICHER;
+terminal RETOUR, APPEL, COMMENTAIRE, READ;
 
 /* Déclarations des non-terminaux */
 non terminal Noeud programme;
-non terminal Bloc instructionList;
+non terminal Noeud instructionList,instructionEoN, instructionAccolade;
 non terminal Noeud instruction;
-non terminal Noeud expression;
-non terminal Noeud variable;
 non terminal Noeud fonction;
+non terminal Noeud affectation;
+non terminal Noeud expression;
+non terminal Noeud retour;
+non terminal Noeud expressionCondition;
+non terminal Noeud afficher;
+non terminal Noeud tantQue, si;
+non terminal Noeud appelfonction;
+non terminal commentaire;
+non terminal Noeud lire, parametres;
 
 /* Priorités et associations */
 precedence left PLUS, MOINS;
 precedence left MULTIPLIER, DIVISER;
-precedence left PARENTHESE_OUVRANTE;
-precedence left PARENTHESE_FERMANTE;
+precedence left PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
 
 start with programme;
 
-/* Règles de production */
-programme ::= instructionList:i {:
-    Noeud Programme = new Prog();
-    Programme.ajouterUnFils(i);
-    RESULT = Programme;
+programme ::= instructionEoN:ion
+{:
+Prog prog = new Prog();
+prog.ajouterUnFils(ion);
+RESULT = prog;
+:};
+/* -------------------------Fonctions------------------------------- */
+fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:p PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+Fonction f = new Fonction(id);
+if(ia != null){
+f.ajouterUnFils(ia);
+}
+if (p != null){
+f.ajouterUnFils(p);
+}
+RESULT = f;
 :};
 
-instructionList ::= instruction:i {:
-    Bloc b = new Bloc();
-    b.ajouterUnFils(i);
-    RESULT = b;
-:}
-                  | instructionList:l instruction:i {:
-        l.ajouterUnFils(i);
-        RESULT = l;
+appelfonction ::= APPEL IDENTIFIANT:id PARENTHESE_OUVRANTE PARENTHESE_FERMANTE POINT_VIRGULE
+{:
+RESULT = new Appel(id);
 :};
 
-instruction ::= variable:v POINT_VIRGULE {:
-    RESULT = new Idf(v);
+parametres ::= expression:e
+{:
+RESULT =e;
 :}
-              | AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE {:
-              Ecrire ec = new Ecrire();
-              ec.ajouterUnFils(e);
-              RESULT = ec;
+| expression:e1 VIRGULE expression:e2
+{:
+Bloc b = new Bloc();
+b.ajouterUnFils(e2);
+b.ajouterUnFils(e1);
+RESULT = b;
 :}
-              | LIRE PARENTHESE_OUVRANTE variable:v PARENTHESE_FERMANTE POINT_VIRGULE {:
-              Lire l = new Lire();
-              l.ajouterUnFils(v);
-              RESULT = l;
+|
+{:
+RESULT = new Bloc();
+:};
+/* -------------------------Affectation------------------------------- */
+affectation ::= IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
+{:
+Affectation a = new Affectation();
+a.setFilsGauche(new Idf(id));
+a.setFilsDroit(e);
+RESULT = a;
 :}
-              | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-              Si s = new Si();
-              s.setCondition(e);
-              s.setBlocAlors(i);
-              RESULT = s;
-              :}
-              | SI PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:il ACCOLADE_FERMANTE SINON ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-              Si s = new Si();
-              s.setCondition(e);
-              s.setBlocAlors(il);
-              s.setBlocSinon(i);
-              RESULT = s;
+| IDENTIFIANT:id ASSIGNER appelfonction:a POINT_VIRGULE
+{:
+Affectation af = new Affectation();
+af.setFilsGauche(a);
+RESULT = af;
 :}
-              | TANT_QUE PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE ACCOLADE_OUVRANTE instructionList:i ACCOLADE_FERMANTE {:
-              TantQue tq = new TantQue();
-              tq.setCondition(e);
-              tq.setBloc(i);
-              RESULT = tq;
-:}
-              | variable:v ASSIGNER expression:e POINT_VIRGULE {:
-              Affectation a = new Affectation();
-              a.setFilsGauche(v);
-              a.setFilsDroit(e);
-              RESULT = a;
+| IDENTIFIANT:id POINT_VIRGULE
+{:
+Affectation a = new Affectation();
+a.setFilsGauche(new Idf(id));
+RESULT = a;
 :};
 
-expression ::= expression:e1 PLUS expression:e2 {:
-    Plus p = new Plus();
-    p.setFilsGauche(e1);
-    p.setFilsDroit(e2);
-    RESULT = p;
+/* -------------------------TantQue------------------------------- */
+
+tantQue ::= TANT_QUE PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+TantQue tq = new TantQue(1);
+tq.setCondition(ec);
+Bloc b = new Bloc();
+b.ajouterDesFils(ia.getFils());
+tq.setBloc(b);
+RESULT = tq;
+:};
+/* -------------------------Retour------------------------------- */
+retour ::= RETOUR expression:e POINT_VIRGULE
+{:
+Retour r = new Retour(e);
+r.setLeFils(e);
+RESULT = r;
 :}
-             | expression:e1 MOINS expression:e2 {:
-    Moins m = new Moins();
-    m.setFilsGauche(e1);
-    m.setFilsDroit(e2);
-    RESULT = m;
+| RETOUR PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE
+{:
+Retour r = new Retour(0);
+r.setLeFils(e);
+RESULT = r;
+:};
+
+/* -------------------------Lire------------------------------- */
+lire ::= READ IDENTIFIANT:id POINT_VIRGULE
+{:
+Lire l = new Lire();
+l.ajouterUnFils(new Idf(id));
+RESULT = l;
+:};
+
+/* -------------------------Conditions------------------------------- */
+si ::= SI PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia SINON instructionAccolade:ib
+{:
+Si s = new Si(1);
+s.setCondition(ec);
+Bloc b = new Bloc();
+b.ajouterDesFils(ia.getFils());
+s.setBlocAlors(b);
+Bloc b2 = new Bloc();
+b2.ajouterDesFils(ib.getFils());
+s.setBlocSinon(b2);
+RESULT = s;
 :}
-             | expression:e1 MULTIPLIER expression:e2 {:
-             Multiplication m = new Multiplication();
-             m.setFilsGauche(e1);
-             m.setFilsDroit(e2);
-             RESULT = m;
+| SI PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia
+{:
+Si s = new Si(2);
+s.setCondition(ec);
+Bloc b = new Bloc();
+b.ajouterDesFils(ia.getFils());
+s.setBlocAlors(b);
+RESULT = s;
+:};
+
+/* -------------------------ExpressionsConditions------------------------------- */
+
+expressionCondition ::= expression:e1 EGAL expression:e2
+{:
+Egal e = new Egal();
+e.setFilsGauche(e1);
+e.setFilsDroit(e2);
+RESULT = e;
 :}
-             | expression:e1 DIVISER expression:e2 {:
-             Division d = new Division();
-             d.setFilsGauche(e1);
-             d.setFilsDroit(e2);
-             RESULT = d;
+| expression:e1 DIFFERENT expression:e2
+{:
+Different d = new Different();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
 :}
-             | PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE {:
-            RESULT = e;
+| expression:e1 SUPERIEUR expression:e2
+{:
+Superieur d = new Superieur();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
 :}
-             | NOMBRE:n {:
-    RESULT = new Const(n);
+| expression:e1 SUPERIEUR_EGAL expression:e2
+{:
+SuperieurEgal d = new SuperieurEgal();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
 :}
-             | IDENTIFIANT:i {:
-    RESULT = new Idf(i);
+| expression:e1 INFERIEUR expression:e2
+{:
+Inferieur d = new Inferieur();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| expression:e1 INFERIEUR_EGAL expression:e2
+{:
+InferieurEgal d = new InferieurEgal();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
 :}
 ;
+/* -------------------------Print------------------------------- */
 
-variable ::= VARIABLE_PLANETE IDENTIFIANT: i{:
-    RESULT = new Idf(i);
+afficher ::= AFFICHER PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE POINT_VIRGULE
+{:
+Ecrire a = new Ecrire();
+a.setLeFils(e);
+RESULT = a;
 :}
-           | VARIABLE_LUNE IDENTIFIANT: i{:
-    RESULT = new Idf(i);
-:}
-           | VARIABLE_NOUVELLE_LUNE IDENTIFIANT: i{:
-    RESULT = new Idf(i);
+| AFFICHER expression:e POINT_VIRGULE
+{:
+Ecrire a = new Ecrire();
+a.setLeFils(e);
+RESULT = a;
 :};
 
-fonction ::= FONCTION IDENTIFIANT:i PARENTHESE_OUVRANTE instructionList:l PARENTHESE_FERMANTE {:
-    Fonction f = new Fonction(i);
-    f.ajouterUnFils(l);
-    RESULT = f;
+/* -------------------------Expressions------------------------------- */
+expression ::= NOMBRE:n
+{:
+RESULT = new Const(n);
+:}
+| expression:e1 PLUS expression:e2
+{:
+Plus p = new Plus();
+p.setFilsGauche(e1);
+p.setFilsDroit(e2);
+RESULT = p;
+:}
+| expression:e1 MOINS expression:e2
+{:
+Moins m = new Moins();
+m.setFilsGauche(e1);
+m.setFilsDroit(e2);
+RESULT = m;
+:}
+| expression:e1 MULTIPLIER expression:e2
+{:
+Multiplication m = new Multiplication();
+m.setFilsGauche(e1);
+m.setFilsDroit(e2);
+RESULT = m;
+:}
+| expression:e1 DIVISER expression:e2
+{:
+Division d = new Division();
+d.setFilsGauche(e1);
+d.setFilsDroit(e2);
+RESULT = d;
+:}
+| IDENTIFIANT:id
+{:
+RESULT = new Idf(id);
+:}
+| PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE
+{:
+RESULT =e;
+:}
+| IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:li PARENTHESE_FERMANTE
+{:
+Fonction f = new Fonction(id);
+f.ajouterDesFils(li.getFils());
+RESULT = f;
+:}
+| IDENTIFIANT:id PARENTHESE_OUVRANTE expression:e PARENTHESE_FERMANTE
+{:
+Fonction f = new Fonction(id);
+f.ajouterUnFils(e);
+RESULT =f;
 :};
+
+/* -------------------------Commentaires------------------------------- */
+commentaire ::= COMMENTAIRE
+{:
+/* ne rien faire */
+:};
+
+/* -------------------------Instructions------------------------------- */
+instructionAccolade ::= ACCOLADE_OUVRANTE instructionEoN:ie ACCOLADE_FERMANTE
+{:
+RESULT = ie;
+:};
+
+instructionEoN ::=
+{:
+RESULT = new Bloc();
+:}
+| instructionList:il
+{:
+RESULT = il;
+:};
+
+instructionList ::= instruction:i
+{:
+Bloc b = new Bloc();
+b.ajouterUnFils(i);
+RESULT = b;
+:}
+| instructionList:il instruction:i
+{:
+il.ajouterUnFils(i);
+RESULT = il;
+:};
+
+instruction ::= fonction:f
+{:
+RESULT = f;
+:}
+| affectation:a
+{:
+RESULT = a;
+:}
+| afficher:a
+{:
+RESULT = a;
+:}
+| tantQue:tq
+{:
+RESULT = tq;
+:}
+| si:s
+{:
+RESULT = s;
+:}
+| retour:r
+{:
+RESULT = r;
+:}
+| appelfonction : a
+{:
+RESULT = a;
+:}
+| commentaire:c
+{:
+/* ne rien faire */
+:}
+| lire:l
+{:
+RESULT = l;
+:};
+
+

@@ -9,5 +9,40 @@ main:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
+	LDR(0, Rc);
+	CMP(R1,R2)
+TANT_QUE_88 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL TANT_QUE_88
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_88 :
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
 }
 pile :

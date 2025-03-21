@@ -9,5 +9,41 @@ main:
 	PUSH(BP);
 	MOVE(SP, BP);
 	MOVE(R2,null);
+	POP(R0)
+	WRINT()
 }
-nullpile :
+f:
+	PUSH(BP);
+	PUSH(BP);
+	MOVE(SP, BP);
+	MOVE(R2,null);
+SI_51:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JLEALORS_51
+	JGSINON_51
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,0)
+	PUSH(R0)
+ALORS_51 :
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
+JMP SINON_51
+SINON_51 :
+JMP FINSI_51
+FINSI_51 :
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
+	 BX LR;
+}
+pile :

@@ -11,5 +11,28 @@ main:
 	PUSH(BP);
 	PUSH(BP);
 	MOVE(SP, BP);
+SI_31:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG ALORS_31
+	JLE SINON_31
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+ALORS_31 :
+	LDR(1000, Rc);
+JMP SINON_31
+SINON_31 :
+	LDR(2000, Rc);
+JMP FINSI_
+FINSI_ :
 }
 pile :

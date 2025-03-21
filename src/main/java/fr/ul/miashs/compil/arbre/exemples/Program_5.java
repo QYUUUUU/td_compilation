@@ -46,7 +46,6 @@ public class Program_5 {
         //on crée les noeuds
         Prog prog = new Prog();
         Fonction principal = new Fonction("main");
-        Affectation aff = new Affectation();
         Idf x = new Idf("x");
         Plus plus = new Plus();
         Multiplication mul = new Multiplication();

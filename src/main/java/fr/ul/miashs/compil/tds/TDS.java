@@ -70,4 +70,14 @@ public class TDS {
             System.out.println(s);
         }
     }
+    public void setSymboles(Symbole sym,Integer val){
+       for(int ligne=0;ligne<5;ligne++){ // 5=> nombre de paramètres d'une ligne de TDS
+           for(int colonne=0;colonne<symboles.size();colonne++){
+               if(this.symboles.get(ligne).getNom().equals(sym.getNom())){
+                   this.symboles.get(ligne).setValeur(val);
+               }
+           }
+       }
+    }
+
 }
