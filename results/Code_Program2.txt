@@ -14,10 +14,4 @@ main:
 	MOVE(R0,BP)
 	PUSH(R0)
 	MOVE(SP, BP)
-main:
-	MOVE(R0,LP)
-	PUSH(R0)
-	MOVE(R0,BP)
-	PUSH(R0)
-	MOVE(SP, BP)
 pile :

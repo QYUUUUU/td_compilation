@@ -9,8 +9,8 @@ public class GlobalTDS {
         return tds;
     }
 
-    public static void setTds(TDS tds) {
-        GlobalTDS.tds = tds;
+    public static void setTds() {
+        GlobalTDS.tds = new TDS();
     }
 }
 

@@ -30,6 +30,9 @@ public class Main{
             System.out.println("\n - Traitement de : " + filePath);
 
             try {
+                //Reset TDS
+                GlobalTDS.setTds();
+
                 // Générer l'arbre
                 Yylex scanner = new Yylex(new FileReader(file));
                 ParserCup parser = new ParserCup(scanner);
