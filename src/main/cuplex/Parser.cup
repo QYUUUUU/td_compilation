@@ -1,11 +1,13 @@
-package generated.fr.ul.miashs.expression;
+package generated.expression;
 
 import java_cup.runtime.*;
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.tds.TDS;
+import java.util.List;
 
 /* Le code de l'analyseur syntaxique */
 parser code {:
-
+TDS tds = new TDS();
 :};
 
 /* Déclarations des terminaux */
@@ -14,7 +16,7 @@ terminal String IDENTIFIANT, CHAINE;
 terminal PLUS, MOINS, MULTIPLIER, DIVISER, EGAL, DIFFERENT, ASSIGNER, POINT_VIRGULE, SUPERIEUR, SUPERIEUR_EGAL, INFERIEUR, INFERIEUR_EGAL;
 terminal VIRGULE, ACCOLADE_OUVRANTE, ACCOLADE_FERMANTE, PARENTHESE_OUVRANTE, PARENTHESE_FERMANTE;
 terminal FONCTION, SI, SINON, TANT_QUE, AFFICHER;
-terminal RETOUR, APPEL, COMMENTAIRE, READ;
+terminal RETOUR, APPEL, COMMENTAIRE, READ, INT;
 
 /* Déclarations des non-terminaux */
 non terminal Noeud programme;
@@ -29,7 +31,7 @@ non terminal Noeud afficher;
 non terminal Noeud tantQue, si;
 non terminal Noeud appelfonction;
 non terminal commentaire;
-non terminal Noeud lire, parametres;
+non terminal Noeud lire, parametres, declaration;
 
 /* Priorités et associations */
 precedence left PLUS, MOINS;
@@ -51,8 +53,9 @@ Fonction f = new Fonction(id);
 if(ia != null){
 f.ajouterUnFils(ia);
 }
-if (p != null){
-f.ajouterUnFils(p);
+List<Noeud> params=p.getFils();
+for(Noeud param : params){
+System.out.println(param);
 }
 RESULT = f;
 :};
@@ -98,6 +101,25 @@ a.setFilsGauche(new Idf(id));
 RESULT = a;
 :};
 
+declaration ::=  INT IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
+{:
+Affectation a = new Affectation();
+a.setFilsGauche(new Idf(id));
+a.setFilsDroit(e);
+RESULT = a;
+:}
+| INT IDENTIFIANT:id ASSIGNER appelfonction:a POINT_VIRGULE
+{:
+Affectation af = new Affectation();
+af.setFilsGauche(a);
+RESULT = af;
+:}
+| INT IDENTIFIANT:id POINT_VIRGULE
+{:
+Affectation a = new Affectation();
+a.setFilsGauche(new Idf(id));
+RESULT = a;
+:};
 /* -------------------------TantQue------------------------------- */
 
 tantQue ::= TANT_QUE PARENTHESE_OUVRANTE expressionCondition:ec PARENTHESE_FERMANTE instructionAccolade:ia
@@ -336,6 +358,10 @@ RESULT = a;
 | lire:l
 {:
 RESULT = l;
+:}
+| declaration:d
+{:
+RESULT = d;
 :};
 
 
