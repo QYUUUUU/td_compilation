@@ -2,8 +2,19 @@ package fr.ul.miashs.compil.generation;
 
 import fr.ul.miashs.compil.arbre.Si;
 
+/**
+ * SiGenerateur
+ * Générateur de code pour les instructions Si
+ */
 public class SiGenerateur extends InstructionGenerateur {
 
+    /**
+     * Fonction genererSi
+     * Génère le code pour une instruction Si
+     *
+     * @param noeudSi Noeud Si à générer
+     * @return Code généré
+     */
     public StringBuilder genererSi(Si noeudSi) {
         StringBuilder stringRes = new StringBuilder();
         // Générer une étiquette unique pour la sortie du bloc sinon

@@ -4,7 +4,17 @@ import fr.ul.miashs.compil.arbre.Bloc;
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.arbre.TantQue;
 
+/**
+ * TantQueGenerateur
+ * Générateur de code pour les instructions TantQue
+ */
 public class TantQueGenerateur extends InstructionGenerateur {
+
+    /**
+     * Fonction genererTantQue
+     *
+     * @param noeud Noeud TantQue à générer
+     **/
     public StringBuilder genererTantQue(TantQue noeud) {
         StringBuilder stringRes = new StringBuilder();
         stringRes.append("\tCMP(R1,R2)\n");

@@ -8,38 +8,40 @@ import fr.ul.miashs.compil.arbre.Noeud;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * ExpressionGenerateur
+ * Génération d'une expression
+ */
 public class ExpressionGenerateur extends AffectationGenerateur {
-    /**
-     * @return StringBuilder
-     * retourne le code assembleur du fils droit d'une affectation: une expression
-     * porteur est un noeud + - * /... detecté dans une autre fonction et qui engendre l'appel de generer_fonction
-     **/
+
+    //Attribut id de l'expression actuelle
     private String id;
 
     public ExpressionGenerateur() {
         id = this.FabId();
     }
 
+
+    /**
+     * Fonction genererExpression
+     *
+     * @return StringBuilder
+     * retourne le code assembleur du fils droit d'une affectation: une expression
+     * porteur est un noeud + - * /... detecté dans une autre fonction et qui engendre l'appel de generer_fonction
+     **/
     public StringBuilder genererExpression(Noeud porteur, String id, boolean si) {
-
-
         StringBuilder stringRes = new StringBuilder();
-        stringRes.append("\tPUSH(BP);\n");//on place le marqueur du début de frame dans la pile // TODO Revoir si c'est bon
+        stringRes.append("\tPUSH(BP);\n");//on place le marqueur du début de frame dans la pile //
         stringRes.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
-
-
-        System.out.println(porteur.getCat());
-        System.out.println(porteur.getFils());
+        //si l'expression est une constante ou une variable
         if (porteur.getFils() == null) {
             int val;
-            System.out.println("expr=null" + porteur.getCat());
             if (porteur instanceof Const) { // pour pouvoir utiliser la fonction getValeur()
                 val = ((Const) porteur).getValeur();
                 stringRes.append("\tLDR(R0," + val + ")\n");
                 stringRes.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
                 return (stringRes);
             } else if (porteur instanceof Idf) {
-                System.out.println("Soy yo");
                 stringRes.append("\tLDR(R0," + ((Idf) porteur).getValeur() + ")\n");
                 stringRes.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
                 return (stringRes);
@@ -49,14 +51,14 @@ public class ExpressionGenerateur extends AffectationGenerateur {
                 return (stringRes);
             } else if (porteur.getCat().equals(Noeud.Categories.LIRE)) {
                 stringRes.append("JMP LIRE_" + id + "\n");//lanceur
-                stringRes.append(this.generer_lire(this.getId()));
+                stringRes.append(this.genererLire(this.getId()));
                 return (stringRes);
-
             } else {
                 System.out.println("Erreur");
                 System.exit(1);
             }
             return (stringRes);
+            //Si l'expression est une opération
         } else {
             stringRes.append("\tPOP(R1)\n");//On récupère nos variables conservées dans la mémoire (le fils le plus à droite est au dessus de la pile
             stringRes.append("\tPOP(R2)\n");
@@ -80,7 +82,6 @@ public class ExpressionGenerateur extends AffectationGenerateur {
                 case SUP:
                     stringRes.append("\tCMP(R1,R2)\n");// on compare les deux et on jump vers la partie voulue
                     if (si) {
-                        System.out.println("J'écris la cond");
                         stringRes.append("\tJG " + "ALORS_" + id + "\n");
                         stringRes.append("\tJLE " + "SINON_" + id + "\n");
                     } else {
@@ -136,15 +137,23 @@ public class ExpressionGenerateur extends AffectationGenerateur {
         }
         List<Noeud> noeudExpr = porteur.getFils();
         for (Noeud noeud : noeudExpr) {
-            stringRes.append(this.genererExpression(noeud, this.id, false));// On génère l'expression du noeud fils qui est entrain d'être vu
+            // On génère l'expression du noeud fils qui est en train d'être vu
+            stringRes.append(this.genererExpression(noeud, this.id, false));
         }
         return (stringRes);
     }
 
-    public StringBuilder generer_lire(String id) {
+    /**
+     * Fonction genererLire
+     *
+     * @param id
+     * @return StringBuilder
+     * retourne le code assembleur pour la lecture d'une variable
+     */
+    public StringBuilder genererLire(String id) {
         //TODO Vérifier en groupe la véracité de l'assembleur
-        StringBuilder expr_string = new StringBuilder();
-        expr_string.append(
+        StringBuilder stringRes = new StringBuilder();
+        stringRes.append(
                 "\n" +
                         "LIRE_" + id + ":\n" +
                         "    input resb 100  \n" + // reserver 100 octets et permettre un tampon
@@ -156,22 +165,29 @@ public class ExpressionGenerateur extends AffectationGenerateur {
                         //normalement, l'input est dans rax
                         "   MOV (R0,rax)\n" +
                         "   PUSH (R0)\n");
-        return (expr_string);
+        return (stringRes);
     }
 
+    /**
+     * Fonction FabId
+     *
+     * @return String
+     * retourne un id unique pour chaque expression
+     */
     public String FabId() {
         int newID = 0;
         boolean done = true;
+        //Répéter tant que l'ID n'est pas ajouté
         while (done) {
             Random rnd = new Random();
             newID = rnd.nextInt(100);
             done = false;
-            System.out.println("newID: " + newID);
-            System.out.println("tableID: " + Generateur.tableID);
+            //Si il n'y a pas encore d'ID
             if (Generateur.tableID.isEmpty()) {
                 Generateur.tableID.add(newID);
                 done = true;
             } else {
+                //Si l'ID n'est pas déjà utilisé
                 if (!Generateur.tableID.contains(newID)) {
                     Generateur.tableID.add(newID);
                     done = true;
