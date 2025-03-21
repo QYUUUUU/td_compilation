@@ -23,11 +23,10 @@ main:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-section .bss
-    input resb 100  
-    global _start
+JMP LIRE_3
 
-_start:
+LIRE_3:
+    input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
     MOV (rsi, input) 
@@ -53,11 +52,10 @@ _start:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-section .bss
-    input resb 100  
-    global _start
+JMP LIRE_3
 
-_start:
+LIRE_3:
+    input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
     MOV (rsi, input) 

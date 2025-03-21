@@ -27,9 +27,8 @@ public class ExpressionG extends AffectationG {
         expr_string.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
 
 
-
-        System.out.println("entrée expression");
-        System.out.println(si);
+        System.out.println(porteur.getCat());
+        System.out.println(porteur.getFils());
         if(porteur.getFils()==null){
             //if ((porteur.getCat().equals(Noeud.Categories.CONST) | porteur.getCat().equals(Noeud.Categories.IDF))) {// on cherche les expressions terminales
                 int val;
@@ -53,7 +52,8 @@ public class ExpressionG extends AffectationG {
                         expr_string.append(aff.generer_affectation((Affectation)porteur));
                         return(expr_string);
                 } else if (porteur.getCat().equals(Noeud.Categories.LIRE)) {
-                        expr_string.append(this.generer_lire(porteur));
+                        expr_string.append("JMP LIRE_"+id+"\n");//lanceur
+                        expr_string.append(this.generer_lire(porteur,this.getId()));
                         return(expr_string);
 
                 }else{
@@ -176,14 +176,13 @@ public class ExpressionG extends AffectationG {
 
 
 
-    public StringBuilder generer_lire(Noeud lire) {
+    public StringBuilder generer_lire(Noeud lire,String id) {
         //TODO Vérifier en groupe la véracité de l'assembleur
         StringBuilder expr_string = new StringBuilder();
-        expr_string.append("section .bss\n" +
-                "    input resb 100  \n" + // reserver 100 octets et permettre un tampon
-                "    global _start\n" +//lanceur
+        expr_string.append(
                 "\n" +
-                "_start:\n" +
+                "LIRE_"+id+":\n" +
+                "    input resb 100  \n" + // reserver 100 octets et permettre un tampon
                 "    MOV (rax, 0) \n" +//vers sys_read
                 "    MOV (rdi, 0)  \n" +//vers stdin
                 "    MOV (rsi, input) \n" +//pointeur vers tampon

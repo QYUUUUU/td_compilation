@@ -5,8 +5,9 @@
 	BR(main)
 data:
 main:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
-}
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
 pile :

@@ -80,9 +80,12 @@ public class Generateur {
     private StringBuilder generer_fonction(Symbole fonction) {
         StringBuilder fonction_string = new StringBuilder();
         fonction_string.append(fonction.getNom()).append(":\n");
-        fonction_string.append("\tPUSH(BP);\n");
-        fonction_string.append("\tPUSH(BP);\n"); //pk deux PUSH BP?
-        fonction_string.append("\tMOVE(SP, BP);\n"); // Plutot l'inverse? on enregistre l'ancienne BP et on la remplace par celle de la fonction qu'on va traiter$
+        fonction_string.append("\tMOVE(R0,LP)\n");
+        fonction_string.append("\tPUSH(LP)\n");
+        fonction_string.append("\tMOVE(R0,BP)\n");
+        fonction_string.append("\tPUSH(BP)\n"); //pk deux PUSH BP?
+        fonction_string.append("\tMOVE(SP, BP)\n");
+
 
         // pour enregister les paramètres=> étant donné qu'il y en a moins que 4 on peut utiliser de R0 à R3
         List<Symbole> symList = tds.getAllSymboles();
@@ -127,7 +130,6 @@ public class Generateur {
         if (!(fonctionArbre.getValeur().toString().equals("main"))) { // seulement si ce n'est pas le main
             fonction_string.append("\t BX LR;\n");// revenir à l'endroit avant l'appel de la fonction
         }
-        fonction_string.append("}\n");
         return fonction_string;
     }
 

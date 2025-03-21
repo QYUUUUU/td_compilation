@@ -47,13 +47,13 @@ public class Program_9 {
         f.ajouterUnFils(affectF); //fonction f partie "gauche" (impossible de def filsG et filsD pour une fonction => le rajouter?
         affectF.setFilsGauche(res);
         affectF.setFilsDroit(plusF);
-        plusF.ajouterUnFils(mulF);
-        mulF.ajouterUnFils(idfParam1);
-        mulF.ajouterUnFils(const2);
-        plusF.ajouterUnFils(divF);
+        plusF.setFilsDroit(mulF);
+        mulF.setFilsGauche(idfParam1);
+        mulF.setFilsDroit(const2);
+        plusF.setFilsGauche(divF);
         divF.setFilsGauche(moinsF);
-        moinsF.ajouterUnFils(idfParam2);
-        moinsF.ajouterUnFils(const5);
+        moinsF.setFilsGauche(idfParam2);
+        moinsF.setFilsDroit(const5);
         divF.setFilsDroit(const3);
 
         f.ajouterUnFils(retour); //fonction f partie "droite"
