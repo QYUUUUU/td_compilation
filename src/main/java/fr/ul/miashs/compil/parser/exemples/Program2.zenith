@@ -1,9 +1,8 @@
 🌠 On définit des variables pour la première fois ! :O
-i = 10;
-j = 20;
-k = 0;
-l = 0;
+int i = 10;
+int j = 20;
+int k = 0;
+int l = 0;
 
 🚀 main() {
-j = k + l + i;
 }

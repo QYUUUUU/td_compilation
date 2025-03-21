@@ -1,11 +1,7 @@
-🌠 On définit des variables pour la première fois ! :O
-i = 10;
-j = 20;
-k = 0;
-l = 0;
-int k = 0;
+int x;
+int a = 100;
+int b = 170;
 
 🚀 main() {
-j = k + l + i;
-💫(j);
+    x = (a * 2) + ((b - 5) / 3); 🌠 Mon dieu du code métier !
 }
