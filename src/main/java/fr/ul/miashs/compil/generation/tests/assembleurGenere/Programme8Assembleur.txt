@@ -1,61 +1,61 @@
-.include beta.uasm
-.include intio.uasm
+.include "beta.uasm"
+.include "intio.uasm"
 .options tty
+data:
 	CMOVE(pile,SP)
 	BR(main)
-data:
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
-	MOVE(R2,null);
+	MOVE(R2,null)
 	MOVE(R0,LP)
 	PUSH(LP)
 	MOVE(R0,BP)
 	PUSH(BP)
 	MOVE(SP, BP)
-	 JMP f
-	PUSH(BP);
-	MOVE(SP, BP);
+	JMP f
+	PUSH(BP)
+	MOVE(SP, BP)
 	POP(R1)
 	POP(R2)
 	POP(R0)
 	WRINT()
 f:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+	MOVE(R2,null)
+SI_92:
 	PUSH(BP)
 	MOVE(SP, BP)
-	MOVE(R2,null);
-SI_36:
-	PUSH(BP);
-	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JLEALORS_36
-	JGSINON_36
-	PUSH(BP);
-	MOVE(SP, BP);
+	JLEALORS_92
+	JGSINON_92
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,a)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,0)
 	PUSH(R0)
-ALORS_36 :
-	MOVE(BP, SP);
-	POP(BP);
-	RET;
-JMP SINON_36
-SINON_36 :
-JMP FINSI_36
-FINSI_36 :
-	MOVE(BP, SP);
-	POP(BP);
-	RET;
-	 BX LR;
+ALORS_92 :
+	MOVE(BP, SP)
+	POP(BP)
+	RET
+JMP SINON_92
+SINON_92 :
+JMP FINSI_92
+FINSI_92 :
+	MOVE(BP, SP)
+	POP(BP)
+	RET
+	 BX LR
 pile :

@@ -1,13 +1,13 @@
-.include beta.uasm
-.include intio.uasm
+.include "beta.uasm"
+.include "intio.uasm"
 .options tty
-	CMOVE(pile,SP)
-	BR(main)
 data:
 i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
+	CMOVE(pile,SP)
+	BR(main)
 main:
 	MOVE(R0,LP)
 	PUSH(R0)

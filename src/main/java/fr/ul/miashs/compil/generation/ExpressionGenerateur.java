@@ -28,8 +28,8 @@ public class ExpressionGenerateur extends AffectationGenerateur {
 
     public StringBuilder genererExpression(Noeud porteur, String id, boolean si) {
         StringBuilder stringRes = new StringBuilder();
-        stringRes.append("\tPUSH(BP);\n");//on place le marqueur du début de frame dans la pile //
-        stringRes.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
+        stringRes.append("\tPUSH(BP)\n");//on place le marqueur du début de frame dans la pile //
+        stringRes.append("\tMOVE(SP, BP)\n");//on fait pointer SP sur la pile
         //si l'expression est une constante ou une variable
         if (porteur.getFils() == null) {
             int val;

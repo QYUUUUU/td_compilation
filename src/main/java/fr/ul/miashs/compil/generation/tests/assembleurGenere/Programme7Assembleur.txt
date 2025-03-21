@@ -1,55 +1,55 @@
-.include beta.uasm
-.include intio.uasm
+.include "beta.uasm"
+.include "intio.uasm"
 .options tty
+data:
+i:	LONG(0)	| int i;
 	CMOVE(pile,SP)
 	BR(main)
-data:
-i:	LONG(null)	| int i;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
 	PUSH(BP)
 	MOVE(SP, BP)
-	PUSH(BP);
-	MOVE(SP, BP);
 	LDR(R0,0)
 	PUSH(R0)
 	CMP(R1,R2)
-TANT_QUE_2 :
-	PUSH(BP);
-	MOVE(SP, BP);
+TANT_QUE_80 :
+	PUSH(BP)
+	MOVE(SP, BP)
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_2
-	PUSH(BP);
-	MOVE(SP, BP);
+	JL INSTRUCTIONS_80
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,i)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_2 :
-	PUSH(BP);
-	MOVE(SP, BP);
+INSTRUCTIONS_80 :
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,i)
 	PUSH(R0)
 	POP(R0)
 	WRINT()
-	PUSH(BP);
-	MOVE(SP, BP);
+	PUSH(BP)
+	MOVE(SP, BP)
 	POP(R1)
 	POP(R2)
 	ADD(R1,R2,R0)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,i)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,21)
 	PUSH(R0)
 FINTQ_

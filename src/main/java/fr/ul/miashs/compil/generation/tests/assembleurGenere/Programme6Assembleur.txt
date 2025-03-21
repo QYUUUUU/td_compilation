@@ -1,45 +1,45 @@
-.include beta.uasm
-.include intio.uasm
+.include "beta.uasm"
+.include "intio.uasm"
 .options tty
-	CMOVE(pile,SP)
-	BR(main)
 data:
 a:	LONG(1)	| int a;
 b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
+	CMOVE(pile,SP)
+	BR(main)
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_13:
 	PUSH(BP)
 	MOVE(SP, BP)
-SI_32:
-	PUSH(BP);
-	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JG ALORS_32
-	JLE SINON_32
-	PUSH(BP);
-	MOVE(SP, BP);
+	JG ALORS_13
+	JLE SINON_13
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,a)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,b)
 	PUSH(R0)
-ALORS_32 :
-	PUSH(BP);
-	MOVE(SP, BP);
+ALORS_13 :
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,1000)
 	PUSH(R0)
-JMP SINON_32
-SINON_32 :
-	PUSH(BP);
-	MOVE(SP, BP);
+JMP SINON_13
+SINON_13 :
+	PUSH(BP)
+	MOVE(SP, BP)
 	LDR(R0,2000)
 	PUSH(R0)
-JMP FINSI_32
-FINSI_32 :
+JMP FINSI_13
+FINSI_13 :
 pile :

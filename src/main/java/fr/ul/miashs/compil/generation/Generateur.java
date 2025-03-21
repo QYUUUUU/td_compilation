@@ -34,17 +34,17 @@ public class Generateur {
      **/
     public StringBuilder generer() {
         //Former le fichier template d'assembleur
-        String head = ".include beta.uasm\n" +
-                ".include intio.uasm\n" +
-                ".options tty\n" +
+        String head = ".include \"beta.uasm\"\n" +
+                ".include \"intio.uasm\"\n" +
+                ".options tty\n";
+        String next =
                 "\tCMOVE(pile,SP)\n" +
-                "\tBR(main)\n";
+                        "\tBR(main)\n";
         String pile = "pile :\n";
-        String init = "data:\n";
         StringBuilder stringRes = new StringBuilder();
-        stringRes.append(init);
         stringRes.append(head);
-        stringRes.append(this.genererData());
+        String init = "data:\n";
+        stringRes.append(init).append(this.genererData()).append(next);
         List<Symbole> symList = tds.getAllSymboles();
         for (Symbole sym : symList) {
             if (sym.getCategorie().equals("fonction")) {
@@ -64,14 +64,14 @@ public class Generateur {
      **/
     private StringBuilder genererData() {
         //Récupérer les variables globales et les ajoute dans le code assembleur
-        StringBuilder stringRes= new StringBuilder();
+        StringBuilder stringRes = new StringBuilder();
         List<Symbole> global_variables_list = tds.getAllGlobalVariables();
         for (Symbole variable : global_variables_list) {
             String nom = variable.getNom();
             String type = variable.getType();
             String valeur = String.valueOf(variable.getValeur());
-            if (valeur.equals("null")){
-                valeur="0";
+            if (valeur.equals("null")) {
+                valeur = "0";
             }
             stringRes.append(nom)
                     .append(":\tLONG(")
@@ -106,14 +106,14 @@ public class Generateur {
         for (Symbole sym : symList) {
             if (sym.getCategorie().equals("param")) {
                 Object valeurParam = sym.getValeur();
-                stringRes.append("\tMOVE(R" + compt + "," + valeurParam + ");\n");
+                stringRes.append("\tMOVE(R" + compt + "," + valeurParam + ")\n");
             }
             compt++;
         }
         //Allocation de la mémoire pour les variables locales
         int nombreVariables = fonction.getNbVar() != null ? fonction.getNbVar() : 0; // si le nb de var est null on le met directement à 0
         if (nombreVariables > 0) {
-            stringRes.append("  ALLOCATE(").append(nombreVariables).append(");\n");
+            stringRes.append("  ALLOCATE(").append(nombreVariables).append(")\n");
         }
         //Récupération de toutes les fonctions
         Fonction fonctionArbre = null;
@@ -137,7 +137,7 @@ public class Generateur {
             }
         }
         if (!(fonctionArbre.getValeur().toString().equals("main"))) { // seulement si ce n'est pas le main
-            stringRes.append("\t BX LR;\n");// revenir à l'endroit avant l'appel de la fonction
+            stringRes.append("\t BX LR\n");// revenir à l'endroit avant l'appel de la fonction
         }
         return stringRes;
     }
