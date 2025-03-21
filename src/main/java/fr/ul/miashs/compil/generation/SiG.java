@@ -30,14 +30,14 @@ public class SiG extends InstructionG{
         // Générer le bloc "sinon"
         si_string.append(labelSinon + expressionGen.getId()+" :\n");
         if (noeudSi.getBlocSinon()!=null){si_string.append(generer_bloc(noeudSi.getBlocSinon()));}
-        si_string.append("JMP "+labelFin+"\n"); // on jump vers la fin
+        si_string.append("JMP "+labelFin+expressionGen.getId()+"\n"); // on jump vers la fin
 
 
 
 
 
         // Fin du bloc Si
-        si_string.append(labelFin + " :\n");
+        si_string.append(labelFin+expressionGen.getId() + " :\n");
 
         return si_string;
     }

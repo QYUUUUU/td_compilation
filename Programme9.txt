@@ -12,6 +12,20 @@ main:
 	MOVE(SP, BP);
 	MOVE(R4,null);
 	MOVE(R5,null);
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,c)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
 }
 f:
 	PUSH(BP);
@@ -20,6 +34,13 @@ f:
 	MOVE(R4,null);
 	MOVE(R5,null);
   ALLOCATE(1);
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,res)
+	PUSH(R0)
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
 	 BX LR;
 }
 pile :

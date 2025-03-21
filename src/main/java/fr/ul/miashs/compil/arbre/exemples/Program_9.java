@@ -52,8 +52,8 @@ public class Program_9 {
         mulF.ajouterUnFils(const2);
         plusF.ajouterUnFils(divF);
         divF.setFilsGauche(moinsF);
-        moinsF.setFilsGauche(idfParam2);
-        moinsF.setFilsDroit(const5);
+        moinsF.ajouterUnFils(idfParam2);
+        moinsF.ajouterUnFils(const5);
         divF.setFilsDroit(const3);
 
         f.ajouterUnFils(retour); //fonction f partie "droite"

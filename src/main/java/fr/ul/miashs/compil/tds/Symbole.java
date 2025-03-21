@@ -67,6 +67,10 @@ public class Symbole {
         return nbVar;
     }
 
+    public void setValeur(Integer val){
+        this.valeur=val;
+    }
+
     @Override
     public String toString() {
         return "Symbole{" +

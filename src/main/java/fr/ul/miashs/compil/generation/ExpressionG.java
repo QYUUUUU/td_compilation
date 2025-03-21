@@ -27,12 +27,10 @@ public class ExpressionG extends AffectationG {
         expr_string.append("\tMOVE(SP, BP);\n");//on fait pointer SP sur la pile
 
 
-        List<Noeud>noeudExpr = porteur.getFils();
-
 
         System.out.println("entrée expression");
         System.out.println(si);
-        if(noeudExpr==null){
+        if(porteur.getFils()==null){
             //if ((porteur.getCat().equals(Noeud.Categories.CONST) | porteur.getCat().equals(Noeud.Categories.IDF))) {// on cherche les expressions terminales
                 int val;
                 System.out.println("expr=null"+porteur.getCat());
@@ -45,13 +43,18 @@ public class ExpressionG extends AffectationG {
 
                 } else if (porteur instanceof Idf) {
                     System.out.println("Soy yo");
-                    //Object obj = ((Idf) porteur).getValeur(); // Idf peut être quel autre type de var que int?
-                    //if (obj instanceof Integer) {
-                        //val = (Integer) obj;
                     expr_string.append("\tLDR(R0," + ((Idf) porteur).getValeur() + ")\n");
                     expr_string.append("\tPUSH(R0)\n");// on envoie le fils en mémoire
                     return (expr_string);
                     //}
+
+                }else if(porteur.getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
+                        AffectationG aff = new AffectationG();
+                        expr_string.append(aff.generer_affectation((Affectation)porteur));
+                        return(expr_string);
+                } else if (porteur.getCat().equals(Noeud.Categories.LIRE)) {
+                        expr_string.append(this.generer_lire(porteur));
+                        return(expr_string);
 
                 }else{
                     System.out.println("Erreur");
@@ -59,14 +62,8 @@ public class ExpressionG extends AffectationG {
                 }
                 return(expr_string);
         }else {
-                for (int nbFils = 0; nbFils < noeudExpr.size(); nbFils++){
-                        if (porteur.getCat().equals(Noeud.Categories.AFF)) { // dans le cas où on aurait (a=2+3)+4
-                            AffectationG aff = new AffectationG();
-                            expr_string.append(aff.generer_affectation((Affectation)porteur));
-                        } else if (porteur.getCat().equals(Noeud.Categories.LIRE)) {
-                            this.generer_lire(porteur);
 
-                        } else {
+
                             expr_string.append("\tPOP(R1)\n");//On récupère nos variables conservées dans la mémoire (le fils le plus à droite est au dessus de la pile
                             expr_string.append("\tPOP(R2)\n");
                             switch (porteur.getCat()) {
@@ -168,19 +165,15 @@ public class ExpressionG extends AffectationG {
                                     break;
 
                             }
-                            System.out.println(noeudExpr.get(nbFils).getCat());
-                            expr_string.append(this.generer_expression(noeudExpr.get(nbFils), this.id,false));// On génère l'expression du noeud fils qui est entrain d'être vu
-
-
-
                         }
-
-
-
-                    }
+                        List<Noeud>noeudExpr = porteur.getFils();
+                        for (int nbFils = 0; nbFils < noeudExpr.size(); nbFils++){
+                            expr_string.append(this.generer_expression(noeudExpr.get(nbFils), this.id,false));// On génère l'expression du noeud fils qui est entrain d'être vu
+                         }
             return(expr_string);
             }
-    }
+
+
 
 
     public StringBuilder generer_lire(Noeud lire) {
@@ -228,4 +221,5 @@ public class ExpressionG extends AffectationG {
         return (this.id);
     }
 }
+
 
