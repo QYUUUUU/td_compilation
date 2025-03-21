@@ -51,7 +51,7 @@ public class ExpressionGenerateur extends AffectationGenerateur {
                 stringRes.append("JMP LIRE_" + id + "\n");//lanceur
                 stringRes.append(this.generer_lire(this.getId()));
                 return (stringRes);
-
+            
             } else {
                 System.out.println("Erreur");
                 System.exit(1);

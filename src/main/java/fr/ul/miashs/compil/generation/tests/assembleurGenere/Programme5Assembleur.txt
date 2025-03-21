@@ -4,11 +4,14 @@
 	CMOVE(pile,SP)
 	BR(main)
 data:
-res:	LONG(null)	| int res;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
 main:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
@@ -23,17 +26,8 @@ main:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_3
-
-LIRE_3:
-    input resb 100  
-    MOV (rax, 0) 
-    MOV (rdi, 0)  
-    MOV (rsi, input) 
-    MOV (rdx, 100) 
-    syscall
-    MOV (R0,rax)
-   PUSH (R0)
+	LDR(R0,a)
+	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,2)
@@ -52,17 +46,8 @@ LIRE_3:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_3
-
-LIRE_3:
-    input resb 100  
-    MOV (rax, 0) 
-    MOV (rdi, 0)  
-    MOV (rsi, input) 
-    MOV (rdx, 100) 
-    syscall
-    MOV (R0,rax)
-   PUSH (R0)
+	LDR(R0,b)
+	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,5)
@@ -71,11 +56,6 @@ LIRE_3:
 	MOVE(SP, BP);
 	LDR(R0,3)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,x)
-	PUSH(R0)
 	POP(R0)
 	WRINT()
-}
 pile :

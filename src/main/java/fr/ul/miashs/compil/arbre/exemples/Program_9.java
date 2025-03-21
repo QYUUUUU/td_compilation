@@ -35,7 +35,7 @@ public class Program_9 {
 
         Fonction main = new Fonction("main");
         Ecrire ecMain = new Ecrire();
-        Appel apMain = new Appel(f);//la fonction main appelle la fonction f avec les paramètres a et c (constantes globales)
+        Appel apMain = new Appel("f");//la fonction main appelle la fonction f avec les paramètres a et c (constantes globales)
         Idf const1Main = new Idf("a");// valeurs à changer en cas d'execution
         Idf const2Main = new Idf("c");// est ce que on remplace avec le valeure définie par l'exercice pour la var globale?
 
@@ -85,7 +85,7 @@ public class Program_9 {
         Generateur gen = new Generateur(prog, tds);
         String stringReturn= gen.generer().toString();
         try {
-            FileWriter fw = new FileWriter("Programme9.txt");
+            FileWriter fw = new FileWriter("src\\main\\java\\fr\\ul\\miashs\\compil\\generation\\tests\\assembleurGenere\\Programme9Assembleur.txt");
             fw.write(stringReturn);
             fw.close();
             System.out.println("Le texte a été écrit avec succès");

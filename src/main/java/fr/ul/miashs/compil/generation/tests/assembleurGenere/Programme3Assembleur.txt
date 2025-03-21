@@ -4,12 +4,15 @@
 	CMOVE(pile,SP)
 	BR(main)
 data:
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
 main:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
@@ -54,7 +57,4 @@ main:
 	MOVE(SP, BP);
 	LDR(R0,3)
 	PUSH(R0)
-	POP(R0)
-	WRINT()
-}
 pile :

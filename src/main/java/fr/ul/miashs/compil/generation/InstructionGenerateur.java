@@ -27,6 +27,10 @@ public class InstructionGenerateur {
             Ecrire filsEcr = (Ecrire) instruct;
             EcrireGenerateur newEcr = new EcrireGenerateur();
             res.append(newEcr.genererEcrire(filsEcr));
+        } else if(instruct instanceof Appel){
+            Appel filsApp = (Appel) instruct;
+            res.append(Generateur.genererAppel(Generateur.tds.getSymbole(filsApp.getValeur().toString())));
+            return(res);
         } else {
             System.out.println("Instruction non reconnue");
         }

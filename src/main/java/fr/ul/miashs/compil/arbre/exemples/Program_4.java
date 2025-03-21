@@ -88,7 +88,7 @@ public class Program_4 {
         Generateur gen = new Generateur(prog, tds);
         String stringReturn= gen.generer().toString();
         try {
-            FileWriter fw = new FileWriter("Programme4.txt");
+            FileWriter fw = new FileWriter("src\\main\\java\\fr\\ul\\miashs\\compil\\generation\\tests\\assembleurGenere\\Programme4Assembleur.txt");
             fw.write(stringReturn);
             fw.close();
             System.out.println("Le texte a été écrit avec succès");

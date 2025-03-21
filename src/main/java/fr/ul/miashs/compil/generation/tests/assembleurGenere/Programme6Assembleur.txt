@@ -8,17 +8,19 @@ a:	LONG(1)	| int a;
 b:	LONG(2)	| int b;
 x:	LONG(null)	| int x;
 main:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
-SI_31:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+SI_32:
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JG ALORS_31
-	JLE SINON_31
+	JG ALORS_32
+	JLE SINON_32
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,a)
@@ -27,12 +29,17 @@ SI_31:
 	MOVE(SP, BP);
 	LDR(R0,b)
 	PUSH(R0)
-ALORS_31 :
-	LDR(1000, Rc);
-JMP SINON_31
-SINON_31 :
-	LDR(2000, Rc);
-JMP FINSI_
-FINSI_ :
-}
+ALORS_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,1000)
+	PUSH(R0)
+JMP SINON_32
+SINON_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2000)
+	PUSH(R0)
+JMP FINSI_32
+FINSI_32 :
 pile :

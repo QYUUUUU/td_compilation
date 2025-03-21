@@ -60,13 +60,13 @@ public class Program_8 {
 
         Retour retour2 = new Retour(c3);
         Plus plus = new Plus();
-        Appel appel1 = new Appel(f);
+        Appel appel1 = new Appel("f");
         Moins moins = new Moins();
         Const c4 = new Const(1);
 
         Fonction main = new Fonction("main");
         Ecrire ecrire = new Ecrire();
-        Appel appel2 = new Appel(f);
+        Appel appel2 = new Appel("f");
         Const c5 = new Const(6);
 
         //on relie les noeuds
@@ -107,7 +107,7 @@ public class Program_8 {
         Generateur gen = new Generateur(prog, tds);
         String stringReturn= gen.generer().toString();
         try {
-            FileWriter fw = new FileWriter("Programme8.txt");
+            FileWriter fw = new FileWriter("src\\main\\java\\fr\\ul\\miashs\\compil\\generation\\tests\\assembleurGenere\\Programme8Assembleur.txt");
             fw.write(stringReturn);
             fw.close();
             System.out.println("Le texte a été écrit avec succès");

@@ -33,9 +33,9 @@ public class Generateur {
         String pile = "pile :\n";
         String data_init_text = "data:\n";
         StringBuilder stringRes = new StringBuilder();
-        stringRes.append(data_init_text);
         stringRes.append(head_string);
-        stringRes.append(this.genererData(stringRes));
+        stringRes.append(data_init_text);
+        stringRes.append(this.genererData());
         List<Symbole> symList = tds.getAllSymboles();
         for (Symbole sym : symList) {
             if (sym.getCategorie().equals("fonction")) {
@@ -47,22 +47,27 @@ public class Generateur {
     }
 
 
-    private StringBuilder genererData(StringBuilder data) {
+    private StringBuilder genererData() {
+        StringBuilder stringRes= new StringBuilder();
         List<Symbole> global_variables_list = tds.getAllGlobalVariables();
         for (Symbole variable : global_variables_list) {
             String nom = variable.getNom();
             String type = variable.getType();
+
             String valeur = String.valueOf(variable.getValeur());
-            data.append(nom)
+            if (valeur.equals("null")){
+                valeur="0";
+            }
+            stringRes.append(nom)
                     .append(":\tLONG(")
-                    .append(valeur != null ? valeur : 0)
+                    .append(valeur)
                     .append(")\t| ")
                     .append(type)
                     .append(" ")
                     .append(nom)
                     .append(";\n");
         }
-        return data;
+        return stringRes;
     }
 
     // Méthode pour générer le code d'une fonction
@@ -70,9 +75,9 @@ public class Generateur {
         StringBuilder stringRes = new StringBuilder();
         stringRes.append(fonction.getNom()).append(":\n");
         stringRes.append("\tMOVE(R0,LP)\n");
-        stringRes.append("\tPUSH(LP)\n");
+        stringRes.append("\tPUSH(R0)\n");
         stringRes.append("\tMOVE(R0,BP)\n");
-        stringRes.append("\tPUSH(BP)\n");
+        stringRes.append("\tPUSH(R0)\n");
         stringRes.append("\tMOVE(SP, BP)\n");
 
         // pour enregister les paramètres=> étant donné qu'il y en a moins que 4 on peut utiliser de R0 à R3
@@ -118,9 +123,14 @@ public class Generateur {
         return stringRes;
     }
 
-    private StringBuilder genererAppel(Symbole fonction) {
+    public static StringBuilder genererAppel(Symbole fonction) {
         StringBuilder stringRes = new StringBuilder();
-        stringRes.append("\t BL " + fonction.getNom() + "\n"); // on place dans LR l'adresse de retour
+        stringRes.append("\tMOVE(R0,LP)\n");// on conserve l'adresse mémoire de la fonction précédente
+        stringRes.append("\tPUSH(LP)\n");
+        stringRes.append("\tMOVE(R0,BP)\n");
+        stringRes.append("\tPUSH(BP)\n");
+        stringRes.append("\tMOVE(SP, BP)\n");
+        stringRes.append("\tJMP " + fonction.getNom() + "\n"); //
         return stringRes;
     }
 }

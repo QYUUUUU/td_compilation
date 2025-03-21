@@ -6,11 +6,12 @@
 data:
 i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
-k:	LONG(null)	| int k;
-l:	LONG(null)	| int l;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
 main:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
-}
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
 pile :

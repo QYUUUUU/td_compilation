@@ -7,11 +7,19 @@ data:
 a:	LONG(100)	| int a;
 c:	LONG(170)	| int c;
 main:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
 	MOVE(R4,null);
 	MOVE(R5,null);
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	 JMP f
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
@@ -26,11 +34,12 @@ main:
 	PUSH(R0)
 	POP(R0)
 	WRINT()
-}
 f:
-	PUSH(BP);
-	PUSH(BP);
-	MOVE(SP, BP);
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
 	MOVE(R4,null);
 	MOVE(R5,null);
   ALLOCATE(1);
@@ -82,5 +91,4 @@ f:
 	POP(BP);
 	RET;
 	 BX LR;
-}
 pile :
