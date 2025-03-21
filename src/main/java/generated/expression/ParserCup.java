@@ -345,7 +345,7 @@ class CUP$ParserCup$actions {
 		
 Prog prog = new Prog();
 prog.ajouterUnFils(ion);
-RESULT = prog;
+RESULT = prog ;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("programme",0, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
             }
@@ -1049,9 +1049,7 @@ RESULT = il;
 		int iright = ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()).right;
 		Noeud i = (Noeud)((java_cup.runtime.Symbol) CUP$ParserCup$stack.peek()).value;
 		
-Bloc b = new Bloc();
-b.ajouterUnFils(i);
-RESULT = b;
+RESULT = i;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("instructionList",1, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
             }

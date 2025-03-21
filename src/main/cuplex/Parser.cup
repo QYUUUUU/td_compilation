@@ -32,6 +32,7 @@ non terminal Noeud tantQue, si;
 non terminal Noeud appelfonction;
 non terminal commentaire;
 non terminal Noeud lire, parametres, declaration;
+non terminal Noeud premiereInstruction;
 
 /* Priorités et associations */
 precedence left PLUS, MOINS;
@@ -44,7 +45,7 @@ programme ::= instructionEoN:ion
 {:
 Prog prog = new Prog();
 prog.ajouterUnFils(ion);
-RESULT = prog;
+RESULT = prog ;
 :};
 /* -------------------------Fonctions------------------------------- */
 fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:p PARENTHESE_FERMANTE instructionAccolade:ia
@@ -309,7 +310,6 @@ RESULT = ie;
 
 instructionEoN ::=
 {:
-RESULT = new Bloc();
 :}
 | instructionList:il
 {:
@@ -318,9 +318,7 @@ RESULT = il;
 
 instructionList ::= instruction:i
 {:
-Bloc b = new Bloc();
-b.ajouterUnFils(i);
-RESULT = b;
+RESULT = i;
 :}
 | instructionList:il instruction:i
 {:
