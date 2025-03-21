@@ -1,0 +1,51 @@
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+a:	LONG(1)	| int a;
+b:	LONG(2)	| int b;
+x:	LONG(0)	| int x;
+main:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_69:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG ALORS_69
+	JLE SINON_69
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+ALORS_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,1000)
+	PUSH(R0)
+JMP SINON_69
+SINON_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2000)
+	PUSH(R0)
+JMP FINSI_69
+FINSI_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+pile :

@@ -1,0 +1,57 @@
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+f:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_5:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JLEALORS_5
+	JGSINON_5
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,0)
+	PUSH(R0)
+ALORS_5 :
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
+JMP SINON_5
+SINON_5 :
+JMP FINSI_5
+FINSI_5 :
+	MOVE(BP, SP);
+	POP(BP);
+	RET;
+	 BX LR;
+main:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+pile :

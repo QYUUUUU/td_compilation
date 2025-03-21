@@ -72,7 +72,7 @@ if "%JAVACMD%"=="" set JAVACMD=java
 
 if "%REPO%"=="" set REPO=%BASEDIR%\repo
 
-set CLASSPATH="%BASEDIR%"\etc;"%REPO%"\fr\ul\miashs\compil\1.0\compil-1.0.jar
+set CLASSPATH="%BASEDIR%"\etc;"%REPO%"\org\junit\jupiter\junit-jupiter\5.13.0-M1\junit-jupiter-5.13.0-M1.jar;"%REPO%"\org\junit\jupiter\junit-jupiter-api\5.13.0-M1\junit-jupiter-api-5.13.0-M1.jar;"%REPO%"\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;"%REPO%"\org\junit\platform\junit-platform-commons\1.13.0-M1\junit-platform-commons-1.13.0-M1.jar;"%REPO%"\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"%REPO%"\org\junit\jupiter\junit-jupiter-params\5.13.0-M1\junit-jupiter-params-5.13.0-M1.jar;"%REPO%"\org\junit\jupiter\junit-jupiter-engine\5.13.0-M1\junit-jupiter-engine-5.13.0-M1.jar;"%REPO%"\org\junit\platform\junit-platform-engine\1.13.0-M1\junit-platform-engine-1.13.0-M1.jar;"%REPO%"\com\github\vbmacher\java-cup-runtime\11b-20160615-3\java-cup-runtime-11b-20160615-3.jar;"%REPO%"\fr\ul\miashs\compil\1.0\compil-1.0.jar
 
 set ENDORSED_DIR=
 if NOT "%ENDORSED_DIR%" == "" set CLASSPATH="%BASEDIR%"\%ENDORSED_DIR%\*;%CLASSPATH%

@@ -35,7 +35,7 @@ package fr.ul.miashs.compil.arbre;
  * @author Azim Roussanaly
  * Created at 28 févr. 2019
  */
-class NoeudInt extends Noeud {
+public class NoeudInt extends Noeud {
 	//attribut
 	private int valeur;
 	//constructeur
