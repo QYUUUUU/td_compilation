@@ -1,0 +1,33 @@
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+i:	LONG(10)	| int i;
+j:	LONG(20)	| int j;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+i:	LONG(10)	| int i;
+j:	LONG(20)	| int j;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+pile :

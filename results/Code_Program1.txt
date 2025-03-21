@@ -1,0 +1,19 @@
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+pile :
