@@ -2,14 +2,21 @@ package fr.ul.miashs.compil.generation;
 
 import fr.ul.miashs.compil.arbre.Noeud;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * EcrireGenerateur
+ * Génération de l'instruction Ecrire
+ */
 public class EcrireGenerateur extends InstructionGenerateur {
+
+    /**
+     * Fonction genererEcrire
+     * @return StringBuilder
+     * retourne le code assembleur de l'instruction Ecrire
+     **/
     public StringBuilder genererEcrire(Noeud ecrire) {
         StringBuilder stringRes = new StringBuilder();
         ExpressionGenerateur expr = new ExpressionGenerateur();
+        // On génère l'expression à écrire
         Noeud.Categories catFilsPorteur=ecrire.getFils().get(0).getCat();
         Noeud.Categories[] listCat={Noeud.Categories.PROG, Noeud.Categories.FONCTION, Noeud.Categories.BLOC, Noeud.Categories.AFF, Noeud.Categories.SI, Noeud.Categories.TQ, Noeud.Categories.ECR, Noeud.Categories.RET, Noeud.Categories.LIRE, Noeud.Categories.APPEL};
 
