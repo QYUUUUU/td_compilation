@@ -2,13 +2,8 @@ int x;
 
 🚀 main() {
     🌠 Introduction de la lecture de variable
-    int first;
-    int second;
     
-    🔡 first;
-    🔡 second;
-    
-    x = (first * 2) + ((second - 5) / 3);
+    x = (🔡 * 2) + ((🔡 - 5) / 3);
 
     📢 x;   🌠 On renvoie le résultat
 }

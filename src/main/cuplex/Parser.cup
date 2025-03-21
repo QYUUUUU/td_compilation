@@ -53,10 +53,10 @@ Fonction f = new Fonction(id);
 if(ia != null){
 f.ajouterUnFils(ia);
 }
-List<Noeud> params=p.getFils();
+/*List<Noeud> params=p.getFils();
 for(Noeud param : params){
 System.out.println(param);
-}
+}*/
 RESULT = f;
 :};
 
@@ -91,7 +91,8 @@ RESULT = a;
 | IDENTIFIANT:id ASSIGNER appelfonction:a POINT_VIRGULE
 {:
 Affectation af = new Affectation();
-af.setFilsGauche(a);
+af.setFilsGauche(new Idf(id));
+af.setFilsDroit(a);
 RESULT = af;
 :}
 | IDENTIFIANT:id POINT_VIRGULE
@@ -111,13 +112,15 @@ RESULT = a;
 | INT IDENTIFIANT:id ASSIGNER appelfonction:a POINT_VIRGULE
 {:
 Affectation af = new Affectation();
-af.setFilsGauche(a);
+af.setFilsGauche(new Idf(id));
+af.setFilsDroit(a);
 RESULT = af;
 :}
 | INT IDENTIFIANT:id POINT_VIRGULE
 {:
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
+a.setFilsDroit(new Bloc());
 RESULT = a;
 :};
 /* -------------------------TantQue------------------------------- */
@@ -146,11 +149,9 @@ RESULT = r;
 :};
 
 /* -------------------------Lire------------------------------- */
-lire ::= READ IDENTIFIANT:id POINT_VIRGULE
+lire ::= READ
 {:
-Lire l = new Lire();
-l.ajouterUnFils(new Idf(id));
-RESULT = l;
+RESULT = new Lire();
 :};
 
 /* -------------------------Conditions------------------------------- */
@@ -288,6 +289,10 @@ RESULT = f;
 Fonction f = new Fonction(id);
 f.ajouterUnFils(e);
 RESULT =f;
+:}
+| lire:l
+{:
+RESULT = l;
 :};
 
 /* -------------------------Commentaires------------------------------- */
@@ -354,10 +359,6 @@ RESULT = a;
 | commentaire:c
 {:
 /* ne rien faire */
-:}
-| lire:l
-{:
-RESULT = l;
 :}
 | declaration:d
 {:
