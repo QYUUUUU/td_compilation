@@ -3,9 +3,9 @@ package fr.ul.miashs.compil.parser;
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.arbre.TxtAfficheur;
 import fr.ul.miashs.compil.arbre.GuiAfficheur;
-import generated.fr.ul.miashs.expression.ParserCup;
-import generated.fr.ul.miashs.expression.Sym;
-import generated.fr.ul.miashs.expression.Yylex;
+import generated.expression.ParserCup;
+import generated.expression.Sym;
+import generated.expression.Yylex;
 
 import java.io.File;
 import java.io.FileReader;

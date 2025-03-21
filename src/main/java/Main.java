@@ -3,8 +3,8 @@ import java.io.FileWriter;
 
 import fr.ul.miashs.compil.arbre.Noeud;
 import fr.ul.miashs.compil.generation.Generateur;
-import generated.fr.ul.miashs.expression.ParserCup;
-import generated.fr.ul.miashs.expression.Yylex;
+import generated.expression.ParserCup;
+import generated.expression.Yylex;
 import java_cup.runtime.Symbol;
 
 import static fr.ul.miashs.compil.generation.Generateur.tds;
