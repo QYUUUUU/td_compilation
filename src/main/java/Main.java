@@ -38,6 +38,7 @@ public class Main{
 
                 // Récupérer la table des symboles
                 TDS tds = GlobalTDS.getTds();
+
                 System.out.println("- Arbre généré avec succès !");
 
                 // Générer le code assembleur

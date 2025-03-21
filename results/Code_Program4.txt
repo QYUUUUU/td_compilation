@@ -8,29 +8,15 @@ i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-data:
-.include beta.uasm
-.include intio.uasm
-.options tty
-	CMOVE(pile,SP)
-	BR(main)
-i:	LONG(10)	| int i;
-j:	LONG(20)	| int j;
-k:	LONG(0)	| int k;
-l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
@@ -46,9 +32,9 @@ main:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_62
+JMP LIRE_37
 
-LIRE_62:
+LIRE_37:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -75,9 +61,9 @@ LIRE_62:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_62
+JMP LIRE_37
 
-LIRE_62:
+LIRE_37:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -102,9 +88,9 @@ LIRE_62:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
@@ -120,9 +106,9 @@ main:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_81
+JMP LIRE_11
 
-LIRE_81:
+LIRE_11:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -149,9 +135,9 @@ LIRE_81:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_81
+JMP LIRE_11
 
-LIRE_81:
+LIRE_11:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -176,9 +162,9 @@ LIRE_81:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
@@ -194,9 +180,9 @@ main:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_84
+JMP LIRE_9
 
-LIRE_84:
+LIRE_9:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -223,9 +209,9 @@ LIRE_84:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_84
+JMP LIRE_9
 
-LIRE_84:
+LIRE_9:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -250,9 +236,9 @@ LIRE_84:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
@@ -268,9 +254,9 @@ main:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_84
+JMP LIRE_98
 
-LIRE_84:
+LIRE_98:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  
@@ -297,9 +283,9 @@ LIRE_84:
 	PUSH(R0)
 	PUSH(BP);
 	MOVE(SP, BP);
-JMP LIRE_84
+JMP LIRE_98
 
-LIRE_84:
+LIRE_98:
     input resb 100  
     MOV (rax, 0) 
     MOV (rdi, 0)  

@@ -8,27 +8,14 @@ i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-data:
-.include beta.uasm
-.include intio.uasm
-.options tty
-	CMOVE(pile,SP)
-	BR(main)
-i:	LONG(10)	| int i;
-j:	LONG(20)	| int j;
-k:	LONG(0)	| int k;
-l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
@@ -76,9 +63,9 @@ main:
 	PUSH(R0)
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);
@@ -126,9 +113,9 @@ main:
 	PUSH(R0)
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	PUSH(BP);
 	MOVE(SP, BP);

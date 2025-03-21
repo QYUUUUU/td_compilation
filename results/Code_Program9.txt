@@ -8,47 +8,24 @@ i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(1)	| int a;
 b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
-i:	LONG(0)	| int i;
-a:	LONG(100)	| int a;
-c:	LONG(170)	| int c;
-data:
-.include beta.uasm
-.include intio.uasm
-.options tty
-	CMOVE(pile,SP)
-	BR(main)
-i:	LONG(10)	| int i;
-j:	LONG(20)	| int j;
-k:	LONG(0)	| int k;
-l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(1)	| int a;
-b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 i:	LONG(0)	| int i;
 a:	LONG(100)	| int a;
 c:	LONG(170)	| int c;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -69,9 +46,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -92,9 +69,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -115,9 +92,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -138,9 +115,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -161,9 +138,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -184,9 +161,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -207,9 +184,9 @@ main:
 	WRINT()
 f:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -264,9 +241,9 @@ f:
 	 BX LR;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -287,9 +264,9 @@ main:
 	WRINT()
 f:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);
@@ -344,9 +321,9 @@ f:
 	 BX LR;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	MOVE(R25,null);

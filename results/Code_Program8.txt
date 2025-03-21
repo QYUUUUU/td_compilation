@@ -8,43 +8,22 @@ i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(1)	| int a;
 b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
-i:	LONG(0)	| int i;
-data:
-.include beta.uasm
-.include intio.uasm
-.options tty
-	CMOVE(pile,SP)
-	BR(main)
-i:	LONG(10)	| int i;
-j:	LONG(20)	| int j;
-k:	LONG(0)	| int k;
-l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(1)	| int a;
-b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 i:	LONG(0)	| int i;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -59,9 +38,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -76,9 +55,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -93,9 +72,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -110,9 +89,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -127,9 +106,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -144,9 +123,9 @@ main:
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);
@@ -161,19 +140,19 @@ main:
 	WRINT()
 f:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
-SI_14:
+SI_69:
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JLEALORS_14
-	JGSINON_14
+	JLEALORS_69
+	JGSINON_69
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,a)
@@ -182,23 +161,23 @@ SI_14:
 	MOVE(SP, BP);
 	LDR(R0,0)
 	PUSH(R0)
-ALORS_14 :
+ALORS_69 :
 	MOVE(BP, SP);
 	POP(BP);
 	RET;
-JMP SINON_14
-SINON_14 :
-JMP FINSI_14
-FINSI_14 :
+JMP SINON_69
+SINON_69 :
+JMP FINSI_69
+FINSI_69 :
 	MOVE(BP, SP);
 	POP(BP);
 	RET;
 	 BX LR;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	MOVE(R22,null);
 	PUSH(BP);

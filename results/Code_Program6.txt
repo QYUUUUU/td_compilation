@@ -8,50 +8,30 @@ i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(1)	| int a;
 b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
-data:
-.include beta.uasm
-.include intio.uasm
-.options tty
-	CMOVE(pile,SP)
-	BR(main)
-i:	LONG(10)	| int i;
-j:	LONG(20)	| int j;
-k:	LONG(0)	| int k;
-l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(1)	| int a;
-b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
-SI_35:
+SI_85:
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JG ALORS_35
-	JLE SINON_35
+	JG ALORS_85
+	JLE SINON_85
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,a)
@@ -60,19 +40,19 @@ SI_35:
 	MOVE(SP, BP);
 	LDR(R0,b)
 	PUSH(R0)
-ALORS_35 :
+ALORS_85 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,1000)
 	PUSH(R0)
-JMP SINON_35
-SINON_35 :
+JMP SINON_85
+SINON_85 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,2000)
 	PUSH(R0)
-JMP FINSI_35
-FINSI_35 :
+JMP FINSI_85
+FINSI_85 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,x)
@@ -81,173 +61,9 @@ FINSI_35 :
 	WRINT()
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
-	MOVE(SP, BP)
-SI_80:
-	PUSH(BP);
-	MOVE(SP, BP);
-	POP(R1)
-	POP(R2)
-	CMP(R1,R2)
-	JG ALORS_80
-	JLE SINON_80
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,a)
 	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,b)
-	PUSH(R0)
-ALORS_80 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,1000)
-	PUSH(R0)
-JMP SINON_80
-SINON_80 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,2000)
-	PUSH(R0)
-JMP FINSI_80
-FINSI_80 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,x)
-	PUSH(R0)
-	POP(R0)
-	WRINT()
-main:
-	MOVE(R0,LP)
-	PUSH(LP)
-	MOVE(R0,BP)
-	PUSH(BP)
-	MOVE(SP, BP)
-SI_48:
-	PUSH(BP);
-	MOVE(SP, BP);
-	POP(R1)
-	POP(R2)
-	CMP(R1,R2)
-	JG ALORS_48
-	JLE SINON_48
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,a)
-	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,b)
-	PUSH(R0)
-ALORS_48 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,1000)
-	PUSH(R0)
-JMP SINON_48
-SINON_48 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,2000)
-	PUSH(R0)
-JMP FINSI_48
-FINSI_48 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,x)
-	PUSH(R0)
-	POP(R0)
-	WRINT()
-main:
-	MOVE(R0,LP)
-	PUSH(LP)
-	MOVE(R0,BP)
-	PUSH(BP)
-	MOVE(SP, BP)
-SI_59:
-	PUSH(BP);
-	MOVE(SP, BP);
-	POP(R1)
-	POP(R2)
-	CMP(R1,R2)
-	JG ALORS_59
-	JLE SINON_59
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,a)
-	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,b)
-	PUSH(R0)
-ALORS_59 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,1000)
-	PUSH(R0)
-JMP SINON_59
-SINON_59 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,2000)
-	PUSH(R0)
-JMP FINSI_59
-FINSI_59 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,x)
-	PUSH(R0)
-	POP(R0)
-	WRINT()
-main:
-	MOVE(R0,LP)
-	PUSH(LP)
-	MOVE(R0,BP)
-	PUSH(BP)
-	MOVE(SP, BP)
-SI_57:
-	PUSH(BP);
-	MOVE(SP, BP);
-	POP(R1)
-	POP(R2)
-	CMP(R1,R2)
-	JG ALORS_57
-	JLE SINON_57
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,a)
-	PUSH(R0)
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,b)
-	PUSH(R0)
-ALORS_57 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,1000)
-	PUSH(R0)
-JMP SINON_57
-SINON_57 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,2000)
-	PUSH(R0)
-JMP FINSI_57
-FINSI_57 :
-	PUSH(BP);
-	MOVE(SP, BP);
-	LDR(R0,x)
-	PUSH(R0)
-	POP(R0)
-	WRINT()
-main:
-	MOVE(R0,LP)
-	PUSH(LP)
-	MOVE(R0,BP)
-	PUSH(BP)
 	MOVE(SP, BP)
 SI_31:
 	PUSH(BP);
@@ -278,6 +94,170 @@ SINON_31 :
 	PUSH(R0)
 JMP FINSI_31
 FINSI_31 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_16:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG ALORS_16
+	JLE SINON_16
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+ALORS_16 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,1000)
+	PUSH(R0)
+JMP SINON_16
+SINON_16 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2000)
+	PUSH(R0)
+JMP FINSI_16
+FINSI_16 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_3:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG ALORS_3
+	JLE SINON_3
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+ALORS_3 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,1000)
+	PUSH(R0)
+JMP SINON_3
+SINON_3 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2000)
+	PUSH(R0)
+JMP FINSI_3
+FINSI_3 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_32:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG ALORS_32
+	JLE SINON_32
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+ALORS_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,1000)
+	PUSH(R0)
+JMP SINON_32
+SINON_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2000)
+	PUSH(R0)
+JMP FINSI_32
+FINSI_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(R0)
+	MOVE(R0,BP)
+	PUSH(R0)
+	MOVE(SP, BP)
+SI_84:
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JG ALORS_84
+	JLE SINON_84
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+ALORS_84 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,1000)
+	PUSH(R0)
+JMP SINON_84
+SINON_84 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2000)
+	PUSH(R0)
+JMP FINSI_84
+FINSI_84 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,x)

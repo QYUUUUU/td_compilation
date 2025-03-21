@@ -8,52 +8,31 @@ i:	LONG(10)	| int i;
 j:	LONG(20)	| int j;
 k:	LONG(0)	| int k;
 l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(100)	| int a;
 b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 a:	LONG(1)	| int a;
 b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
-i:	LONG(0)	| int i;
-data:
-.include beta.uasm
-.include intio.uasm
-.options tty
-	CMOVE(pile,SP)
-	BR(main)
-i:	LONG(10)	| int i;
-j:	LONG(20)	| int j;
-k:	LONG(0)	| int k;
-l:	LONG(0)	| int l;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(100)	| int a;
-b:	LONG(170)	| int b;
-x:	LONG(null)	| int x;
-a:	LONG(1)	| int a;
-b:	LONG(2)	| int b;
-x:	LONG(null)	| int x;
+x:	LONG(0)	| int x;
 i:	LONG(0)	| int i;
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_69 :
+TANT_QUE_37 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_69
+	JL INSTRUCTIONS_37
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -62,7 +41,7 @@ TANT_QUE_69 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_69 :
+INSTRUCTIONS_37 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -86,18 +65,18 @@ INSTRUCTIONS_69 :
 FINTQ_
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_32 :
+TANT_QUE_41 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_32
+	JL INSTRUCTIONS_41
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -106,7 +85,7 @@ TANT_QUE_32 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_32 :
+INSTRUCTIONS_41 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -130,18 +109,18 @@ INSTRUCTIONS_32 :
 FINTQ_
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_60 :
+TANT_QUE_91 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_60
+	JL INSTRUCTIONS_91
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -150,7 +129,7 @@ TANT_QUE_60 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_60 :
+INSTRUCTIONS_91 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -174,18 +153,18 @@ INSTRUCTIONS_60 :
 FINTQ_
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_0 :
+TANT_QUE_67 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_0
+	JL INSTRUCTIONS_67
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -194,7 +173,7 @@ TANT_QUE_0 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_0 :
+INSTRUCTIONS_67 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -218,18 +197,18 @@ INSTRUCTIONS_0 :
 FINTQ_
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_20 :
+TANT_QUE_83 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_20
+	JL INSTRUCTIONS_83
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -238,7 +217,7 @@ TANT_QUE_20 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_20 :
+INSTRUCTIONS_83 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -262,18 +241,18 @@ INSTRUCTIONS_20 :
 FINTQ_
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_69 :
+TANT_QUE_81 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_69
+	JL INSTRUCTIONS_81
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -282,7 +261,7 @@ TANT_QUE_69 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_69 :
+INSTRUCTIONS_81 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -306,18 +285,18 @@ INSTRUCTIONS_69 :
 FINTQ_
 main:
 	MOVE(R0,LP)
-	PUSH(LP)
+	PUSH(R0)
 	MOVE(R0,BP)
-	PUSH(BP)
+	PUSH(R0)
 	MOVE(SP, BP)
 	CMP(R1,R2)
-TANT_QUE_9 :
+TANT_QUE_48 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	POP(R1)
 	POP(R2)
 	CMP(R1,R2)
-	JL INSTRUCTIONS_9
+	JL INSTRUCTIONS_48
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
@@ -326,7 +305,7 @@ TANT_QUE_9 :
 	MOVE(SP, BP);
 	LDR(R0,6)
 	PUSH(R0)
-INSTRUCTIONS_9 :
+INSTRUCTIONS_48 :
 	PUSH(BP);
 	MOVE(SP, BP);
 	LDR(R0,i)
