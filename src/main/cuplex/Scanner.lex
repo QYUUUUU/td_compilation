@@ -1,4 +1,4 @@
-package generated.fr.ul.miashs.expression;
+package generated.expression;
 
 import java_cup.runtime.Symbol;
 
@@ -26,6 +26,7 @@ IDENTIFIANT = {LETTRE}({LETTRE}|{CHIFFRE})*
 
 /*règles*/
 %%
+"int"           {return new Symbol(Sym.INT);}
 "🔡"            {return new Symbol(Sym.READ);}
 "appel"         { return new Symbol(Sym.APPEL); }
 "🚀"          { return new Symbol(Sym.FONCTION); }

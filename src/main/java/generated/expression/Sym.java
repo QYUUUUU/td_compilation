@@ -12,6 +12,7 @@ public interface Sym {
   public static final int EGAL = 9;
   public static final int CHAINE = 4;
   public static final int PLUS = 5;
+  public static final int INT = 31;
   public static final int APPEL = 28;
   public static final int ACCOLADE_FERMANTE = 19;
   public static final int INFERIEUR = 15;
@@ -70,7 +71,8 @@ public interface Sym {
   "RETOUR",
   "APPEL",
   "COMMENTAIRE",
-  "READ"
+  "READ",
+  "INT"
   };
 }
 
