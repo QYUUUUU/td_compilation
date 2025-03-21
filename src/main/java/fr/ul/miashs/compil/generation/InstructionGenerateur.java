@@ -4,13 +4,25 @@ import fr.ul.miashs.compil.arbre.*;
 
 import java.util.List;
 
+/**
+ * InstructionGenerateur
+ * Génération d'une instruction
+ */
 public class InstructionGenerateur {
+    /**
+     * Fonction genererInstruction
+     *
+     * @param instruct noeud de l'instruction à générer
+     * @return StringBuilder
+     * retourne le code assembleur d'une instruction
+     **/
     public StringBuilder genererInstruction(Noeud instruct) {
         StringBuilder res = new StringBuilder();
+        // On regarde le type de l'instruction
         if (instruct instanceof Si) {
             Si filsSi = (Si) instruct;
             SiGenerateur newSi = new SiGenerateur();
-            res.append(newSi.genererSi(filsSi)); // on ajoute au programme, le code du noeud relié à l'instruction
+            res.append(newSi.genererSi(filsSi));
         } else if (instruct instanceof TantQue) {
             TantQue filsTQ = (TantQue) instruct;
             TantQueGenerateur newTQ = new TantQueGenerateur();
@@ -33,6 +45,13 @@ public class InstructionGenerateur {
         return (res);
     }
 
+    /**
+     * Fonction genererBloc
+     *
+     * @param bloc noeud du bloc à générer
+     * @return StringBuilder
+     * retourne le code assembleur d'un bloc
+     **/
     public StringBuilder genererBloc(Bloc bloc) {
         StringBuilder stringRes = new StringBuilder();
         List<Noeud> instructions = bloc.getFils();

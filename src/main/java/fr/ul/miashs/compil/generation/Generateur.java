@@ -7,10 +7,17 @@ import fr.ul.miashs.compil.tds.TDS;
 
 import java.util.List;
 
+/**
+ * Generateur
+ * Génération du code assembleur
+ */
 public class Generateur {
 
+    //Attribut de la table des symboles
     public static TDS tds;
-    public static List<Integer> tableID; // table de toutes les id utilisées pour faires des appels de parties dans l'assembleur
+    //Attribut de la table des id utilisées pour faires des appels de parties dans l'assembleur
+    public static List<Integer> tableID;
+    //Attribut de l'arbre
     public static Noeud arbre;
 
     public Generateur(Noeud arbre, TDS tds) {
@@ -19,22 +26,24 @@ public class Generateur {
         this.tableID = new java.util.ArrayList<>();
     }
 
-    public Noeud getArbre() {
-        return this.arbre;
-    }
-
+    /**
+     * Fonction generer
+     *
+     * @return StringBuilder
+     * retourne le code assembleur du programme
+     **/
     public StringBuilder generer() {
         //Former le fichier template d'assembleur
-        String head_string = ".include beta.uasm\n" +
+        String head = ".include beta.uasm\n" +
                 ".include intio.uasm\n" +
                 ".options tty\n" +
                 "\tCMOVE(pile,SP)\n" +
                 "\tBR(main)\n";
         String pile = "pile :\n";
-        String data_init_text = "data:\n";
+        String init = "data:\n";
         StringBuilder stringRes = new StringBuilder();
-        stringRes.append(data_init_text);
-        stringRes.append(head_string);
+        stringRes.append(init);
+        stringRes.append(head);
         stringRes.append(this.genererData(stringRes));
         List<Symbole> symList = tds.getAllSymboles();
         for (Symbole sym : symList) {
@@ -47,7 +56,14 @@ public class Generateur {
     }
 
 
+    /**
+     * Fonction genererData
+     *
+     * @return StringBuilder
+     * retourne le code assembleur d'un appel de fonction
+     **/
     private StringBuilder genererData(StringBuilder data) {
+        //Récupérer les variables globales et les ajoute dans le code assembleur
         List<Symbole> global_variables_list = tds.getAllGlobalVariables();
         for (Symbole variable : global_variables_list) {
             String nom = variable.getNom();
@@ -65,7 +81,13 @@ public class Generateur {
         return data;
     }
 
-    // Méthode pour générer le code d'une fonction
+    /**
+     * Fonction genererFonction
+     *
+     * @param fonction fonction à générer
+     * @return StringBuilder
+     * retourne le code assembleur d'une fonction
+     **/
     private StringBuilder genererFonction(Symbole fonction) {
         StringBuilder stringRes = new StringBuilder();
         stringRes.append(fonction.getNom()).append(":\n");
@@ -74,7 +96,6 @@ public class Generateur {
         stringRes.append("\tMOVE(R0,BP)\n");
         stringRes.append("\tPUSH(BP)\n");
         stringRes.append("\tMOVE(SP, BP)\n");
-
         // pour enregister les paramètres=> étant donné qu'il y en a moins que 4 on peut utiliser de R0 à R3
         List<Symbole> symList = tds.getAllSymboles();
         int compt = 0;
@@ -85,23 +106,22 @@ public class Generateur {
             }
             compt++;
         }
+        //Allocation de la mémoire pour les variables locales
         int nombreVariables = fonction.getNbVar() != null ? fonction.getNbVar() : 0; // si le nb de var est null on le met directement à 0
         if (nombreVariables > 0) {
             stringRes.append("  ALLOCATE(").append(nombreVariables).append(");\n");
         }
+        //Récupération de toutes les fonctions
         Fonction fonctionArbre = null;
         List<Noeud> noeudsArbre = this.arbre.getFils();
         for (Noeud noeud : noeudsArbre) {
             if (noeud instanceof Fonction) {
                 Fonction fonc = (Fonction) noeud;
-                //Attention à bien faire .toString().equals(...) pour que les types comparés soient les mêmes
-                //mais ça marche sans pour la fonction main
                 if (fonc.getValeur().toString().equals(fonction.getNom())) {
                     fonctionArbre = fonc;
                 }
             }
         }
-
         if (fonctionArbre == null) {//cas erreur
             System.out.println("Fonction non trouvée");
             return null;
