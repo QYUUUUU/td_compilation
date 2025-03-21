@@ -1,0 +1,351 @@
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+i:	LONG(10)	| int i;
+j:	LONG(20)	| int j;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+a:	LONG(1)	| int a;
+b:	LONG(2)	| int b;
+x:	LONG(null)	| int x;
+i:	LONG(0)	| int i;
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+i:	LONG(10)	| int i;
+j:	LONG(20)	| int j;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+a:	LONG(1)	| int a;
+b:	LONG(2)	| int b;
+x:	LONG(null)	| int x;
+i:	LONG(0)	| int i;
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_69
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_32
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_32 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_60 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_60
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_60 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_0 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_0
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_0 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_20 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_20
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_20 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_69
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_69 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	CMP(R1,R2)
+TANT_QUE_9 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	CMP(R1,R2)
+	JL INSTRUCTIONS_9
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,6)
+	PUSH(R0)
+INSTRUCTIONS_9 :
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,i)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,21)
+	PUSH(R0)
+FINTQ_
+pile :

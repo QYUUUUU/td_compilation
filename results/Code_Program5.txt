@@ -1,0 +1,315 @@
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+i:	LONG(10)	| int i;
+j:	LONG(20)	| int j;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+data:
+.include beta.uasm
+.include intio.uasm
+.options tty
+	CMOVE(pile,SP)
+	BR(main)
+i:	LONG(10)	| int i;
+j:	LONG(20)	| int j;
+k:	LONG(0)	| int k;
+l:	LONG(0)	| int l;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+a:	LONG(100)	| int a;
+b:	LONG(170)	| int b;
+x:	LONG(null)	| int x;
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	MUL(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	DIV(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	SUB(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,5)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,3)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	MUL(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	DIV(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	SUB(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,5)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,3)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	MUL(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	DIV(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	SUB(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,5)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,3)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	MUL(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	DIV(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	SUB(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,5)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,3)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+main:
+	MOVE(R0,LP)
+	PUSH(LP)
+	MOVE(R0,BP)
+	PUSH(BP)
+	MOVE(SP, BP)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	ADD(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	MUL(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,a)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,2)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	DIV(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	POP(R1)
+	POP(R2)
+	SUB(R1,R2,R0)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,b)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,5)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,3)
+	PUSH(R0)
+	PUSH(BP);
+	MOVE(SP, BP);
+	LDR(R0,x)
+	PUSH(R0)
+	POP(R0)
+	WRINT()
+pile :

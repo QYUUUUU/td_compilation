@@ -7,8 +7,11 @@ package generated.expression;
 
 import java_cup.runtime.*;
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.arbre.NoeudInt;
 import fr.ul.miashs.compil.tds.TDS;
+import fr.ul.miashs.compil.tds.Symbole;
 import java.util.List;
+import fr.ul.miashs.compil.tds.GlobalTDS;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -294,7 +297,7 @@ public class ParserCup extends java_cup.runtime.lr_parser {
 
 
 
-TDS tds = new TDS();
+TDS tds = GlobalTDS.tds;
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -344,8 +347,10 @@ class CUP$ParserCup$actions {
 		Noeud ion = (Noeud)((java_cup.runtime.Symbol) CUP$ParserCup$stack.peek()).value;
 		
 Prog prog = new Prog();
-prog.ajouterUnFils(ion);
-RESULT = prog ;
+if (ion != null) {
+    prog.ajouterDesFils(ion.getFils());
+}
+RESULT = prog;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("programme",0, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
             }
@@ -367,12 +372,16 @@ RESULT = prog ;
 		
 Fonction f = new Fonction(id);
 if(ia != null){
-f.ajouterUnFils(ia);
+f.ajouterDesFils(ia.getFils());
 }
-/*List<Noeud> params=p.getFils();
+
+List<Noeud> params=p.getFils();
 for(Noeud param : params){
-System.out.println(param);
-}*/
+tds.addSymbole(new Symbole(param.getLabel(), "int", "param",id,0,null));
+}
+
+tds.addSymbole(new Symbole( id,"void","fonction",null, null));
+
 RESULT = f;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("fonction",5, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.elementAt(CUP$ParserCup$top-5)), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
@@ -401,7 +410,9 @@ RESULT = new Appel(id);
 		int eright = ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()).right;
 		Noeud e = (Noeud)((java_cup.runtime.Symbol) CUP$ParserCup$stack.peek()).value;
 		
-RESULT =e;
+Bloc b = new Bloc();
+b.ajouterUnFils(e);
+RESULT =b;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("parametres",16, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
             }
@@ -508,6 +519,15 @@ RESULT = a;
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
 a.setFilsDroit(e);
+
+if (e instanceof NoeudInt) {
+    int value = ((NoeudInt) e).getValeur(); // Safe cast
+    tds.addSymbole(new Symbole(id, "int", "global", null, null, value));
+
+}else{
+    tds.addSymbole(new Symbole(id, "int", "global", null, null, null));
+}
+
 RESULT = a;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("declaration",17, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.elementAt(CUP$ParserCup$top-4)), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
@@ -528,6 +548,7 @@ RESULT = a;
 Affectation af = new Affectation();
 af.setFilsGauche(new Idf(id));
 af.setFilsDroit(a);
+
 RESULT = af;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("declaration",17, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.elementAt(CUP$ParserCup$top-4)), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
@@ -545,6 +566,8 @@ RESULT = af;
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
 a.setFilsDroit(new Bloc());
+
+tds.addSymbole(new Symbole(id,"int","global",null,null, null));
 RESULT = a;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("declaration",17, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.elementAt(CUP$ParserCup$top-2)), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
@@ -1022,6 +1045,7 @@ RESULT = ie;
             {
               Noeud RESULT =null;
 		
+RESULT = new Bloc();
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("instructionEoN",2, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
             }
@@ -1049,7 +1073,9 @@ RESULT = il;
 		int iright = ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()).right;
 		Noeud i = (Noeud)((java_cup.runtime.Symbol) CUP$ParserCup$stack.peek()).value;
 		
-RESULT = i;
+Bloc b = new Bloc();
+b.ajouterUnFils(i);
+RESULT = b;
 
               CUP$ParserCup$result = parser.getSymbolFactory().newSymbol("instructionList",1, ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserCup$stack.peek()), RESULT);
             }

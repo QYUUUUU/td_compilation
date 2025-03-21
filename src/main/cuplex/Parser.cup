@@ -2,12 +2,16 @@ package generated.expression;
 
 import java_cup.runtime.*;
 import fr.ul.miashs.compil.arbre.*;
+import fr.ul.miashs.compil.arbre.NoeudInt;
 import fr.ul.miashs.compil.tds.TDS;
+import fr.ul.miashs.compil.tds.Symbole;
 import java.util.List;
+import fr.ul.miashs.compil.tds.GlobalTDS;
+
 
 /* Le code de l'analyseur syntaxique */
 parser code {:
-TDS tds = new TDS();
+TDS tds = GlobalTDS.tds;
 :};
 
 /* Déclarations des terminaux */
@@ -44,20 +48,27 @@ start with programme;
 programme ::= instructionEoN:ion
 {:
 Prog prog = new Prog();
-prog.ajouterUnFils(ion);
-RESULT = prog ;
+if (ion != null) {
+    prog.ajouterDesFils(ion.getFils());
+}
+RESULT = prog;
 :};
+
 /* -------------------------Fonctions------------------------------- */
 fonction ::= FONCTION IDENTIFIANT:id PARENTHESE_OUVRANTE parametres:p PARENTHESE_FERMANTE instructionAccolade:ia
 {:
 Fonction f = new Fonction(id);
 if(ia != null){
-f.ajouterUnFils(ia);
+f.ajouterDesFils(ia.getFils());
 }
-/*List<Noeud> params=p.getFils();
+
+List<Noeud> params=p.getFils();
 for(Noeud param : params){
-System.out.println(param);
-}*/
+tds.addSymbole(new Symbole(param.getLabel(), "int", "param",id,0,null));
+}
+
+tds.addSymbole(new Symbole( id,"void","fonction",null, null));
+
 RESULT = f;
 :};
 
@@ -68,7 +79,9 @@ RESULT = new Appel(id);
 
 parametres ::= expression:e
 {:
-RESULT =e;
+Bloc b = new Bloc();
+b.ajouterUnFils(e);
+RESULT =b;
 :}
 | expression:e1 VIRGULE expression:e2
 {:
@@ -108,6 +121,15 @@ declaration ::=  INT IDENTIFIANT:id ASSIGNER expression:e POINT_VIRGULE
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
 a.setFilsDroit(e);
+
+if (e instanceof NoeudInt) {
+    int value = ((NoeudInt) e).getValeur(); // Safe cast
+    tds.addSymbole(new Symbole(id, "int", "global", null, null, value));
+
+}else{
+    tds.addSymbole(new Symbole(id, "int", "global", null, null, null));
+}
+
 RESULT = a;
 :}
 | INT IDENTIFIANT:id ASSIGNER appelfonction:a POINT_VIRGULE
@@ -115,6 +137,7 @@ RESULT = a;
 Affectation af = new Affectation();
 af.setFilsGauche(new Idf(id));
 af.setFilsDroit(a);
+
 RESULT = af;
 :}
 | INT IDENTIFIANT:id POINT_VIRGULE
@@ -122,6 +145,8 @@ RESULT = af;
 Affectation a = new Affectation();
 a.setFilsGauche(new Idf(id));
 a.setFilsDroit(new Bloc());
+
+tds.addSymbole(new Symbole(id,"int","global",null,null, null));
 RESULT = a;
 :};
 /* -------------------------TantQue------------------------------- */
@@ -310,6 +335,7 @@ RESULT = ie;
 
 instructionEoN ::=
 {:
+RESULT = new Bloc();
 :}
 | instructionList:il
 {:
@@ -318,7 +344,9 @@ RESULT = il;
 
 instructionList ::= instruction:i
 {:
-RESULT = i;
+Bloc b = new Bloc();
+b.ajouterUnFils(i);
+RESULT = b;
 :}
 | instructionList:il instruction:i
 {:

@@ -76,6 +76,7 @@ public class Program_5 {
         tds.addSymbole(new Symbole( "main","void","fonction",null, null));
         tds.addSymbole(new Symbole( "a","int","global",null,null, 100));
         tds.addSymbole(new Symbole( "b","int","global",null,null, 170));
+        tds.addSymbole(new Symbole( "x","int","global",null,null, null));
 
 
         //afficher
